@@ -27,9 +27,9 @@
   --radius-base: 14px;
   --radius-lg: 22px;
 
-  --font-head: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  --font-head: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
 
   --width-site: 1120px;
 }
