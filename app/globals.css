@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
+/* Active le mode sombre piloté par l'attribut data-theme sur <html> */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ============================================================
+   DESIGN TOKENS — exposés à Tailwind via @theme.
+   Les couleurs qui changent selon le thème sont définies plus bas
+   en :root / [data-theme] et seulement RÉFÉRENCÉES ici.
+   ============================================================ */
+@theme {
+  --color-accent: #d68800;
+  --color-accent-strong: #b97400;
+  --color-accent-ink: #1a0f00;
+
+  /* Référencent les variables thémables (définies en :root ci-dessous) */
+  --color-bg: var(--bg);
+  --color-bg-tint: var(--bg-tint);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+
+  --radius-base: 14px;
+  --radius-lg: 22px;
+
+  --font-head: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --width-site: 1120px;
+}
+
+/* ============================================================
+   THÈME CLAIR (défaut)
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #faf7f1;
+  --bg-tint: #f4efe5;
+  --surface: #ffffff;
+  --surface-2: #f6f2ea;
+  --ink: #011627;
+  --ink-soft: rgba(1, 22, 39, 0.64);
+  --ink-faint: rgba(1, 22, 39, 0.42);
+  --line: rgba(1, 22, 39, 0.12);
+  --line-soft: rgba(1, 22, 39, 0.07);
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================
+   THÈME SOMBRE (bleu nuit)
+   ============================================================ */
+[data-theme="dark"] {
+  --bg: #011627;
+  --bg-tint: #04243c;
+  --surface: #082338;
+  --surface-2: #0b2c46;
+  --ink: #eaf1f7;
+  --ink-soft: rgba(234, 241, 247, 0.66);
+  --ink-faint: rgba(234, 241, 247, 0.42);
+  --line: rgba(234, 241, 247, 0.14);
+  --line-soft: rgba(234, 241, 247, 0.08);
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Respecte le souhait de l'utilisateur de réduire les animations */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
