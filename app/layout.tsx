@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { inter, manrope, jetbrainsMono } from "./fonts";
+import { ThemeProvider } from "@/lib/theme";
+import { themeScript } from "@/lib/theme-script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +18,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       className={`${inter.variable} ${manrope.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body>{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
