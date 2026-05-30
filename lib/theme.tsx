@@ -32,7 +32,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const toggleTheme = useCallback(() => {
-    const next: Theme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    const next: Theme =
+      document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
     try {
       localStorage.setItem(STORAGE_KEY, next);
