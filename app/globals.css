@@ -31,7 +31,7 @@
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
 
-  --width-site: 1120px;
+  --max-width-site: 1120px;
 }
 
 /* ============================================================

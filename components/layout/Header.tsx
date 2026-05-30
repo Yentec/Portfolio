@@ -1,0 +1,187 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { useTheme } from "@/lib/theme";
+import { cn } from "@/lib/cn";
+
+const NAV = [
+  { href: "#about", label: "À propos" },
+  { href: "#skills", label: "Compétences" },
+  { href: "#projects", label: "Projets" },
+  { href: "#cv", label: "Version CV" },
+  // { href: "#rpg", label: "Version RPG" },
+];
+
+function SunIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      className="size-4.5"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="4.2" />
+      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4.5" aria-hidden>
+      <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z" />
+    </svg>
+  );
+}
+
+function BurgerIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      className="size-4.5"
+      aria-hidden
+    >
+      <path d="M3 6h18M3 12h18M3 18h18" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      className="size-4.5"
+      aria-hidden
+    >
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  );
+}
+
+export function Header() {
+  const { theme, toggleTheme } = useTheme();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  return (
+    <header
+      className={cn(
+        "bg-bg/80 fixed inset-x-0 top-0 z-50 border-b border-transparent backdrop-blur-[14px] backdrop-saturate-150 transition",
+        scrolled && "border-line",
+      )}
+    >
+      <div className="max-w-site mx-auto flex h-17.5 items-center gap-6 px-7">
+        {/* Brand */}
+        <a href="#top" aria-label="YENTEC — accueil" className="mr-auto">
+          <Image
+            src={theme === "dark" ? "/logo/long_white.png" : "/logo/long_color.png"}
+            alt=""
+            width={160}
+            height={60}
+            className="h-15"
+            style={{ width: "auto" }}
+          />
+        </a>
+
+        {/* Navigation desktop */}
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Navigation principale">
+          {NAV.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-ink-soft hover:bg-line-soft hover:text-ink rounded-[9px] px-3.25 py-2 text-[14.5px] font-medium transition"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2.5">
+          {/* Theme toggle */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Activer le thème clair" : "Activer le thème sombre"}
+            className="border-line text-ink hover:bg-line-soft focus-visible:outline-accent grid size-9.5 cursor-pointer place-items-center rounded-[10px] border transition focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
+
+          {/* CTA desktop */}
+          <a href="#contact" className="hidden md:inline-flex">
+            <Button size="sm">Me contacter</Button>
+          </a>
+
+          {/* Burger mobile */}
+          <button
+            type="button"
+            className="border-line text-ink hover:bg-line-soft focus-visible:outline-accent grid size-9.5 place-items-center rounded-[10px] border transition focus-visible:outline-2 focus-visible:outline-offset-2 md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <CloseIcon /> : <BurgerIcon />}
+          </button>
+        </div>
+      </div>
+
+      {/* Menu mobile */}
+      {open && (
+        <nav
+          id="mobile-menu"
+          aria-label="Navigation mobile"
+          className="border-line bg-bg border-t px-5 py-3 shadow-lg md:hidden"
+        >
+          <ul className="flex flex-col gap-0.5">
+            {NAV.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="text-ink-soft hover:bg-line-soft hover:text-ink block rounded-[10px] px-3.5 py-3.25 text-[16px] transition"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <li className="mt-2 px-3.5">
+              <a href="#contact" onClick={() => setOpen(false)}>
+                <Button size="sm">Me contacter</Button>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      )}
+    </header>
+  );
+}
