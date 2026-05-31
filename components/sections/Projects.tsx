@@ -9,8 +9,12 @@ export function Projects() {
       <span id="projects" className="block" />
       {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
       <Eyebrow>// Projets</Eyebrow>
-      <SectionTitle>{projectsHeader.title}</SectionTitle>
-      <p className="text-ink-soft mb-10 text-[clamp(16px,1.5vw,18px)]">{projectsHeader.lead}</p>
+      <Reveal>
+        <SectionTitle>{projectsHeader.title}</SectionTitle>
+      </Reveal>
+      <Reveal delay={0.07}>
+        <p className="text-ink-soft mb-10 text-[clamp(16px,1.5vw,18px)]">{projectsHeader.lead}</p>
+      </Reveal>
 
       <div className="flex flex-col gap-7">
         {projects.map((project, i) => (

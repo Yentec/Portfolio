@@ -1,5 +1,6 @@
 import { Section, Eyebrow, SectionTitle } from "@/components/ui/Section";
 import { Badge } from "@/components/ui/Badge";
+import { Reveal } from "@/components/motion/Reveal";
 import { skills, skillsHeader } from "@/content/skills";
 import type { SkillGroup, SkillIconName } from "@/types";
 
@@ -90,12 +91,18 @@ export function Skills() {
       <span id="skills" className="block" />
       {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
       <Eyebrow>// Compétences</Eyebrow>
-      <SectionTitle>{skillsHeader.title}</SectionTitle>
-      <p className="text-ink-soft mb-10 text-[clamp(16px,1.5vw,18px)]">{skillsHeader.lead}</p>
+      <Reveal>
+        <SectionTitle>{skillsHeader.title}</SectionTitle>
+      </Reveal>
+      <Reveal delay={0.07}>
+        <p className="text-ink-soft mb-10 text-[clamp(16px,1.5vw,18px)]">{skillsHeader.lead}</p>
+      </Reveal>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {skills.map((group, i) => (
-          <SkillCard key={i} group={group} />
+          <Reveal key={group.category} delay={i * 0.07}>
+            <SkillCard group={group} />
+          </Reveal>
         ))}
       </div>
     </Section>

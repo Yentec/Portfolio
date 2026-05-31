@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/motion/Reveal";
 import { profile } from "@/content/profile";
 
 function StatusBadge({ text }: { text: string }) {
@@ -122,43 +123,47 @@ export function Hero() {
       <div className="max-w-site mx-auto px-7">
         <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr]">
           {/* Intro */}
-          <div>
-            <StatusBadge text={profile.availability} />
-            <h1 className="text-[clamp(38px,5.6vw,66px)] leading-[1.02]">
-              Le web, fait <span className="text-accent">sur mesure</span>
-              <br />
-              et fait pour durer.
-            </h1>
-            <p className="text-ink-soft mt-6 max-w-[50ch] text-[clamp(17px,1.7vw,20px)]">
-              {profile.heroLead}
-            </p>
-            <div className="mt-8.5 flex flex-wrap gap-3">
-              <a href="#projects">
-                <Button>
-                  Voir les projets
-                  <ArrowIcon />
-                </Button>
-              </a>
-              <a href="#contact">
-                <Button variant="secondary">Me contacter</Button>
-              </a>
+          <Reveal>
+            <div>
+              <StatusBadge text={profile.availability} />
+              <h1 className="text-[clamp(38px,5.6vw,66px)] leading-[1.02]">
+                Le web, fait <span className="text-accent">sur mesure</span>
+                <br />
+                et fait pour durer.
+              </h1>
+              <p className="text-ink-soft mt-6 max-w-[50ch] text-[clamp(17px,1.7vw,20px)]">
+                {profile.heroLead}
+              </p>
+              <div className="mt-8.5 flex flex-wrap gap-3">
+                <a href="#projects">
+                  <Button>
+                    Voir les projets
+                    <ArrowIcon />
+                  </Button>
+                </a>
+                <a href="#contact">
+                  <Button variant="secondary">Me contacter</Button>
+                </a>
+              </div>
+              <div className="mt-10 flex flex-wrap gap-7.5">
+                {profile.stats.map((stat) => (
+                  <div key={stat.value}>
+                    <b className="font-head block text-[26px] leading-none font-semibold">
+                      {stat.value}
+                    </b>
+                    <span className="text-ink-faint mt-1 block text-[13.5px]">{stat.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mt-10 flex flex-wrap gap-7.5">
-              {profile.stats.map((stat) => (
-                <div key={stat.value}>
-                  <b className="font-head block text-[26px] leading-none font-semibold">
-                    {stat.value}
-                  </b>
-                  <span className="text-ink-faint mt-1 block text-[13.5px]">{stat.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          </Reveal>
 
           {/* Visual */}
-          <div className="flex items-center">
-            <CodeCard />
-          </div>
+          <Reveal delay={0.1}>
+            <div className="flex items-center">
+              <CodeCard />
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
