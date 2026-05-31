@@ -27,11 +27,14 @@
   --radius-base: 14px;
   --radius-lg: 22px;
 
+  --color-code-bg: var(--code-bg);
+  --color-code-ink: var(--code-ink);
+
   --font-head: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
 
-  --width-site: 1120px;
+  --max-width-site: 1120px;
 }
 
 /* ============================================================
@@ -47,6 +50,10 @@
   --ink-faint: rgba(1, 22, 39, 0.42);
   --line: rgba(1, 22, 39, 0.12);
   --line-soft: rgba(1, 22, 39, 0.07);
+  --grid-line: rgba(1, 22, 39, 0.045);
+  --code-bg: #011627;
+  --code-ink: #d7e3ec;
+  --shadow: 0 1px 2px rgba(1, 22, 39, 0.05), 0 18px 40px -24px rgba(1, 22, 39, 0.28);
   color-scheme: light;
 }
 
@@ -63,6 +70,10 @@
   --ink-faint: rgba(234, 241, 247, 0.42);
   --line: rgba(234, 241, 247, 0.14);
   --line-soft: rgba(234, 241, 247, 0.08);
+  --grid-line: rgba(234, 241, 247, 0.045);
+  --code-bg: #03101f;
+  --code-ink: #cddef0;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 24px 50px -28px rgba(0, 0, 0, 0.8);
   color-scheme: dark;
 }
 
@@ -87,19 +98,42 @@ body {
     color 0.4s ease;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-head);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-head);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* h1 and h2 are structural headings that almost never need a weight override */
+  h1,
+  h2 {
+    font-weight: 600;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
 }
 
-p {
-  text-wrap: pretty;
+/* Fond grille */
+@layer components {
+  .section-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  }
 }
 
 /* Respecte le souhait de l'utilisateur de réduire les animations */

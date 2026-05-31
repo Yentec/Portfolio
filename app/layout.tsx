@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>
+      <body className="flex min-h-screen flex-col">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
