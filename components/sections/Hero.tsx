@@ -140,7 +140,7 @@ export function Hero() {
                 </Button>
               </a>
               <a href="#contact">
-                <Button variant="ghost">Me contacter</Button>
+                <Button variant="secondary">Me contacter</Button>
               </a>
             </div>
             <div className="mt-10 flex flex-wrap gap-7.5">
