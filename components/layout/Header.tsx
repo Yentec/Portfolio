@@ -103,12 +103,24 @@ export function Header() {
         {/* Brand */}
         <a href="#top" aria-label="YENTEC — accueil" className="mr-auto">
           <Image
-            src={theme === "dark" ? "/logo/long_white.png" : "/logo/long_color.png"}
+            src="/logo/long_color.png"
             alt=""
-            width={160}
-            height={60}
-            className="h-15"
-            style={{ width: "auto" }}
+            width={3747}
+            height={1367}
+            sizes="165px"
+            style={{ height: "3.75rem", width: "auto" }}
+            priority
+            className={cn(theme === "dark" && "hidden")}
+          />
+          <Image
+            src="/logo/long_white.png"
+            alt=""
+            width={3747}
+            height={1367}
+            sizes="165px"
+            style={{ height: "3.75rem", width: "auto" }}
+            priority
+            className={cn(theme !== "dark" && "hidden")}
           />
         </a>
 
