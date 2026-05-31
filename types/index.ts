@@ -16,6 +16,8 @@ export type Profile = {
   tagline: string;
   heroLead: string;
   stats: Stat[];
+  aboutTitle: string;
+  bio: string[];
   email: string;
   socials: SocialLink[];
 };
@@ -37,3 +39,6 @@ export type Project = {
   liveUrl?: string;
   proprietary?: boolean;
 };
+
+export type TimelineEntry = { period: string; title: string; description: string };
+export type Value = { title: string; description: string };

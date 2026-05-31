@@ -98,19 +98,26 @@ body {
     color 0.4s ease;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-head);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-head);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
 
-p {
-  text-wrap: pretty;
+  /* h1 and h2 are structural headings that almost never need a weight override */
+  h1,
+  h2 {
+    font-weight: 600;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
 }
 
 /* Fond grille */

@@ -14,7 +14,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={cn("relative py-[clamp(72px,9vw,128px)]", tint && "bg-bg-tint", className)}
+      className={cn("relative py-[clamp(72px,9vw,90px)]", tint && "bg-bg-tint", className)}
     >
       <div className="max-w-site mx-auto w-full px-7">{children}</div>
     </section>
