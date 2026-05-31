@@ -1,6 +1,7 @@
 import { type ReactNode, Fragment } from "react";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/motion/Reveal";
 import { profile, timeline, values } from "@/content/profile";
 
 // Parses **text** markers into <strong> elements for bio paragraphs
@@ -46,40 +47,46 @@ export function About() {
 
       <div className="mt-3 grid gap-14 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Intro */}
-        <div>
-          <h2 className="mb-6 text-[clamp(26px,3.2vw,38px)] leading-[1.06]">
-            {profile.aboutTitle}
-          </h2>
-          <div className="text-ink-soft space-y-4 text-justify text-[16.5px] leading-relaxed hyphens-auto">
-            {profile.bio.map((para, i) => (
-              <p key={i}>{parseBold(para)}</p>
-            ))}
+        <Reveal>
+          <div>
+            <h2 className="mb-6 text-[clamp(26px,3.2vw,38px)] leading-[1.06]">
+              {profile.aboutTitle}
+            </h2>
+            <div className="text-ink-soft space-y-4 text-justify text-[16.5px] leading-relaxed hyphens-auto">
+              {profile.bio.map((para, i) => (
+                <p key={i}>{parseBold(para)}</p>
+              ))}
+            </div>
+            <a href="#contact" className="mt-7 inline-block">
+              <Button variant="secondary" size="sm">
+                Travaillons ensemble
+              </Button>
+            </a>
           </div>
-          <a href="#contact" className="mt-7 inline-block">
-            <Button variant="secondary" size="sm">
-              Travaillons ensemble
-            </Button>
-          </a>
-        </div>
+        </Reveal>
 
         {/* Timeline */}
-        <Timeline />
+        <Reveal delay={0.1}>
+          <Timeline />
+        </Reveal>
       </div>
 
       {/* Values — horizontal grid below */}
-      <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {values.map((value, i) => (
-          <div key={value.title} className="rounded-base border-line bg-surface border p-5">
-            <h3 className="text-ink text-[15.5px] font-bold">
-              <span className="text-accent mr-1.5 font-mono text-[12px]">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              {value.title}
-            </h3>
-            <p className="text-ink-soft mt-2 text-[14px]">{value.description}</p>
-          </div>
-        ))}
-      </div>
+      <Reveal delay={0.15}>
+        <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {values.map((value, i) => (
+            <div key={value.title} className="rounded-base border-line bg-surface border p-5">
+              <h3 className="text-ink text-[15.5px] font-bold">
+                <span className="text-accent mr-1.5 font-mono text-[12px]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {value.title}
+              </h3>
+              <p className="text-ink-soft mt-2 text-[14px]">{value.description}</p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
     </Section>
   );
 }

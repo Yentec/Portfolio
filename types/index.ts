@@ -22,22 +22,32 @@ export type Profile = {
   socials: SocialLink[];
 };
 
+export type SkillIconName = "code" | "database" | "tools";
+
 export type SkillGroup = {
   category: string;
-  items: string[];
+  subtitle: string;
+  icon: SkillIconName;
+  badges: string[];
 };
+
+export type ProjectIconName = "message" | "link" | "boat" | "globe";
+export type ProjectKind = "Open source" | "Alternance" | "Freelance";
 
 export type Project = {
   slug: string;
   title: string;
-  summary: string;
-  context: string;
-  role: string;
+  kind: ProjectKind;
+  icon: ProjectIconName;
+  stackLabel: string;
+  description: string;
   stack: string[];
-  image: string;
+  image?: string;
   repoUrl?: string;
   liveUrl?: string;
+  liveLabel?: string;
   proprietary?: boolean;
+  contactLink?: boolean;
 };
 
 export type TimelineEntry = { period: string; title: string; description: string };
