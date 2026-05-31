@@ -3,11 +3,19 @@ export type SocialLink = {
   href: string;
 };
 
+export type Stat = {
+  value: string;
+  label: string;
+};
+
 export type Profile = {
   name: string;
   role: string;
   location: string;
+  availability: string;
   tagline: string;
+  heroLead: string;
+  stats: Stat[];
   email: string;
   socials: SocialLink[];
 };
