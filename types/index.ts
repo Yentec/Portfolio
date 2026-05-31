@@ -22,9 +22,13 @@ export type Profile = {
   socials: SocialLink[];
 };
 
+export type SkillIconName = "code" | "database" | "tools";
+
 export type SkillGroup = {
   category: string;
-  items: string[];
+  subtitle: string;
+  icon: SkillIconName;
+  badges: string[];
 };
 
 export type Project = {
