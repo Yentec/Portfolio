@@ -139,6 +139,67 @@ body {
     -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
     mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
   }
+
+  /* Fond sombre immersif des sections RPG — pseudo-éléments non expressibles en Tailwind pur */
+  .rpg-bg {
+    isolation: isolate;
+  }
+  .rpg-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        700px 360px at 78% 18%,
+        color-mix(in srgb, var(--color-accent) 34%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(620px 420px at 12% 92%, rgba(43, 108, 223, 0.26), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .rpg-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+    background-image:
+      linear-gradient(rgba(234, 241, 247, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(234, 241, 247, 0.05) 1px, transparent 1px);
+    background-size: 36px 36px;
+    -webkit-mask-image: radial-gradient(80% 80% at 50% 50%, #000, transparent);
+    mask-image: radial-gradient(80% 80% at 50% 50%, #000, transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Halo accent en haut-droite de la carte RPG */
+  .rpg-card-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      360px 200px at 88% -8%,
+      color-mix(in srgb, var(--color-accent) 32%, transparent),
+      transparent 70%
+    );
+    z-index: 0;
+  }
+
+  /* Barre HP */
+  .hpbar {
+    flex: 1;
+    height: 7px;
+    border-radius: 9999px;
+    background: rgba(234, 241, 247, 0.12);
+    overflow: hidden;
+  }
+  .hpbar__fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--color-accent), #ffcf8a);
+  }
 }
 
 /* Respecte le souhait de l'utilisateur de réduire les animations */

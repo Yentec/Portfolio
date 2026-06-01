@@ -21,9 +21,20 @@ export function Section({
   );
 }
 
-export function Eyebrow({ children }: { children: React.ReactNode }) {
+export function Eyebrow({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <p className="text-accent-strong dark:text-accent mb-4.5 inline-flex items-center gap-2 font-mono text-[12.5px] font-medium tracking-[0.14em] uppercase">
+    <p
+      className={cn(
+        "text-accent-strong dark:text-accent mb-4.5 inline-flex items-center gap-2 font-mono text-[12.5px] font-medium tracking-[0.14em] uppercase",
+        className,
+      )}
+    >
       <span className="bg-accent inline-block h-[1.5px] w-5.5" aria-hidden />
       {children}
     </p>
