@@ -22,8 +22,8 @@ export const profile: Profile = {
   ],
   email: "contact@yentec.fr",
   socials: [
-    { label: "GitHub", href: "https://github.com/Yentec" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/yentec" },
+    { label: "GitHub", href: "https://github.com/Yentec", handle: "github.com/Yentec" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/yentec", handle: "in/yentec" },
   ],
 };
 
