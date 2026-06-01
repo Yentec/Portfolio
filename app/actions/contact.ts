@@ -5,15 +5,7 @@ import { Resend } from "resend";
 import { env } from "@/lib/env";
 import { profile } from "@/content/profile";
 import { renderContactEmail } from "@/components/email/ContactEmail";
-
-const contactSchema = z.object({
-  name: z.string().trim().min(2, "Nom trop court.").max(80),
-  email: z.email("Email invalide."),
-  subject: z.string().trim().max(120).optional(),
-  message: z.string().trim().min(10, "Message trop court.").max(2000),
-  // Honeypot : champ caché qui doit rester vide (les bots le remplissent).
-  company: z.string().max(0).optional().or(z.literal("")),
-});
+import { contactSchema } from "@/lib/contact-schema";
 
 export type ContactState =
   | { status: "idle" }
