@@ -4,10 +4,12 @@ import { z } from "zod";
 import { Resend } from "resend";
 import { env } from "@/lib/env";
 import { profile } from "@/content/profile";
+import { renderContactEmail } from "@/components/email/ContactEmail";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Nom trop court.").max(80),
-  email: z.string().trim().email("Email invalide."),
+  email: z.email("Email invalide."),
+  subject: z.string().trim().max(120).optional(),
   message: z.string().trim().min(10, "Message trop court.").max(2000),
   // Honeypot : champ caché qui doit rester vide (les bots le remplissent).
   company: z.string().max(0).optional().or(z.literal("")),
@@ -27,6 +29,7 @@ export async function sendContactMessage(
   const parsed = contactSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
+    subject: formData.get("subject"),
     message: formData.get("message"),
     company: formData.get("company"),
   });
@@ -35,7 +38,7 @@ export async function sendContactMessage(
     return {
       status: "error",
       message: "Merci de corriger les champs indiqués.",
-      fieldErrors: parsed.error.flatten().fieldErrors,
+      fieldErrors: z.flattenError(parsed.error).fieldErrors,
     };
   }
 
@@ -44,15 +47,19 @@ export async function sendContactMessage(
     return { status: "success" };
   }
 
-  const { name, email, message } = parsed.data;
+  const { name, email, subject, message } = parsed.data;
 
   try {
+    const html = renderContactEmail({ name, email, subject, message, portfolioName: profile.name });
+
     const { error } = await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: env.CONTACT_TO_EMAIL,
       replyTo: email,
-      subject: `Nouveau message de ${name} — ${profile.name}`,
-      text: `De : ${name} <${email}>\n\n${message}`,
+      subject: subject
+        ? `${subject} — ${name} via ${profile.name}`
+        : `Nouveau message de ${name} — ${profile.name}`,
+      html,
     });
 
     if (error) {
