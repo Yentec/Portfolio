@@ -10,8 +10,7 @@ const NAV = [
   { href: "#about", label: "À propos" },
   { href: "#skills", label: "Compétences" },
   { href: "#projects", label: "Projets" },
-  { href: "#cv", label: "Version CV" },
-  // { href: "#rpg", label: "Version RPG" },
+  { href: "#discover", label: "Découvrir" },
 ];
 
 function SunIcon() {
