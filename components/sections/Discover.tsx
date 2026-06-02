@@ -58,7 +58,11 @@ function CvCard() {
       </div>
 
       <div className="mt-1.5 grid grid-cols-1 gap-2.75 sm:grid-cols-2">
-        <a href="#" aria-label="Télécharger le CV au format PDF">
+        <a
+          href="/resume-yentec-fullstack-developer.pdf"
+          download="CV-YENTEC-Developpeur-Web-Fullstack.pdf"
+          aria-label="Télécharger le CV au format PDF"
+        >
           <Button variant="secondary" className="w-full justify-center">
             {discoverContent.cv.ctaDownload}
             <DownloadIcon />
