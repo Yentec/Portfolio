@@ -135,9 +135,10 @@ type ProjectCardProps = {
   project: Project;
   // Even-indexed cards flip the shot to the right (mirrors maquette nth-child(even))
   isEven?: boolean;
+  priority?: boolean;
 };
 
-export function ProjectCard({ project, isEven = false }: ProjectCardProps) {
+export function ProjectCard({ project, isEven = false, priority = false }: ProjectCardProps) {
   const Icon = ICONS[project.icon];
 
   return (
@@ -168,6 +169,7 @@ export function ProjectCard({ project, isEven = false }: ProjectCardProps) {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1120px) 46vw, 515px"
               className="object-cover"
+              priority={priority}
             />
             {/* Gradient ensures the stack tag stays readable over any image */}
             <div className="absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-black/60 to-transparent" />

@@ -11,8 +11,23 @@ export const metadata: Metadata = {
     template: "%s · YENTEC",
   },
   description:
-    "Développeur web fullstack à Fréjus. Applications métier, sites performants, SaaS. Next.js, React, Node.js, TypeScript.",
-  keywords: ["développeur web", "fullstack", "Next.js", "React", "Node.js", "Fréjus"],
+    "Développeur web fullstack freelance à Fréjus — création de sites vitrines, applications métier et SaaS sur mesure. React, Next.js, Node.js, TypeScript. Code propre, livraison sérieuse.",
+  keywords: [
+    "développeur web",
+    "développeur fullstack",
+    "développeur web Fréjus",
+    "développeur freelance",
+    "création site internet Fréjus",
+    "application web sur mesure",
+    "développeur React",
+    "développeur Next.js",
+    "Next.js",
+    "React",
+    "Node.js",
+    "TypeScript",
+    "Var",
+    "PACA",
+  ],
   authors: [{ name: "YENTEC" }],
   openGraph: {
     type: "website",
@@ -20,7 +35,8 @@ export const metadata: Metadata = {
     url: "https://yentec.fr",
     siteName: "YENTEC",
     title: "YENTEC — Développeur web fullstack",
-    description: "Applications métier, sites performants, SaaS. Next.js, React, Node.js.",
+    description:
+      "Sites vitrines, applications métier et SaaS sur mesure. Développeur fullstack freelance à Fréjus, disponible partout en France.",
   },
   twitter: {
     card: "summary_large_image",

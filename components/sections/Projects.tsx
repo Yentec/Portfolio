@@ -19,7 +19,7 @@ export function Projects() {
       <div className="flex flex-col gap-7">
         {projects.map((project, i) => (
           <Reveal key={project.slug} delay={i * 0.07}>
-            <ProjectCard project={project} isEven={i % 2 !== 0} />
+            <ProjectCard project={project} isEven={i % 2 !== 0} priority={i === 0} />
           </Reveal>
         ))}
       </div>

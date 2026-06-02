@@ -100,7 +100,11 @@ export function Header() {
     >
       <div className="max-w-site mx-auto flex h-17.5 items-center gap-6 px-7">
         {/* Brand */}
-        <a href="#top" aria-label="YENTEC — accueil" className="mr-auto">
+        <a
+          href="#top"
+          aria-label="YENTEC — accueil"
+          className="focus-visible:outline-accent mr-auto inline-flex items-center focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
           <Image
             src="/logo/long_color.png"
             alt=""

@@ -38,7 +38,7 @@ export function Footer() {
             style={{ height: "2.5rem", width: "auto" }}
             className={cn(theme !== "dark" && "hidden")}
           />
-          <small className="text-ink-faint text-[13px]">
+          <small className="text-ink-soft text-[13px]">
             © {year} {profile.name} · Développeur web · {profile.location}
           </small>
         </div>

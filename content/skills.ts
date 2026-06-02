@@ -2,7 +2,7 @@ import type { SkillGroup } from "@/types";
 
 export const skillsHeader = {
   title: "Une stack moderne, maîtrisée de bout en bout.",
-  lead: "Du front à la base de données. Je choisis l'outil adapté au projet, pas l'inverse.",
+  lead: "Front-end, back-end, base de données, déploiement. Je choisis l'outil adapté au projet, pas l'inverse.",
 };
 
 export const skills: SkillGroup[] = [
