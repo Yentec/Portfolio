@@ -103,7 +103,7 @@ export function Header() {
         <a
           href="#top"
           aria-label="YENTEC — accueil"
-          className="mr-auto inline-flex items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent focus-visible:rounded-md"
+          className="focus-visible:outline-accent mr-auto inline-flex items-center focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           <Image
             src="/logo/long_color.png"

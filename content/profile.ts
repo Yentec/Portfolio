@@ -3,22 +3,23 @@ import type { TimelineEntry, Value } from "@/types";
 
 export const profile: Profile = {
   name: "YENTEC",
-  role: "Développeur web fullstack orienté front",
+  role: "Développeur web fullstack freelance",
   location: "Fréjus, France",
-  availability: "Disponible pour vos projets · Fréjus & à distance",
-  tagline: "Je conçois des applications métier et des sites performants, du back à l'interface.",
+  availability: "Disponible · Fréjus & toute la France en remote",
+  tagline:
+    "Développeur web fullstack freelance — sites et applications web sur mesure, du back à l'interface.",
   heroLead:
-    "YENTEC conçoit des sites et applications web fiables, clairs et évolutifs. De la landing page à l'outil métier — du code propre, pensé pour votre besoin réel.",
+    "Sites et applications web sur mesure, conçus pour durer et évoluer avec votre activité. De la landing page à l'application métier — avec un développeur fullstack qui s'implique de bout en bout.",
   stats: [
-    { value: "3 ans", label: "d'expérience" },
-    { value: "SaaS · CRM", label: "applications métier" },
-    { value: "Full-stack", label: "front · back · base de données" },
+    { value: "3 ans", label: "d'expérience web" },
+    { value: "SaaS · CRM", label: "projets métier livrés" },
+    { value: "Full-stack", label: "front · back · déploiement" },
   ],
   aboutTitle: "Bien faire, plutôt que trop promettre.",
   bio: [
-    "Je suis développeur web full-stack, formé sur le terrain. **YENTEC** est ma structure freelance : j'aide entreprises et indépendants à concrétiser leurs projets numériques avec des solutions sur mesure.",
-    "Mon objectif est simple : transformer une idée en interface **claire, performante et durable**. Je préfère comprendre le besoin réel et livrer proprement, plutôt que d'empiler les fonctionnalités.",
-    "J'apprends vite et je m'adapte. En alternance, j'ai **reconstruit de zéro un CRM métier complet** ; aujourd'hui j'accompagne des clients du site vitrine au SaaS.",
+    "Développeur web **fullstack freelance** basé à Fréjus, j'accompagne entreprises et indépendants dans leurs projets numériques — du site vitrine à l'application métier complexe.",
+    "Mon approche : comprendre le besoin avant d'écrire la première ligne de code. Je livre des interfaces **claires, performantes et durables**, sans dette technique cachée.",
+    "Diplômé RNCP niveau 6 (Bac+3), j'ai **reconstruit de zéro un CRM SaaS complet en alternance** — seul, du design à la mise en production. Aujourd'hui, j'accompagne mes clients dans la durée.",
   ],
   email: "contact@yentec.fr",
   socials: [
@@ -30,26 +31,32 @@ export const profile: Profile = {
 export const timeline: TimelineEntry[] = [
   {
     period: "2025 →",
-    title: "Développeur freelance — YENTEC",
+    title: "Développeur web freelance — YENTEC",
     description:
-      "Sites vitrines, applications métier et outils internes pour PME et indépendants. Conseil, design et développement.",
+      "Sites vitrines, applications métier et outils sur mesure pour PME et indépendants. Développement, conseil et déploiement.",
   },
   {
     period: "2023-25",
     title: "Concepteur Développeur Logiciel — Alternance (2 ans)",
     description:
-      "Refonte complète d'un CRM SaaS de gestion de parc de bateaux d'occasion. Diplôme Bac+3/4 (équiv. US) obtenu rapidement.",
+      "Refonte complète d'un CRM SaaS de gestion de bateaux d'occasion — seul, du design à la mise en production. Diplôme RNCP niveau 6 (Bac+3) obtenu.",
   },
   {
     period: "2023",
     title: "Formation Développeur Web — 6 mois",
-    description: "Bases solides du développement web, complétées en 5 mois.",
+    description: "Formation intensive au développement web full-stack, validée en 5 mois.",
   },
 ];
 
 export const values: Value[] = [
-  { title: "Exigence", description: "Faire les choses sérieusement, proprement, durablement." },
-  { title: "Fiabilité", description: "Livrer ce qui est promis, maintenir ce qui est livré." },
-  { title: "Écoute", description: "Comprendre le besoin du client, traduire sa vision en outil." },
-  { title: "Clarté", description: "Rendre le web technique compréhensible et utile." },
+  { title: "Exigence", description: "Code propre, testé, sans dette technique cachée." },
+  {
+    title: "Fiabilité",
+    description: "Les délais sont tenus. Ce qui est livré fonctionne en production.",
+  },
+  {
+    title: "Écoute",
+    description: "Je pose les bonnes questions avant d'écrire la première ligne.",
+  },
+  { title: "Clarté", description: "Pas de jargon inutile — avec vous, ni dans le code." },
 ];

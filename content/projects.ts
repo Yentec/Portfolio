@@ -2,7 +2,7 @@ import type { Project } from "@/types";
 
 export const projectsHeader = {
   title: "Quelques réalisations.",
-  lead: "Des projets open-source pour montrer le code, et des projets clients que j'accompagne dans la durée.",
+  lead: "Des projets open-source pour montrer comment je code — et des réalisations clients qui tournent en production.",
 };
 
 export const projects: Project[] = [
@@ -13,7 +13,7 @@ export const projects: Project[] = [
     icon: "link",
     stackLabel: "FASTIFY · POSTGRESQL · REDIS",
     description:
-      "API de raccourcissement d'URL avec authentification, clés d'API, suivi de clics asynchrone et anonymisé, et analytics. Pensée pour la performance et la montée en charge.",
+      "API REST de raccourcissement d'URL avec authentification JWT, gestion de clés d'API, suivi de clics asynchrone et anonymisé via BullMQ, et dashboard analytics. Architecture conçue pour la performance et la montée en charge.",
     stack: ["Fastify", "Prisma", "PostgreSQL", "Redis", "BullMQ"],
     image: "/projects/linkforge.webp",
     repoUrl: "https://github.com/Yentec/LinkForge",
@@ -27,7 +27,7 @@ export const projects: Project[] = [
     icon: "message",
     stackLabel: "TYPESCRIPT · NEXT.JS 16",
     description:
-      "Plateforme pour collecter, prioriser et livrer le feedback produit. Une alternative open-source à Canny — espace public de votes, roadmap et tableau de bord.",
+      "Plateforme SaaS pour collecter, prioriser et livrer le feedback produit. Alternative open-source à Canny — espace public de votes, roadmap partagée et tableau de bord complet.",
     stack: ["SaaS", "Next.js 16", "TypeScript", "Prisma", "PostgreSQL"],
     image: "/projects/feedbackflow.webp",
     repoUrl: "https://github.com/Yentec/FeedbackFlow",
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     icon: "globe",
     stackLabel: "SITES CLIENTS · REACT",
     description:
-      "Sites vitrines et outils sur mesure pour des PME et indépendants. Les sites publics sont consultables — certains contenus restent confidentiels ou ont pu évoluer côté client depuis la livraison.",
+      "Sites vitrines performants et outils métier sur mesure pour PME et indépendants. Référencement naturel intégré dès la conception. Certains contenus restent confidentiels — références disponibles sur demande.",
     stack: ["Next.js", "React", "SEO", "Responsive"],
     contactLink: true,
   },
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     icon: "boat",
     stackLabel: "REACT · VITE · NODE.JS · MYSQL",
     description:
-      "Refonte complète d'un CRM SaaS pour la gestion d'un portefeuille de bateaux d'occasion : nouvelle base MySQL, back-end Node.js/Express, front React/Vite, et site Next.js pour la diffusion des annonces. Réalisé seul, du design à la mise en production.",
+      "Refonte complète d'un CRM SaaS de gestion de parc de bateaux d'occasion : base MySQL optimisée, API Node.js/Express, interface React/Vite et site Next.js pour la diffusion des annonces. Projet mené seul, de l'analyse des besoins à la mise en production.",
     stack: ["React", "Vite", "Node.js", "Express", "MySQL", "Next.js"],
     image: "/projects/boatsdiffusion.webp",
     proprietary: true,
