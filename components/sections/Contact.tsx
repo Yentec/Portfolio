@@ -164,7 +164,7 @@ export function Contact() {
             {state.status === "success" ? (
               <div
                 role="status"
-                className="flex items-center gap-2.5 rounded-[10px] bg-[color-mix(in_srgb,var(--color-success)_14%,transparent)] p-3.25 text-[14px] font-semibold text-success-ink"
+                className="text-success-ink flex items-center gap-2.5 rounded-[10px] bg-[color-mix(in_srgb,var(--color-success)_14%,transparent)] p-3.25 text-[14px] font-semibold"
               >
                 <CheckIcon />
                 {contactContent.successMessage}

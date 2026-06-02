@@ -7,7 +7,7 @@ function StatusBadge({ text }: { text: string }) {
   return (
     <span className="border-line bg-surface text-ink-soft mb-6.5 inline-flex items-center gap-2.25 rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium">
       <span
-        className="size-2 shrink-0 rounded-full bg-success"
+        className="bg-success size-2 shrink-0 rounded-full"
         style={{ boxShadow: "0 0 0 3px color-mix(in srgb, var(--color-success) 22%, transparent)" }}
         aria-hidden
       />
