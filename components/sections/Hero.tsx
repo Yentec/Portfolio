@@ -7,9 +7,8 @@ function StatusBadge({ text }: { text: string }) {
   return (
     <span className="border-line bg-surface text-ink-soft mb-6.5 inline-flex items-center gap-2.25 rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium">
       <span
-        className="size-2 shrink-0 rounded-full bg-[#18c07a]"
-        // color-mix avoids hardcoding an RGBA: the ring always matches the dot color
-        style={{ boxShadow: "0 0 0 3px color-mix(in srgb, #18c07a 22%, transparent)" }}
+        className="size-2 shrink-0 rounded-full bg-success"
+        style={{ boxShadow: "0 0 0 3px color-mix(in srgb, var(--color-success) 22%, transparent)" }}
         aria-hidden
       />
       {text}

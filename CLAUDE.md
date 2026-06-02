@@ -32,7 +32,7 @@ Mono-page (one-page) avec navigation par ancres.
 | Formulaire    | Server Action + validation Zod + Resend                           |
 | Fonts         | `next/font` (Manrope, Inter, JetBrains Mono) — pas de CDN externe |
 | Lint / format | ESLint + Prettier                                                 |
-| CI            | GitHub Actions (lint + typecheck + build)                         |
+| CI            | GitHub Actions (lint + typecheck + build + test)                  |
 | Déploiement   | Vercel                                                            |
 
 **Ne pas introduire** : NestJS, Prisma, Postgres, Redux, Zustand, ou toute DB/backend lourd.
@@ -52,22 +52,22 @@ Préférer les APIs natives du navigateur et de Next.js.
 ## Structure des dossiers
 
 ```
-src/
-├─ app/
-│  ├─ layout.tsx          # html, fonts, ThemeProvider, metadata globale
-│  ├─ page.tsx            # assemble les sections
-│  ├─ globals.css         # tokens design system + @theme Tailwind
-│  ├─ opengraph-image.tsx # OG image (next/og)
-│  ├─ sitemap.ts / robots.ts
-│  └─ actions/contact.ts  # Server Action (Zod + Resend)
-├─ components/
-│  ├─ layout/   # Header, Footer
-│  ├─ sections/ # Hero, About, Skills, Projects, Contact
-│  ├─ ui/       # Button, Badge, Section, SectionTitle
-│  └─ motion/   # Reveal.tsx (wrapper Framer Motion)
-├─ content/     # projects.ts, skills.ts, profile.ts  (SOURCE DE VÉRITÉ du contenu)
-├─ lib/         # theme.tsx, env.ts
-└─ types/       # types partagés
+app/
+├─ layout.tsx          # html, fonts, ThemeProvider, metadata globale
+├─ page.tsx            # assemble les sections
+├─ globals.css         # tokens design system + @theme Tailwind
+├─ opengraph-image.tsx # OG image (next/og)
+├─ sitemap.ts / robots.ts
+└─ actions/contact.ts  # Server Action (Zod + Resend)
+components/
+├─ layout/   # Header, Footer
+├─ sections/ # Hero, About, Skills, Projects, Contact
+├─ ui/       # Button, Badge, Section, SectionTitle
+├─ motion/   # Reveal.tsx (wrapper Framer Motion)
+└─ email/    # ContactEmail.ts
+content/     # projects.ts, skills.ts, profile.ts  (SOURCE DE VÉRITÉ du contenu)
+lib/         # theme.tsx, env.ts, cn.ts, contact-schema.ts
+types/       # types partagés
 ```
 
 ## Design system

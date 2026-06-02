@@ -9,8 +9,7 @@ const NAV = [
   { href: "#about", label: "À propos" },
   { href: "#projects", label: "Projets" },
   { href: "#contact", label: "Contact" },
-  { href: "#cv", label: "Version CV" },
-  // { href: "#rpg", label: "Version RPG" },
+  { href: "#discover", label: "Découvrir" },
 ];
 
 export function Footer() {
