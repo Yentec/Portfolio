@@ -3,6 +3,8 @@ import { inter, manrope, jetbrainsMono } from "./fonts";
 import { ThemeProvider } from "@/lib/theme";
 import { themeScript } from "@/lib/theme-script";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://yentec.fr"),
@@ -59,6 +61,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

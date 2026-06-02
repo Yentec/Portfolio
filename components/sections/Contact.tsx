@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { cn } from "@/lib/cn";
 import { Section, Eyebrow } from "@/components/ui/Section";
@@ -9,6 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { sendContactMessage, type ContactState } from "@/app/actions/contact";
 import { profile } from "@/content/profile";
 import { contactContent } from "@/content/contact";
+import { track } from "@vercel/analytics";
 
 const initialState: ContactState = { status: "idle" };
 
@@ -111,6 +112,12 @@ function SubmitButton() {
 
 export function Contact() {
   const [state, formAction] = useActionState(sendContactMessage, initialState);
+
+  useEffect(() => {
+    if (state.status === "success") {
+      track("contact_submitted");
+    }
+  }, [state.status]);
 
   return (
     <Section id="contact" tint className="section-grid">
