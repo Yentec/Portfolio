@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — YENTEC
 
-## Getting Started
+Portfolio personnel de YENTEC, développeur web fullstack basé à Fréjus.
+Site vitrine one-page : présentation, parcours, compétences, projets et contact.
 
-First, run the development server:
+**[→ Démo live](https://yentec.fr)** · ![CI](https://github.com/Yentec/portfolio/actions/workflows/ci.yml/badge.svg)
+
+## Stack
+
+| Domaine       | Choix                                                         |
+| ------------- | ------------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router, Server Components, Server Actions)    |
+| Langage       | TypeScript strict (`noUncheckedIndexedAccess`, zéro `any`)    |
+| Styling       | Tailwind CSS v4 (tokens CSS dans `globals.css`)               |
+| Animations    | Motion (Framer Motion) — respect de `prefers-reduced-motion`  |
+| Formulaire    | Server Action + validation Zod + envoi via Resend             |
+| Tests         | Vitest (schéma de validation, rendu email)                    |
+| Qualité       | ESLint, Prettier, CI GitHub Actions                           |
+| Déploiement   | Vercel (preview par PR, production sur `main`)                |
+
+## Fonctionnalités
+
+- Responsive mobile / tablette / desktop
+- Thème clair / sombre sans flash au chargement (script anti-flash avant hydratation)
+- Micro-animations sobres au scroll (`whileInView`, désactivées si `prefers-reduced-motion`)
+- Formulaire de contact fonctionnel — backend réel, anti-spam honeypot, validation Zod
+- SEO complet : metadata, OpenGraph dynamique (`next/og`), sitemap, robots.txt, JSON-LD `Person`
+- Accessibilité : navigation clavier, anneaux de focus visibles, contrastes WCAG AA, labels ARIA
+
+## Démarrage
 
 ```bash
+git clone https://github.com/Yentec/portfolio.git
+cd portfolio
+npm install
+cp .env.example .env          # puis renseigner les variables
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Variables d'environnement
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable           | Description                               |
+| ------------------ | ----------------------------------------- |
+| `RESEND_API_KEY`   | Clé API [Resend](https://resend.com) pour l'envoi du formulaire |
+| `CONTACT_TO_EMAIL` | Adresse de réception des messages         |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Commande              | Action                                  |
+| --------------------- | --------------------------------------- |
+| `npm run dev`         | Serveur de développement                |
+| `npm run build`       | Build de production                     |
+| `npm run lint`        | Analyse ESLint                          |
+| `npm run typecheck`   | Vérification TypeScript (`tsc --noEmit`) |
+| `npm test`            | Tests unitaires (Vitest)                |
+| `npm run format`      | Formatage Prettier                      |
+| `npm run format:check`| Vérification du formatage               |
 
-To learn more about Next.js, take a look at the following resources:
+## Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/
+├─ layout.tsx / page.tsx      # Structure, métadonnées, sections
+├─ globals.css                # Tokens design system (@theme Tailwind)
+├─ opengraph-image.tsx        # Image OG générée dynamiquement
+├─ sitemap.ts / robots.ts     # SEO technique
+└─ actions/contact.ts         # Server Action — formulaire de contact
+components/
+├─ layout/    Header, Footer
+├─ sections/  Hero, About, Skills, Projects, Discover, Contact
+├─ ui/        Button, Badge, ProjectCard, Section
+├─ motion/    Reveal (wrapper Framer Motion)
+└─ email/     Template HTML du mail de contact
+content/      Profil, compétences, projets — source de vérité typée
+lib/          ThemeProvider, validation d'env (Zod), utilitaires
+types/        Types partagés
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Le contenu est découplé du rendu : ajouter un projet se fait en éditant uniquement `content/projects.ts`.
 
-## Deploy on Vercel
+## Licence
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Code sous licence MIT. Le contenu textuel et les visuels restent la propriété de YENTEC.
