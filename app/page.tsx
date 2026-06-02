@@ -10,6 +10,29 @@ import { Contact } from "@/components/sections/Contact";
 export default function Home() {
   return (
     <>
+      {/* Données structurées pour les moteurs de recherche */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "YENTEC",
+            jobTitle: "Développeur web fullstack",
+            url: "https://yentec.fr",
+            email: "contact@yentec.fr",
+            address: { "@type": "PostalAddress", addressLocality: "Fréjus", addressCountry: "FR" },
+            sameAs: ["https://github.com/Yentec", "https://www.linkedin.com/in/yentec"],
+            knowsAbout: [
+              "Next.js",
+              "React",
+              "Node.js",
+              "TypeScript",
+              "développement web fullstack",
+            ],
+          }),
+        }}
+      />
       <Header />
       <main className="flex-1">
         <Hero />
