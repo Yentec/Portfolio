@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { profile } from "@/content/profile";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/cn";
@@ -63,6 +64,12 @@ export function Footer() {
               {social.label}
             </a>
           ))}
+          <Link
+            href="/mentions-legales"
+            className="text-ink-soft hover:text-accent-strong text-[13.5px] transition"
+          >
+            Mentions légales
+          </Link>
         </nav>
       </div>
     </footer>
