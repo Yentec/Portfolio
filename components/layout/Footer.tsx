@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { profile } from "@/content/profile";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/cn";
@@ -15,6 +16,9 @@ const NAV = [
 
 export function Footer() {
   const { theme } = useTheme();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const href = (anchor: string) => (isHome ? anchor : `/${anchor}`);
   const year = new Date().getFullYear();
 
   return (
@@ -47,7 +51,7 @@ export function Footer() {
           {NAV.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={href(item.href)}
               className="text-ink-soft hover:text-accent-strong text-[13.5px] transition"
             >
               {item.label}
@@ -65,7 +69,7 @@ export function Footer() {
             </a>
           ))}
           <Link
-            href="/mentions-legales"
+            href="/legal-notice"
             className="text-ink-soft hover:text-accent-strong text-[13.5px] transition"
           >
             Mentions légales

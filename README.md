@@ -1,9 +1,15 @@
+<div align="center">
+
 # Portfolio — YENTEC
 
 Portfolio personnel de YENTEC, développeur web fullstack basé à Fréjus.
 Site vitrine one-page : présentation, parcours, compétences, projets et contact.
 
-**[→ Démo live](https://yentec.fr)** · ![CI](https://github.com/Yentec/portfolio/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Yentec/portfolio/actions/workflows/ci.yml/badge.svg)
+
+**[Lien](https://yentec.fr)**
+
+</div>
 
 ## Stack
 
@@ -24,6 +30,7 @@ Site vitrine one-page : présentation, parcours, compétences, projets et contac
 - Thème clair / sombre sans flash au chargement (script anti-flash avant hydratation)
 - Micro-animations sobres au scroll (`whileInView`, désactivées si `prefers-reduced-motion`)
 - Formulaire de contact fonctionnel — backend réel, anti-spam honeypot, validation Zod
+- Mentions légales conformes RGPD (`/legal-notice`) — mesure d'audience anonymisée (Vercel Analytics, sans cookie)
 - SEO complet : metadata, OpenGraph dynamique (`next/og`), sitemap, robots.txt, JSON-LD `Person`
 - Accessibilité : navigation clavier, anneaux de focus visibles, contrastes WCAG AA, labels ARIA
 
@@ -61,6 +68,7 @@ npm run dev
 ```
 app/
 ├─ layout.tsx / page.tsx      # Structure, métadonnées, sections
+├─ legal-notice/              # Mentions légales (noindex, RGPD)
 ├─ globals.css                # Tokens design system (@theme Tailwind)
 ├─ opengraph-image.tsx        # Image OG générée dynamiquement
 ├─ sitemap.ts / robots.ts     # SEO technique
