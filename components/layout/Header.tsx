@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/cn";
@@ -72,6 +73,9 @@ function CloseIcon() {
 
 export function Header() {
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const href = (anchor: string) => (isHome ? anchor : `/${anchor}`);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -101,7 +105,7 @@ export function Header() {
       <div className="max-w-site mx-auto flex h-17.5 items-center gap-6 px-7">
         {/* Brand */}
         <a
-          href="#top"
+          href={isHome ? "#top" : "/"}
           aria-label="YENTEC — accueil"
           className="focus-visible:outline-accent mr-auto inline-flex items-center focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2"
         >
@@ -132,7 +136,7 @@ export function Header() {
           {NAV.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={href(item.href)}
               className="text-ink-soft hover:bg-line-soft hover:text-ink rounded-[9px] px-3.25 py-2 text-[14.5px] font-medium transition"
             >
               {item.label}
@@ -152,7 +156,7 @@ export function Header() {
           </button>
 
           {/* CTA desktop */}
-          <a href="#contact" className="hidden md:inline-flex">
+          <a href={href("#contact")} className="hidden md:inline-flex">
             <Button size="sm">Me contacter</Button>
           </a>
 
@@ -181,7 +185,7 @@ export function Header() {
             {NAV.map((item) => (
               <li key={item.href}>
                 <a
-                  href={item.href}
+                  href={href(item.href)}
                   onClick={() => setOpen(false)}
                   className="text-ink-soft hover:bg-line-soft hover:text-ink block rounded-[10px] px-3.5 py-3.25 text-[16px] transition"
                 >
@@ -190,7 +194,7 @@ export function Header() {
               </li>
             ))}
             <li className="mt-2 px-3.5">
-              <a href="#contact" onClick={() => setOpen(false)}>
+              <a href={href("#contact")} onClick={() => setOpen(false)}>
                 <Button size="sm">Me contacter</Button>
               </a>
             </li>
