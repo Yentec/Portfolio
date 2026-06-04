@@ -158,7 +158,7 @@ export function Hero() {
           </Reveal>
 
           {/* Visual */}
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} className="content-center">
             <div className="flex items-center">
               <CodeCard />
             </div>
