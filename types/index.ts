@@ -53,3 +53,16 @@ export type Project = {
 
 export type TimelineEntry = { period: string; title: string; description: string };
 export type Value = { title: string; description: string };
+
+export type ServiceIconName = "monitor" | "grid" | "bulb" | "wrench";
+
+export type Service = {
+  id: string;
+  icon: ServiceIconName;
+  title: string;
+  description: string;
+  badges: string[];
+  problem: string;
+  audience: string;
+  outcome: string;
+};
