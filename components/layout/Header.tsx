@@ -108,7 +108,7 @@ export function Header() {
         <a
           href={isHome ? "#top" : "/"}
           aria-label="YENTEC — accueil"
-          className="focus-visible:outline-accent mr-auto inline-flex items-center focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="focus-visible:outline-accent mr-auto inline-flex shrink-0 items-center focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           <Image
             src="/logo/long_color.png"
@@ -133,12 +133,12 @@ export function Header() {
         </a>
 
         {/* Navigation desktop */}
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={href(item.href)}
-              className="text-ink-soft hover:bg-line-soft hover:text-ink rounded-[9px] px-3.25 py-2 text-[14.5px] font-medium transition"
+              className="text-ink-soft hover:bg-line-soft hover:text-ink whitespace-nowrap rounded-[9px] px-3.25 py-2 text-[14.5px] font-medium transition"
             >
               {item.label}
             </a>
@@ -157,14 +157,14 @@ export function Header() {
           </button>
 
           {/* CTA desktop */}
-          <a href={href("#contact")} className="hidden md:inline-flex">
+          <a href={href("#contact")} className="hidden lg:inline-flex">
             <Button size="sm">Me contacter</Button>
           </a>
 
           {/* Burger mobile */}
           <button
             type="button"
-            className="border-line text-ink hover:bg-line-soft focus-visible:outline-accent grid size-9.5 place-items-center rounded-[10px] border transition focus-visible:outline-2 focus-visible:outline-offset-2 md:hidden"
+            className="border-line text-ink hover:bg-line-soft focus-visible:outline-accent grid size-9.5 place-items-center rounded-[10px] border transition focus-visible:outline-2 focus-visible:outline-offset-2 lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
@@ -180,7 +180,7 @@ export function Header() {
         <nav
           id="mobile-menu"
           aria-label="Navigation mobile"
-          className="border-line bg-bg border-t px-5 py-3 shadow-lg md:hidden"
+          className="border-line bg-bg border-t px-5 py-3 shadow-lg lg:hidden"
         >
           <ul className="flex flex-col gap-0.5">
             {NAV.map((item) => (
