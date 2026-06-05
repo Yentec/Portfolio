@@ -3,7 +3,7 @@
 # Portfolio — YENTEC
 
 Portfolio personnel de YENTEC, développeur web fullstack basé à Fréjus.
-Site vitrine one-page : présentation, parcours, compétences, projets et contact.
+Site vitrine one-page : présentation, parcours, services, compétences, projets et contact.
 
 ![CI](https://github.com/Yentec/portfolio/actions/workflows/ci.yml/badge.svg)
 
@@ -75,11 +75,11 @@ app/
 └─ actions/contact.ts         # Server Action — formulaire de contact
 components/
 ├─ layout/    Header, Footer
-├─ sections/  Hero, About, Skills, Projects, Discover, Contact
+├─ sections/  Hero, About, Services, Skills, Projects, Discover, Contact
 ├─ ui/        Button, Badge, ProjectCard, Section
 ├─ motion/    Reveal (wrapper Framer Motion)
 └─ email/     Template HTML du mail de contact
-content/      Profil, compétences, projets — source de vérité typée
+content/      Profil, services, compétences, projets — source de vérité typée
 lib/          ThemeProvider, validation d'env (Zod), utilitaires
 types/        Types partagés
 ```

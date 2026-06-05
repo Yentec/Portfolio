@@ -198,6 +198,26 @@ body {
     z-index: 0;
   }
 
+  /* Services — fond « projecteur » inversé : bleu nuit en clair, crème en sombre */
+  .services-spot {
+    background: #011627;
+  }
+  [data-theme="dark"] .services-spot {
+    background: #f4efe5;
+  }
+  .services-spot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      620px 320px at 86% -6%,
+      color-mix(in srgb, var(--color-accent) 20%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
   /* Barre HP */
   .hpbar {
     flex: 1;
