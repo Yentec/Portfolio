@@ -45,6 +45,7 @@ export const metadata: Metadata = {
     title: "YENTEC — Développeur web fullstack",
     description: "Applications métier, sites performants, SaaS.",
   },
+  alternates: { canonical: "https://yentec.fr" },
   robots: { index: true, follow: true },
 };
 

@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: "https://yentec.fr",
-      lastModified: new Date("2026-06-02"),
+      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },

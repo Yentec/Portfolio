@@ -22,7 +22,13 @@ export default function Home() {
             jobTitle: "Développeur web fullstack",
             url: "https://yentec.fr",
             email: "contact@yentec.fr",
-            address: { "@type": "PostalAddress", addressLocality: "Fréjus", addressCountry: "FR" },
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Fréjus",
+              postalCode: "83600",
+              addressRegion: "Provence-Alpes-Côte d'Azur",
+              addressCountry: "FR",
+            },
             sameAs: ["https://github.com/Yentec", "https://www.linkedin.com/in/yentec"],
             knowsAbout: [
               "Next.js",
@@ -31,6 +37,30 @@ export default function Home() {
               "TypeScript",
               "développement web fullstack",
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: "YENTEC — Développeur web Fullstack",
+            description:
+              "Création de sites vitrines et applications web sur mesure. Développeur fullstack freelance à Fréjus (Var), disponible partout en France.",
+            url: "https://yentec.fr",
+            email: "contact@yentec.fr",
+            areaServed: ["Fréjus", "Var", "Provence-Alpes-Côte d'Azur", "France"],
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Fréjus",
+              postalCode: "83600",
+              addressRegion: "Provence-Alpes-Côte d'Azur",
+              addressCountry: "FR",
+            },
+            priceRange: "€€",
+            sameAs: ["https://github.com/Yentec", "https://www.linkedin.com/in/yentec"],
           }),
         }}
       />

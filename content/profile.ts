@@ -4,8 +4,8 @@ import type { TimelineEntry, Value } from "@/types";
 export const profile: Profile = {
   name: "YENTEC",
   role: "Développeur web fullstack freelance",
-  location: "Fréjus, France",
-  availability: "Disponible · Fréjus & toute la France en remote",
+  location: "Fréjus (Var), France",
+  availability: "Développeur web fullstack à Fréjus (Var) & toute la France en remote",
   tagline:
     "Développeur web fullstack freelance — sites et applications web sur mesure, du back à l'interface.",
   heroLead:

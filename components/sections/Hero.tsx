@@ -5,14 +5,14 @@ import { profile } from "@/content/profile";
 
 function StatusBadge({ text }: { text: string }) {
   return (
-    <span className="border-line bg-surface text-ink-soft mb-6.5 inline-flex items-center gap-2.25 rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium">
+    <h1 className="border-line bg-surface text-ink-soft font-body mb-6.5 inline-flex items-center gap-2.25 rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium">
       <span
         className="bg-success size-2 shrink-0 rounded-full"
         style={{ boxShadow: "0 0 0 3px color-mix(in srgb, var(--color-success) 22%, transparent)" }}
         aria-hidden
       />
       {text}
-    </span>
+    </h1>
   );
 }
 
@@ -125,11 +125,11 @@ export function Hero() {
           <Reveal>
             <div>
               <StatusBadge text={profile.availability} />
-              <h1 className="text-[clamp(38px,5.6vw,66px)] leading-[1.02]">
+              <h2 className="text-[clamp(38px,5.6vw,66px)] leading-[1.02]">
                 Le web, fait <span className="text-accent">sur mesure</span>
                 <br />
                 et fait pour durer.
-              </h1>
+              </h2>
               <p className="text-ink-soft mt-6 max-w-[50ch] text-[clamp(17px,1.7vw,20px)]">
                 {profile.heroLead}
               </p>
