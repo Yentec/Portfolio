@@ -145,7 +145,7 @@ export function Contact() {
                     key={social.label}
                     href={social.href}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer me"
                     className="rounded-base border-line bg-surface hover:border-accent/50 flex items-center gap-3.5 border px-4.5 py-3.75 shadow-(--shadow) transition hover:translate-x-1"
                   >
                     <span className="bg-surface-2 grid size-9.5 shrink-0 place-items-center rounded-[10px]">

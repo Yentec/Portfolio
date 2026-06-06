@@ -63,7 +63,7 @@ export function Footer() {
               key={social.href}
               href={social.href}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer me"
               className="text-ink-soft hover:text-accent-strong text-[13.5px] transition"
             >
               {social.label}
