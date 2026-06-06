@@ -262,7 +262,7 @@ export function Services() {
           ))}
         </div>
 
-        <Reveal delay={0.1} className="mt-6.5">
+        <Reveal delay={services.length * 0.07} className="mt-6.5">
           <div className="bg-surface border-line flex flex-wrap items-center justify-between gap-7 rounded-lg border p-7 shadow-(--shadow)">
             <div>
               <h3 className="text-ink text-[22px] font-semibold tracking-[-0.01em]">

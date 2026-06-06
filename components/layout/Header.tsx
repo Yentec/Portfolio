@@ -138,7 +138,7 @@ export function Header() {
             <a
               key={item.href}
               href={href(item.href)}
-              className="text-ink-soft hover:bg-line-soft hover:text-ink whitespace-nowrap rounded-[9px] px-3.25 py-2 text-[14.5px] font-medium transition"
+              className="text-ink-soft hover:bg-line-soft hover:text-ink rounded-[9px] px-3.25 py-2 text-[14.5px] font-medium whitespace-nowrap transition"
             >
               {item.label}
             </a>
