@@ -14,7 +14,7 @@ export const cvRows: CvRow[] = [
   { label: "Front Stack", value: "React · Next.js · Vite · TypeScript · Prisma" },
   { label: "Back Stack", value: "Node.js · Express · Fastify · Prisma · PostgreSQL" },
   { label: "Diplôme", value: "Développeur Concepteur Logiciel · Bac+3/4" },
-  { label: "Lieu", value: "Fréjus · à distance" },
+  { label: "Lieu", value: "Fréjus (Var) · à distance" },
 ];
 
 export const rpgStats: RpgStat[] = [
