@@ -54,6 +54,57 @@ export type Project = {
 export type TimelineEntry = { period: string; title: string; description: string };
 export type Value = { title: string; description: string };
 
+export type CaseStudyPoint = {
+  label: string;
+  body: string;
+};
+
+export type CaseStudyDecision = {
+  tech: string;
+  title: string;
+  body: string;
+  why: string;
+};
+
+export type CaseStudyImage = {
+  src?: string;
+  alt: string;
+  wide?: boolean;
+};
+
+export type CaseStudy = {
+  slug: string;
+  metaTitle: string;
+  metaDescription: string;
+  kind: string;
+  title: string;
+  lead: string;
+  repoUrl: string;
+  liveUrl?: string;
+  liveLabel: string;
+  liveIcon: "external" | "doc";
+  stack: string[];
+  role: string;
+  period: string;
+  projectType: string;
+  status: "En ligne" | "En cours" | "Archivé";
+  heroImage?: string;
+  heroAlt: string;
+  /** Paragraphes pouvant contenir du HTML de confiance (<strong>, <em>) */
+  contexte: string[];
+  problemeIntro: string;
+  problemePoints: CaseStudyPoint[];
+  /** Paragraphes pouvant contenir du HTML de confiance (<strong>, <em>) */
+  solutionBody: string[];
+  solutionGallery: CaseStudyImage[];
+  decisions: CaseStudyDecision[];
+  /** Peut contenir du HTML de confiance (<strong>, <em>) */
+  resultatBody: string;
+  resultatFacts: { value: string; label: string }[];
+  prevProject?: { slug: string; title: string };
+  nextProject?: { slug: string; title: string };
+};
+
 export type ServiceIconName = "monitor" | "grid" | "bulb" | "wrench";
 
 export type Service = {
