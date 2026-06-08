@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 import type { Project, ProjectIconName } from "@/types";
@@ -155,7 +156,7 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
           Desktop : 46% wide, fills card height, no internal border (color contrast separates) */}
       <div
         className={cn(
-          "bg-code-bg relative overflow-hidden font-mono",
+          "bg-code-bg group/shot relative overflow-hidden font-mono",
           "border-line aspect-video border-b",
           "md:aspect-auto md:w-[46%] md:flex-none md:border-b-0",
         )}
@@ -181,6 +182,31 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
               <Icon />
             </span>
           </span>
+        )}
+
+        {/* Case study overlay — appears on hover */}
+        {project.caseStudySlug && (
+          <Link
+            href={`/projects/${project.caseStudySlug}`}
+            aria-label={`Voir l'étude de cas ${project.title}`}
+            className="absolute inset-0 z-10 grid place-items-center"
+          >
+            <span className="bg-accent/92 inline-flex translate-y-2 scale-95 items-center gap-2 rounded-full px-4 py-2 font-mono text-[12.5px] font-medium text-white opacity-0 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition duration-200 group-hover/shot:translate-y-0 group-hover/shot:scale-100 group-hover/shot:opacity-100">
+              Voir l&apos;étude de cas
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-3.75"
+                aria-hidden
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+          </Link>
         )}
 
         {/* Tech stack tag — bottom-left, always light (bg is always dark or gradient-covered) */}
@@ -245,6 +271,14 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
 
         {/* Links */}
         <div className="flex flex-wrap gap-2.5 pt-1.5">
+          {project.caseStudySlug && (
+            <Link
+              href={`/projects/${project.caseStudySlug}`}
+              className="text-accent-strong dark:text-accent hover:text-accent inline-flex items-center gap-1.75 text-[13.5px] font-semibold transition"
+            >
+              <ArrowIcon /> Étude de cas
+            </Link>
+          )}
           {project.repoUrl && (
             <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className={linkCls}>
               <GitHubIcon /> Code
