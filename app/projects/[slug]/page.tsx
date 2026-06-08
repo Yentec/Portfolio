@@ -216,7 +216,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                             src={img.src}
                             alt={img.alt}
                             fill
-                            className="object-cover"
+                            className={cn(
+                              "object-cover",
+                              img.wide ? "object-top" : "object-center",
+                            )}
                             sizes="(max-width: 768px) 100vw, 560px"
                           />
                         ) : (

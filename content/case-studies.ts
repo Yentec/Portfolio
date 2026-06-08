@@ -44,9 +44,13 @@ export const caseStudies: CaseStudy[] = [
       "Le tout repose sur un modèle de données unique et un rendu côté serveur (App Router) pour des pages publiques rapides et indexables.",
     ],
     solutionGallery: [
-      { alt: "Portail public — liste des idées" },
-      { alt: "Roadmap par statut" },
-      { alt: "Tableau de bord d'administration", wide: true },
+      { src: "/projects/feedbackflow_board.webp", alt: "Portail public — liste des idées" },
+      { src: "/projects/feedbackflow_roadmap.webp", alt: "Roadmap par statut" },
+      {
+        src: "/projects/feedbackflow_dashboard.webp",
+        alt: "Tableau de bord d'administration",
+        wide: true,
+      },
     ],
     decisions: [
       {
@@ -95,7 +99,7 @@ export const caseStudies: CaseStudy[] = [
     projectType: "Projet perso",
     status: "En ligne",
     heroImage: "/projects/linkforge.webp",
-    heroAlt: "Documentation ou dashboard analytics de LinkForge",
+    heroAlt: "Documentation de LinkForge",
     contexte: [
       "Le raccourcisseur d'URL est un classique trompeur : <strong>facile à faire mal, difficile à faire bien</strong>. Derrière une simple redirection se cachent des questions de performance, de sécurité et de mesure d'audience.",
       "J'ai voulu en faire un projet à scope court mais <strong>exigeant côté back-end</strong> : une vraie API, authentifiée, instrumentée, et pensée pour encaisser du trafic sans ralentir la redirection.",
@@ -120,9 +124,13 @@ export const caseStudies: CaseStudy[] = [
       "Résultat : l'utilisateur final ne paie jamais le coût de la mesure, et les statistiques se construisent de façon fiable, à son rythme.",
     ],
     solutionGallery: [
-      { alt: "Création d'un lien court + clé d'API" },
-      { alt: "Analytics — clics dans le temps" },
-      { alt: "Schéma : redirection → file d'attente → analytics", wide: true },
+      { src: "/projects/linkforge_api-call.webp", alt: "Création d'un lien court + clé d'API" },
+      { src: "/projects/linkforge_stats.webp", alt: "Analytics — clics dans le temps" },
+      {
+        src: "/projects/linkforge_architecture.webp",
+        alt: "Architecture: redirection → file d'attente → analytics",
+        wide: true,
+      },
     ],
     decisions: [
       {
