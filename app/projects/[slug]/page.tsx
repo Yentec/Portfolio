@@ -40,9 +40,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const cs = caseStudies.find((c) => c.slug === slug);
   if (!cs) return notFound();
 
-  const prevHref = cs.prevProject ? `/projets/${cs.prevProject.slug}` : "/#projects";
+  const prevHref = cs.prevProject ? `/projects/${cs.prevProject.slug}` : "/#projects";
   const prevTitle = cs.prevProject?.title ?? "Tous les projets";
-  const nextHref = cs.nextProject ? `/projets/${cs.nextProject.slug}` : "/#projects";
+  const nextHref = cs.nextProject ? `/projects/${cs.nextProject.slug}` : "/#projects";
   const nextTitle = cs.nextProject?.title ?? "Tous les projets";
 
   return (
