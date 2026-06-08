@@ -47,6 +47,7 @@ export type Project = {
   repoUrl?: string;
   liveUrl?: string;
   liveLabel?: string;
+  caseStudySlug?: string;
   proprietary?: boolean;
   contactLink?: boolean;
 };
