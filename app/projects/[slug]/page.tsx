@@ -8,10 +8,11 @@ import { Footer } from "@/components/layout/Footer";
 import { Eyebrow } from "@/components/ui/Section";
 import { CaseStudyToc } from "@/components/sections/CaseStudyToc";
 import { caseStudies } from "@/content/case-studies";
+import { projects } from "@/content/projects";
 import { cn } from "@/lib/cn";
 
 export function generateStaticParams() {
-  return caseStudies.map((cs) => ({ slug: cs.slug }));
+  return projects.filter((p) => p.caseStudySlug).map((p) => ({ slug: p.caseStudySlug! }));
 }
 
 export async function generateMetadata({
@@ -29,6 +30,7 @@ export async function generateMetadata({
       title: cs.metaTitle,
       description: cs.metaDescription,
       type: "article",
+      ...(cs.heroImage && { images: [{ url: cs.heroImage }] }),
     },
   };
 }
