@@ -16,24 +16,26 @@ Mono-page (one-page) avec navigation par ancres.
    lib de state management. Si une solution simple existe, c'est celle qu'on prend.
 2. **TypeScript strict, zéro `any`.** `strict: true` est non négociable.
 3. **Séparation données / présentation.** Les composants ne contiennent jamais de contenu en dur :
-   tout vient de `./content/`. Ajouter un projet = éditer un seul fichier.
+   les données structurées viennent de `./content/`, les textes localisés de `./messages/`.
+   Ajouter un projet = éditer `content/projects.ts` + les deux fichiers `messages/*.json`.
 4. **Code propre et lisible** avant tout. Composants petits, une responsabilité chacun.
 5. **Accessibilité et performance réelles**, pas cosmétiques (clavier, contraste, `prefers-reduced-motion`).
 
 ## Stack technique
 
-| Domaine       | Choix                                                             |
-| ------------- | ----------------------------------------------------------------- |
-| Framework     | Next.js 16 (App Router)                                           |
-| Langage       | TypeScript (strict)                                               |
-| Styling       | Tailwind CSS (tokens dans `globals.css`)                          |
-| Animations    | Framer Motion (léger : whileInView)                               |
-| State         | `useState` local + ThemeProvider (context) — rien d'autre         |
-| Formulaire    | Server Action + validation Zod + Resend                           |
-| Fonts         | `next/font` (Manrope, Inter, JetBrains Mono) — pas de CDN externe |
-| Lint / format | ESLint + Prettier                                                 |
-| CI            | GitHub Actions (lint + typecheck + build + test)                  |
-| Déploiement   | Vercel                                                            |
+| Domaine           | Choix                                                             |
+| ----------------- | ----------------------------------------------------------------- |
+| Framework         | Next.js 16 (App Router)                                           |
+| Langage           | TypeScript (strict)                                               |
+| Styling           | Tailwind CSS (tokens dans `globals.css`)                          |
+| Animations        | Framer Motion (léger : whileInView)                               |
+| Internationalisation | next-intl v4 (FR / EN) — messages dans `messages/`            |
+| State             | `useState` local + ThemeProvider (context) — rien d'autre         |
+| Formulaire        | Server Action + validation Zod + Resend                           |
+| Fonts             | `next/font` (Manrope, Inter, JetBrains Mono) — pas de CDN externe |
+| Lint / format     | ESLint + Prettier                                                 |
+| CI                | GitHub Actions (lint + typecheck + build + test)                  |
+| Déploiement       | Vercel                                                            |
 
 **Ne pas introduire** : NestJS, Prisma, Postgres, Redux, Zustand, ou toute DB/backend lourd.
 Ce sont de bons outils mais hors périmètre ici ; les ajouter dessert l'objectif du portfolio.
@@ -54,18 +56,24 @@ Préférer les APIs natives du navigateur et de Next.js.
 ```
 app/
 ├─ layout.tsx          # html, fonts, ThemeProvider, metadata globale
-├─ page.tsx            # assemble les sections
+├─ page.tsx            # redirect racine → /fr
 ├─ globals.css         # tokens design system + @theme Tailwind
 ├─ opengraph-image.tsx # OG image (next/og)
 ├─ sitemap.ts / robots.ts
-└─ actions/contact.ts  # Server Action (Zod + Resend)
+├─ actions/contact.ts  # Server Action (Zod + Resend)
+└─ [locale]/
+   ├─ layout.tsx       # layout localisé (setRequestLocale)
+   ├─ page.tsx         # assemble les sections
+   └─ legal-notice/    # mentions légales (noindex)
 components/
 ├─ layout/   # Header, Footer
 ├─ sections/ # Hero, About, Skills, Projects, Contact
 ├─ ui/       # Button, Badge, Section, SectionTitle
 ├─ motion/   # Reveal.tsx (wrapper Framer Motion)
 └─ email/    # ContactEmail.ts
-content/     # projects.ts, skills.ts, profile.ts  (SOURCE DE VÉRITÉ du contenu)
+content/     # projects.ts, skills.ts, profile.ts  (données structurées typées)
+messages/    # fr.json, en.json  (textes UI + projets + études de cas localisés)
+i18n/        # routing.ts (locales, localePrefix)
 lib/         # theme.tsx, env.ts, cn.ts, contact-schema.ts
 types/       # types partagés
 ```
@@ -111,7 +119,8 @@ Hero · À propos (timeline + valeurs) · Compétences · Projets · Teaser RPG 
 - **Imports** : alias `@/` vers `./`.
 - Pas de `console.log`, pas de code mort, pas de dépendance inutilisée avant un commit.
 - Composants React : nommés en PascalCase, un composant par fichier.
-- Texte de l'interface en **français**.
+- Texte de l'interface bilingue (FR / EN) via next-intl — jamais de chaîne en dur dans un composant.
+  Langue par défaut : `fr`. Routes préfixées : `/fr/`, `/en/`.
 
 ## Variables d'environnement
 
