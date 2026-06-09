@@ -106,7 +106,7 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ lo
                   rel="noopener noreferrer"
                   className="text-accent-strong hover:underline"
                 >
-                  {locale === "fr" ? "politique de confidentialité" : "privacy policy"}
+                  {t("vercelPrivacyLabel")}
                 </a>
                 .
               </p>

@@ -36,7 +36,7 @@ export function CaseStudyToc() {
   return (
     <aside
       className="sticky top-24 hidden self-start lg:flex lg:flex-col lg:gap-1"
-      aria-label="Sommaire"
+      aria-label={t("tocAriaLabel")}
     >
       <span className="text-ink-faint mb-2 block font-mono text-[10.5px] tracking-[0.14em] uppercase">
         {t("tocTitle")}

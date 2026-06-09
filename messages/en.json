@@ -186,6 +186,7 @@
       "title": "CV version",
       "sub": "The essentials of my profile, scannable in 30 seconds — and downloadable as PDF.",
       "ctaDownload": "Download CV",
+      "ariaDownload": "Download CV as PDF",
       "ctaContact": "Contact me"
     },
     "rpg": {
@@ -234,7 +235,15 @@
       "submitting": "Sending…",
       "formNote": "Reply within 24 h. Your information is never shared.",
       "successMessage": "Thank you! Your message has been sent. I'll reply within 24 hours.",
-      "honeypotLabel": "Company"
+      "honeypotLabel": "Company",
+      "errors": {
+        "nameMin": "Name is too short.",
+        "emailInvalid": "Invalid email address.",
+        "messageMin": "Message is too short.",
+        "formGeneral": "Please correct the highlighted fields.",
+        "sendFailed": "Sending failed. Please try again later.",
+        "serverError": "An error occurred. Please try again later."
+      }
     }
   },
   "footer": {
@@ -266,6 +275,7 @@
     "section4Title": "4. Personal data & cookies",
     "section4Body1": "This site uses no advertising or behavioral tracking cookies. Only strictly necessary technical cookies may be placed.",
     "section4Body2": "Audience measurement is provided by Vercel Analytics, a tool that collects aggregated and anonymized metrics without identifying individual visitors and without placing cookies.",
+    "vercelPrivacyLabel": "privacy policy",
     "section4Body3": "The contact form transmits submitted data (name, email, message) to the site publisher via Resend. It is used solely to respond to the request, is not shared for commercial purposes, and is deleted after processing.",
     "section4Body4": "In accordance with GDPR, you may exercise your rights of access, rectification and erasure by contacting:",
     "section5Title": "5. Liability",
@@ -447,6 +457,7 @@
     "navPrev": "← Previous project",
     "navNext": "Next project →",
     "allProjects": "All projects",
+    "tocAriaLabel": "Table of contents",
     "tocTitle": "On this page",
     "tocSections": [
       { "id": "contexte", "label": "Context" },

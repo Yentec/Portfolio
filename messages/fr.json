@@ -184,6 +184,7 @@
       "title": "Version CV",
       "sub": "L'essentiel de mon profil, scannable en 30 secondes — et téléchargeable en PDF.",
       "ctaDownload": "Télécharger le CV",
+      "ariaDownload": "Télécharger le CV au format PDF",
       "ctaContact": "Me contacter"
     },
     "rpg": {
@@ -232,7 +233,15 @@
       "submitting": "Envoi…",
       "formNote": "Réponse sous 24 h. Vos informations ne sont jamais partagées.",
       "successMessage": "Merci ! Votre message a bien été envoyé. Je vous réponds sous 24 h.",
-      "honeypotLabel": "Société"
+      "honeypotLabel": "Société",
+      "errors": {
+        "nameMin": "Nom trop court.",
+        "emailInvalid": "Email invalide.",
+        "messageMin": "Message trop court.",
+        "formGeneral": "Merci de corriger les champs indiqués.",
+        "sendFailed": "L'envoi a échoué. Réessaie plus tard.",
+        "serverError": "Une erreur est survenue. Réessaie plus tard."
+      }
     }
   },
   "footer": {
@@ -264,6 +273,7 @@
     "section4Title": "4. Données personnelles et cookies",
     "section4Body1": "Ce site n'utilise aucun cookie publicitaire ou de suivi comportemental. Seuls les cookies strictement nécessaires au fonctionnement technique du site peuvent être déposés.",
     "section4Body2": "La mesure d'audience est assurée par Vercel Analytics, un outil qui collecte des métriques agrégées et anonymisées sans identifier les visiteurs individuellement, et sans dépôt de cookie.",
+    "vercelPrivacyLabel": "politique de confidentialité",
     "section4Body3": "Le formulaire de contact transmet les données saisies (nom, e-mail, message) à l'éditeur du site via le service Resend. Elles sont utilisées uniquement pour répondre à la demande, ne sont pas partagées à des fins commerciales, et sont supprimées à l'issue du traitement.",
     "section4Body4": "Conformément au RGPD, vous pouvez exercer vos droits d'accès, de rectification et de suppression en contactant :",
     "section5Title": "5. Responsabilité",
@@ -452,6 +462,7 @@
     "navPrev": "← Projet précédent",
     "navNext": "Projet suivant →",
     "allProjects": "Tous les projets",
+    "tocAriaLabel": "Sommaire",
     "tocTitle": "Sur cette page",
     "tocSections": [
       { "id": "contexte", "label": "Contexte" },

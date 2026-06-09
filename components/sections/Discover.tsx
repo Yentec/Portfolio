@@ -85,7 +85,7 @@ export async function Discover() {
                 <a
                   href="/resume-yentec-fullstack-developer.pdf"
                   download="CV-YENTEC-Developpeur-Web-Fullstack.pdf"
-                  aria-label="Télécharger le CV au format PDF"
+                  aria-label={t("cv.ariaDownload")}
                 >
                   <Button variant="secondary" className="w-full justify-center">
                     {t("cv.ctaDownload")}
