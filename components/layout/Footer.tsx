@@ -1,26 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { profile } from "@/content/profile";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/cn";
 
-const NAV = [
-  { href: "#about", label: "À propos" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projets" },
-  { href: "#contact", label: "Contact" },
-  { href: "#discover", label: "Découvrir" },
-];
-
 export function Footer() {
+  const t = useTranslations("footer");
+  const tNav = useTranslations("nav");
   const { theme } = useTheme();
   const pathname = usePathname();
   const isHome = pathname === "/";
   const href = (anchor: string) => (isHome ? anchor : `/${anchor}`);
   const year = new Date().getFullYear();
+
+  const NAV = [
+    { href: "#about", label: tNav("about") },
+    { href: "#services", label: tNav("services") },
+    { href: "#projects", label: tNav("projects") },
+    { href: "#contact", label: "Contact" },
+    { href: "#discover", label: tNav("discover") },
+  ];
 
   return (
     <footer className="border-line border-t">
@@ -45,7 +48,7 @@ export function Footer() {
             className={cn(theme !== "dark" && "hidden")}
           />
           <small className="text-ink-soft text-[13px]">
-            © {year} {profile.name} · Développeur web · {profile.location}
+            © {year} {profile.name} · {t("tagline")} · {profile.location}
           </small>
         </div>
         <nav className="flex flex-wrap gap-4.5">
@@ -73,7 +76,7 @@ export function Footer() {
             href="/legal-notice"
             className="text-ink-soft hover:text-accent-strong text-[13.5px] transition"
           >
-            Mentions légales
+            {t("legal")}
           </Link>
         </nav>
       </div>
