@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 import type { Project, ProjectIconName } from "@/types";
@@ -137,9 +137,27 @@ type ProjectCardProps = {
   // Even-indexed cards flip the shot to the right (mirrors maquette nth-child(even))
   isEven?: boolean;
   priority?: boolean;
+  kindLabel?: string;
+  imageAlt?: string;
+  confidentialLabel?: string;
+  liveLabelDefault?: string;
+  caseStudyLabel?: string;
+  proprietaryLabel?: string;
+  contactLabel?: string;
 };
 
-export function ProjectCard({ project, isEven = false, priority = false }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  isEven = false,
+  priority = false,
+  kindLabel,
+  imageAlt,
+  confidentialLabel = "Confidentiel",
+  liveLabelDefault = "Démo",
+  caseStudyLabel = "Étude de cas",
+  proprietaryLabel = "Projet privé — démo sur demande",
+  contactLabel = "Demander des références",
+}: ProjectCardProps) {
   const Icon = ICONS[project.icon];
 
   return (
@@ -166,7 +184,7 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
           <>
             <Image
               src={project.image}
-              alt={`Aperçu de ${project.title}`}
+              alt={imageAlt ?? `Aperçu de ${project.title}`}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1120px) 46vw, 515px"
               className="object-cover"
@@ -188,11 +206,11 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
         {project.caseStudySlug && (
           <Link
             href={`/projects/${project.caseStudySlug}`}
-            aria-label={`Voir l'étude de cas ${project.title}`}
+            aria-label={`${caseStudyLabel} — ${project.title}`}
             className="absolute inset-0 z-10 grid place-items-center"
           >
             <span className="bg-accent/92 inline-flex translate-y-2 scale-95 items-center gap-2 rounded-full px-4 py-2 font-mono text-[12.5px] font-medium text-white opacity-0 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition duration-200 group-hover/shot:translate-y-0 group-hover/shot:scale-100 group-hover/shot:opacity-100">
-              Voir l&apos;étude de cas
+              {caseStudyLabel}
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -235,7 +253,7 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
               <rect x="5" y="11" width="14" height="9" rx="2" />
               <path d="M8 11V8a4 4 0 0 1 8 0v3" />
             </svg>
-            Confidentiel
+            {confidentialLabel}
           </span>
         )}
       </div>
@@ -248,7 +266,7 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
             {project.title}
           </h3>
           <span className="border-line text-ink-faint shrink-0 rounded-[7px] border px-2.5 py-1 font-mono text-[11px] tracking-[0.08em] whitespace-nowrap uppercase">
-            {project.kind}
+            {kindLabel ?? project.kind}
           </span>
         </div>
 
@@ -276,7 +294,7 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
               href={`/projects/${project.caseStudySlug}`}
               className="text-accent-strong dark:text-accent hover:text-accent inline-flex items-center gap-1.75 text-[13.5px] font-semibold transition"
             >
-              <ArrowIcon /> Étude de cas
+              <ArrowIcon /> {caseStudyLabel}
             </Link>
           )}
           {project.repoUrl && (
@@ -286,18 +304,18 @@ export function ProjectCard({ project, isEven = false, priority = false }: Proje
           )}
           {project.liveUrl && (
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={linkCls}>
-              {project.liveLabel === "Doc API" ? <DocIcon /> : <ExternalIcon />}
-              {project.liveLabel ?? "Démo"}
+              {project.liveIcon === "doc" ? <DocIcon /> : <ExternalIcon />}
+              {project.liveLabel ?? liveLabelDefault}
             </a>
           )}
           {project.proprietary && (
             <span className={disabledCls}>
-              <LockIcon /> Projet privé — démo sur demande
+              <LockIcon /> {proprietaryLabel}
             </span>
           )}
           {project.contactLink && (
             <a href="#contact" className={linkCls}>
-              <ArrowIcon /> Demander des références
+              <ArrowIcon /> {contactLabel}
             </a>
           )}
         </div>

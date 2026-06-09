@@ -1,24 +1,20 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 
-const SECTIONS = [
-  { id: "contexte", label: "Contexte" },
-  { id: "probleme", label: "Problème" },
-  { id: "solution", label: "Solution" },
-  { id: "decisions", label: "Décisions techniques" },
-  { id: "resultat", label: "Résultat" },
-] as const;
-
 export function CaseStudyToc() {
-  const [active, setActive] = useState<string>("contexte");
+  const t = useTranslations("caseStudy");
+  const sections = t.raw("tocSections") as { id: string; label: string }[];
+
+  const [active, setActive] = useState<string>(sections[0]?.id ?? "contexte");
 
   useEffect(() => {
-    const els = SECTIONS.map(({ id }) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => el !== null,
-    );
+    const els = sections
+      .map(({ id }) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -34,17 +30,18 @@ export function CaseStudyToc() {
 
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <aside
       className="sticky top-24 hidden self-start lg:flex lg:flex-col lg:gap-1"
-      aria-label="Sommaire"
+      aria-label={t("tocAriaLabel")}
     >
       <span className="text-ink-faint mb-2 block font-mono text-[10.5px] tracking-[0.14em] uppercase">
-        Sur cette page
+        {t("tocTitle")}
       </span>
-      {SECTIONS.map(({ id, label }) => (
+      {sections.map(({ id, label }) => (
         <a
           key={id}
           href={`#${id}`}
@@ -62,7 +59,7 @@ export function CaseStudyToc() {
         href="/#contact"
         className="bg-accent text-accent-ink mt-7 inline-flex items-center gap-2 rounded-[9px] px-4 py-2.5 text-[13.5px] font-semibold shadow-[0_6px_18px_-8px_var(--color-accent)] transition hover:-translate-y-0.5"
       >
-        Discutons-en
+        {t("tocCta")}
         <svg
           viewBox="0 0 24 24"
           fill="none"

@@ -34,6 +34,7 @@ export type SkillGroup = {
 
 export type ProjectIconName = "message" | "link" | "boat" | "globe";
 export type ProjectKind = "Open source" | "Alternance" | "Freelance";
+export type ProjectLiveIcon = "external" | "doc";
 
 export type Project = {
   slug: string;
@@ -47,6 +48,7 @@ export type Project = {
   repoUrl?: string;
   liveUrl?: string;
   liveLabel?: string;
+  liveIcon?: ProjectLiveIcon;
   caseStudySlug?: string;
   proprietary?: boolean;
   contactLink?: boolean;
@@ -88,7 +90,10 @@ export type CaseStudy = {
   role: string;
   period: string;
   projectType: string;
-  status: "En ligne" | "En cours" | "Archivé";
+  /** Localized display string for the status cell */
+  status: string;
+  /** Semantic flag for the green "online" indicator */
+  isOnline: boolean;
   heroImage?: string;
   heroAlt: string;
   /** Paragraphes pouvant contenir du HTML de confiance (<strong>, <em>) */

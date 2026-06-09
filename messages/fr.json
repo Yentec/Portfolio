@@ -1,0 +1,476 @@
+{
+  "metadata": {
+    "home": {
+      "title": "YENTEC — Développeur web fullstack · Fréjus",
+      "description": "Développeur web fullstack freelance à Fréjus — création de sites vitrines, applications métier et SaaS sur mesure. React, Next.js, Node.js, TypeScript. Code propre, livraison sérieuse.",
+      "ogTitle": "YENTEC — Développeur web fullstack",
+      "ogDescription": "Sites vitrines, applications métier et SaaS sur mesure. Développeur fullstack freelance à Fréjus, disponible partout en France."
+    },
+    "legalNotice": {
+      "title": "Mentions légales",
+      "description": "Mentions légales du site yentec.fr — éditeur, hébergeur, données personnelles."
+    }
+  },
+  "nav": {
+    "about": "À propos",
+    "services": "Services",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "discover": "Découvrir"
+  },
+  "header": {
+    "logoLabel": "YENTEC — accueil",
+    "themeLight": "Activer le thème clair",
+    "themeDark": "Activer le thème sombre",
+    "contact": "Me contacter",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "langLabel": "Langue / Language"
+  },
+  "hero": {
+    "availability": "Développeur web fullstack à Fréjus (Var) & toute la France en remote",
+    "headlinePart1": "Le web, fait",
+    "headlineAccent": "sur mesure",
+    "headlinePart2": "et fait pour durer.",
+    "lead": "Sites et applications web sur mesure, conçus pour durer et évoluer avec votre activité. De la landing page à l'application métier — avec un développeur fullstack qui s'implique de bout en bout.",
+    "ctaProjects": "Voir les projets",
+    "ctaContact": "Me contacter",
+    "stats": [
+      { "value": "3 ans", "label": "d'expérience web" },
+      { "value": "SaaS · CRM", "label": "projets métier livrés" },
+      { "value": "Full-stack", "label": "front · back · déploiement" }
+    ],
+    "codeCard": {
+      "role": "Développeur full-stack",
+      "base": "Fréjus, France",
+      "approach": "sur mesure, fiable, durable",
+      "comment": "apprend vite, livre propre"
+    }
+  },
+  "about": {
+    "eyebrow": "// À propos",
+    "title": "Bien faire, plutôt que trop promettre.",
+    "bio": [
+      "Développeur web **fullstack freelance** basé à Fréjus, j'accompagne entreprises et indépendants dans leurs projets numériques — du site vitrine à l'application métier complexe.",
+      "Mon approche : comprendre le besoin avant d'écrire la première ligne de code. Je livre des interfaces **claires, performantes et durables**, sans dette technique cachée.",
+      "Diplômé RNCP niveau 6 (Bac+3), j'ai **reconstruit de zéro un CRM SaaS complet en alternance** — seul, du design à la mise en production. Aujourd'hui, j'accompagne mes clients dans la durée."
+    ],
+    "cta": "Travaillons ensemble",
+    "timeline": [
+      {
+        "period": "2025 →",
+        "title": "Développeur web freelance — YENTEC",
+        "description": "Sites vitrines, applications métier et outils sur mesure pour PME et indépendants. Développement, conseil et déploiement."
+      },
+      {
+        "period": "2023-25",
+        "title": "Concepteur Développeur Logiciel — Alternance (2 ans)",
+        "description": "Refonte complète d'un CRM SaaS de gestion de bateaux d'occasion — seul, du design à la mise en production. Diplôme RNCP niveau 6 (Bac+3) obtenu."
+      },
+      {
+        "period": "2023",
+        "title": "Formation Développeur Web — 6 mois",
+        "description": "Formation intensive au développement web full-stack, validée en 5 mois."
+      }
+    ],
+    "values": [
+      { "title": "Exigence", "description": "Code propre, testé, sans dette technique cachée." },
+      {
+        "title": "Fiabilité",
+        "description": "Les délais sont tenus. Ce qui est livré fonctionne en production."
+      },
+      {
+        "title": "Écoute",
+        "description": "Je pose les bonnes questions avant d'écrire la première ligne."
+      },
+      { "title": "Clarté", "description": "Pas de jargon inutile — avec vous, ni dans le code." }
+    ]
+  },
+  "services": {
+    "eyebrow": "// Services",
+    "title": "Mes offres, en détail.",
+    "lead": "Du site vitrine à l'application sur mesure — toujours pensé pour votre besoin réel, sans complexité inutile.",
+    "cta": {
+      "title": "Un projet en tête ?",
+      "text": "Parlons-en simplement. Je vous réponds rapidement, sans jargon — pour comprendre, puis proposer.",
+      "button": "Discutons de votre projet"
+    },
+    "labels": {
+      "problem": "À quel problème ça répond",
+      "audience": "Pour qui c'est fait",
+      "outcome": "Ce que ça apporte"
+    },
+    "items": {
+      "vitrine": {
+        "title": "Site vitrine",
+        "description": "Création de sites modernes, rapides et sur mesure. Une solution simple, efficace, propre.",
+        "problem": "L'absence d'une présence en ligne claire et crédible.",
+        "audience": "Les indépendants et petites structures.",
+        "outcome": "**Une vitrine performante** (SEO + vitesse) qui crédibilise et convertit."
+      },
+      "metier": {
+        "title": "Application métier",
+        "description": "Des outils internes pour structurer, automatiser ou simplifier une activité. Adapté, pas une usine à gaz.",
+        "problem": "Des outils dispersés ou inefficaces (Excel, Notion, emails).",
+        "audience": "Les structures avec un process à fluidifier.",
+        "outcome": "**Un outil qui colle au fonctionnement réel** et fait gagner du temps."
+      },
+      "mvp": {
+        "title": "MVP / SaaS",
+        "description": "Conception de produits web en phase de lancement. Aller vite sans casser les bases.",
+        "problem": "Une idée à valider vite, sans gaspiller temps ni budget.",
+        "audience": "Les porteurs de projet et startups en lancement.",
+        "outcome": "**Un produit testable rapidement**, sur des bases qui évoluent."
+      },
+      "maintenance": {
+        "title": "Maintenance & accompagnement",
+        "description": "Suivi technique après livraison. Continuité et fiabilité dans le temps.",
+        "problem": "Un projet qui se dégrade faute de suivi.",
+        "audience": "Les clients qui veulent un projet entretenu dans la durée.",
+        "outcome": "**Un projet stable et à jour**, avec un interlocuteur de confiance."
+      }
+    }
+  },
+  "skills": {
+    "eyebrow": "// Compétences",
+    "title": "Une stack moderne, maîtrisée de bout en bout.",
+    "lead": "Front-end, back-end, base de données, déploiement. Je choisis l'outil adapté au projet, pas l'inverse.",
+    "groups": {
+      "code": { "category": "Front-end", "subtitle": "interfaces" },
+      "database": { "category": "Back-end & data", "subtitle": "serveur" },
+      "tools": { "category": "Outils & savoir-être", "subtitle": "méthode" }
+    }
+  },
+  "projects": {
+    "eyebrow": "// Projets",
+    "title": "Quelques réalisations.",
+    "lead": "Des projets open-source pour montrer le code, et des projets clients que j'accompagne dans la durée.",
+    "caseStudyLabel": "Étude de cas",
+    "proprietaryLabel": "Projet privé — démo sur demande",
+    "contactLabel": "Demander des références",
+    "imageAlt": "Aperçu de {title}",
+    "confidentialLabel": "Confidentiel",
+    "liveLabelDefault": "Démo",
+    "kindLabels": {
+      "Open source": "Open source",
+      "Alternance": "Alternance",
+      "Freelance": "Freelance"
+    },
+    "items": {
+      "linkforge": {
+        "title": "LinkForge",
+        "description": "API de raccourcissement d'URL avec authentification, clés d'API, suivi de clics asynchrone et anonymisé, et analytics. Pensée pour la performance et la montée en charge."
+      },
+      "feedbackflow": {
+        "title": "FeedbackFlow",
+        "description": "Plateforme pour collecter, prioriser et livrer le feedback produit. Une alternative open-source à Canny — espace public de votes, roadmap et tableau de bord."
+      },
+      "projets-clients": {
+        "title": "Projets clients",
+        "description": "Sites vitrines performants et outils métier sur mesure pour PME et indépendants. Référencement naturel intégré dès la conception. Certains contenus restent confidentiels — références disponibles sur demande."
+      },
+      "yachts-studio": {
+        "title": "Yachts-Studio — CRM",
+        "description": "Refonte complète d'un CRM SaaS de gestion de parc de bateaux d'occasion : base MySQL optimisée, API Node.js/Express, interface React/Vite et site Next.js pour la diffusion des annonces. Projet mené seul, de l'analyse des besoins à la mise en production."
+      }
+    }
+  },
+  "discover": {
+    "eyebrow": "// Découvrir",
+    "title": "Deux façons d'explorer YENTEC.",
+    "lead": "À vous de choisir l'angle : le CV pour aller droit au but, ou la version RPG pour une visite plus ludique. Même profil, deux expériences.",
+    "cv": {
+      "tag": "Pour les recruteurs",
+      "title": "Version CV",
+      "sub": "L'essentiel de mon profil, scannable en 30 secondes — et téléchargeable en PDF.",
+      "ctaDownload": "Télécharger le CV",
+      "ariaDownload": "Télécharger le CV au format PDF",
+      "ctaContact": "Me contacter"
+    },
+    "rpg": {
+      "tag": "Pour explorer",
+      "title": "Version RPG",
+      "sub": "Parcourez mon parcours et mes projets comme un petit monde à explorer. Même rigueur, beaucoup plus de jeu.",
+      "ctaNotify": "Me prévenir au lancement",
+      "ctaNotifyDone": "Vous serez prévenu ✓",
+      "ctaBadge": "En développement"
+    },
+    "cvRows": [
+      { "label": "Poste", "value": "Développeur full-stack" },
+      { "label": "Expérience", "value": "3 ans" },
+      { "label": "Front Stack", "value": "React · Next.js · Vite · TypeScript · Prisma" },
+      { "label": "Back Stack", "value": "Node.js · Express · Fastify · Prisma · PostgreSQL" },
+      { "label": "Diplôme", "value": "Développeur Concepteur Logiciel · Bac+3/4" },
+      { "label": "Lieu", "value": "Fréjus (Var) · à distance" }
+    ],
+    "rpgStats": [
+      { "label": "Résistance aux deadlines", "value": "★★★★★" },
+      { "label": "Invocation de Stack Overflow", "value": "★★★★★" },
+      { "label": "Dégâts critiques en prod", "value": "★☆☆☆☆" },
+      { "label": "Pouvoir du Ctrl+Z", "value": "★★★★★" },
+      { "label": "Mana (caféine)", "value": "∞" }
+    ],
+    "rpgCharacter": {
+      "level": "LVL 31 · DEV",
+      "characterClass": "Classe — Full-stack Builder"
+    }
+  },
+  "contact": {
+    "eyebrow": "// Contact",
+    "title": "Un projet à lancer ?",
+    "titleLine2": "Décrivons-le ensemble.",
+    "lead": "Quelques mots suffisent pour démarrer. Je réponds sous 24 h, sans jargon — pour comprendre votre besoin et vous proposer une approche concrète.",
+    "form": {
+      "nameLabel": "Nom",
+      "emailLabel": "Email",
+      "subjectLabel": "Sujet",
+      "messageLabel": "Message",
+      "namePlaceholder": "Votre nom",
+      "emailPlaceholder": "vous@exemple.com",
+      "subjectPlaceholder": "Site vitrine, application métier…",
+      "messagePlaceholder": "Décrivez votre projet en quelques lignes…",
+      "submit": "Envoyer le message",
+      "submitting": "Envoi…",
+      "formNote": "Réponse sous 24 h. Vos informations ne sont jamais partagées.",
+      "successMessage": "Merci ! Votre message a bien été envoyé. Je vous réponds sous 24 h.",
+      "honeypotLabel": "Société",
+      "errors": {
+        "nameMin": "Nom trop court.",
+        "emailInvalid": "Email invalide.",
+        "messageMin": "Message trop court.",
+        "formGeneral": "Merci de corriger les champs indiqués.",
+        "sendFailed": "L'envoi a échoué. Réessaie plus tard.",
+        "serverError": "Une erreur est survenue. Réessaie plus tard."
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Développeur web",
+    "legal": "Mentions légales"
+  },
+  "legalNotice": {
+    "back": "← Retour à l'accueil",
+    "title": "Mentions légales",
+    "lastUpdate": "Dernière mise à jour : 4 juin 2026",
+    "section1Title": "1. Éditeur du site",
+    "section1Intro": "Le site yentec.fr est édité par :",
+    "section1Items": [
+      { "label": "Dénomination", "value": "YENTEC" },
+      { "label": "Statut", "value": "Micro-entreprise (auto-entrepreneur)" },
+      { "label": "SIRET", "value": "988745618 00013" },
+      { "label": "Siège", "value": "Fréjus, 83600, France" }
+    ],
+    "section2Title": "2. Hébergeur",
+    "section2Items": [
+      { "label": "Société", "value": "Vercel Inc." },
+      {
+        "label": "Adresse",
+        "value": "340 Pine Street, Suite 701, San Francisco, CA 94104, États-Unis"
+      }
+    ],
+    "section3Title": "3. Propriété intellectuelle",
+    "section3Body": "L'ensemble du contenu de ce site (textes, code source, visuels) est la propriété exclusive de YENTEC. Toute reproduction ou représentation, totale ou partielle, sans autorisation expresse est interdite.",
+    "section4Title": "4. Données personnelles et cookies",
+    "section4Body1": "Ce site n'utilise aucun cookie publicitaire ou de suivi comportemental. Seuls les cookies strictement nécessaires au fonctionnement technique du site peuvent être déposés.",
+    "section4Body2": "La mesure d'audience est assurée par Vercel Analytics, un outil qui collecte des métriques agrégées et anonymisées sans identifier les visiteurs individuellement, et sans dépôt de cookie.",
+    "vercelPrivacyLabel": "politique de confidentialité",
+    "section4Body3": "Le formulaire de contact transmet les données saisies (nom, e-mail, message) à l'éditeur du site via le service Resend. Elles sont utilisées uniquement pour répondre à la demande, ne sont pas partagées à des fins commerciales, et sont supprimées à l'issue du traitement.",
+    "section4Body4": "Conformément au RGPD, vous pouvez exercer vos droits d'accès, de rectification et de suppression en contactant :",
+    "section5Title": "5. Responsabilité",
+    "section5Body": "L'éditeur s'efforce de maintenir les informations de ce site à jour et exactes, mais ne saurait être tenu responsable des erreurs ou omissions, ni des dommages résultant de l'utilisation du site. L'utilisation du site implique l'acceptation pleine et entière des présentes mentions légales."
+  },
+  "caseStudies": {
+    "feedbackflow": {
+      "metaTitle": "FeedbackFlow — Étude de cas · YENTEC",
+      "metaDescription": "FeedbackFlow — alternative open-source à Canny pour collecter, prioriser et livrer le feedback produit. Étude de cas : contexte, problème, solution et décisions techniques (Next.js 16, TypeScript, Prisma).",
+      "kind": "Open source · Produit",
+      "title": "FeedbackFlow",
+      "lead": "Collecter, prioriser et livrer le feedback produit — une alternative open-source à Canny. Un espace public de votes, une roadmap et un tableau de bord, le tout pensé pour rester simple à héberger.",
+      "repoUrl": "https://github.com/Yentec/FeedbackFlow",
+      "liveUrl": "https://feedbackflow-deploy.vercel.app/",
+      "liveLabel": "Démo en ligne",
+      "liveIcon": "external",
+      "stack": ["Next.js 16", "TypeScript", "Prisma", "PostgreSQL", "App Router", "Tailwind"],
+      "role": "Conception & dév.",
+      "period": "2026 · 2 sem.",
+      "projectType": "Projet perso",
+      "status": "En ligne",
+      "isOnline": true,
+      "heroImage": "/projects/feedbackflow.webp",
+      "heroAlt": "Vue d'ensemble de FeedbackFlow",
+      "contexte": [
+        "Les outils de feedback produit comme Canny sont efficaces mais <strong>fermés et payants</strong> dès qu'on dépasse l'usage minimal. Je voulais un projet à scope court pour démontrer ma capacité à livrer un produit complet, propre et déployable — du schéma de données à l'interface publique.",
+        "FeedbackFlow est donc pensé comme une <strong>brique auto-hébergeable</strong> : une équipe l'installe, ouvre un portail de feedback, et garde la main sur ses données."
+      ],
+      "problemeIntro": "Au-delà du « clone », trois contraintes structuraient le projet :",
+      "problemePoints": [
+        {
+          "label": "Hiérarchiser le bruit.",
+          "body": "Beaucoup de retours, peu de signal : il faut un système de votes et de statuts pour faire remonter ce qui compte."
+        },
+        {
+          "label": "Deux audiences, une base.",
+          "body": "Un espace public pour les utilisateurs, un back-office pour l'équipe — sans dupliquer la logique."
+        },
+        {
+          "label": "Simple à déployer.",
+          "body": "Pas d'infra exotique : une base Postgres et une plateforme type Vercel doivent suffire."
+        }
+      ],
+      "solutionBody": [
+        "J'ai découpé le produit en trois surfaces : un <strong>portail public</strong> (soumettre une idée, voter, suivre l'avancement), une <strong>roadmap</strong> en colonnes par statut, et un <strong>tableau de bord</strong> pour trier, fusionner et faire évoluer les demandes.",
+        "Le tout repose sur un modèle de données unique et un rendu côté serveur (App Router) pour des pages publiques rapides et indexables."
+      ],
+      "solutionGallery": [
+        { "src": "/projects/feedbackflow_board.webp", "alt": "Portail public — liste des idées" },
+        { "src": "/projects/feedbackflow_roadmap.webp", "alt": "Roadmap par statut" },
+        {
+          "src": "/projects/feedbackflow_dashboard.webp",
+          "alt": "Tableau de bord d'administration",
+          "wide": true
+        }
+      ],
+      "decisions": [
+        {
+          "tech": "Next.js 16 · App Router",
+          "title": "Rendu serveur pour le public",
+          "body": "Les pages publiques (idées, roadmap) sont rendues côté serveur : rapides au premier affichage et indexables par les moteurs.",
+          "why": "Le SEO et la vitesse sont essentiels pour un portail de feedback ouvert."
+        },
+        {
+          "tech": "Prisma · PostgreSQL",
+          "title": "Un schéma unique, deux usages",
+          "body": "Le même modèle (idées, votes, statuts, commentaires) alimente le portail public et l'admin. Prisma sécurise les requêtes avec le typage de bout en bout.",
+          "why": "Éviter la duplication de logique et les incohérences entre les deux surfaces."
+        },
+        {
+          "tech": "TypeScript",
+          "title": "Typage de bout en bout",
+          "body": "Des types partagés entre la base, l'API et les composants : moins de bugs silencieux, des refactors sereins.",
+          "why": "Livrer vite sans sacrifier la fiabilité — la marque de fabrique du projet."
+        }
+      ],
+      "resultatBody": "Un produit complet, open-source et déployable en quelques minutes — qui sert aussi de démonstration concrète de ma façon de travailler : <strong>scope clair, code typé, mise en production réelle.</strong>",
+      "resultatFacts": [
+        { "value": "3", "label": "surfaces : portail, roadmap, admin" },
+        { "value": "100 %", "label": "TypeScript, de la base à l'UI" },
+        { "value": "~2 sem.", "label": "de l'idée à la mise en ligne" }
+      ],
+      "nextProject": { "slug": "linkforge", "title": "LinkForge" }
+    },
+    "linkforge": {
+      "metaTitle": "LinkForge — Étude de cas · YENTEC",
+      "metaDescription": "LinkForge — API de raccourcissement d'URL avec authentification, clés d'API, suivi de clics asynchrone anonymisé et analytics. Étude de cas : contexte, problème, solution et décisions techniques (Fastify, Prisma, PostgreSQL, Redis, BullMQ).",
+      "kind": "Open source · API",
+      "title": "LinkForge",
+      "lead": "Une API de raccourcissement d'URL avec authentification, clés d'API, suivi de clics asynchrone et anonymisé, et analytics. Conçue pour rester rapide et tenir la charge, même quand les redirections s'enchaînent.",
+      "repoUrl": "https://github.com/Yentec/LinkForge",
+      "liveUrl": "https://linkforge-538y.onrender.com/docs/",
+      "liveLabel": "Documentation API",
+      "liveIcon": "doc",
+      "stack": ["Fastify", "TypeScript", "Prisma", "PostgreSQL", "Redis", "BullMQ"],
+      "role": "Conception & dév.",
+      "period": "2026 · 2 sem.",
+      "projectType": "Projet perso",
+      "status": "En ligne",
+      "isOnline": true,
+      "heroImage": "/projects/linkforge.webp",
+      "heroAlt": "Documentation de LinkForge",
+      "contexte": [
+        "Le raccourcisseur d'URL est un classique trompeur : <strong>facile à faire mal, difficile à faire bien</strong>. Derrière une simple redirection se cachent des questions de performance, de sécurité et de mesure d'audience.",
+        "J'ai voulu en faire un projet à scope court mais <strong>exigeant côté back-end</strong> : une vraie API, authentifiée, instrumentée, et pensée pour encaisser du trafic sans ralentir la redirection."
+      ],
+      "problemeIntro": "Trois exigences orientaient toute l'architecture :",
+      "problemePoints": [
+        {
+          "label": "La redirection doit rester instantanée.",
+          "body": "Mesurer un clic ne doit jamais ralentir l'utilisateur qui suit le lien."
+        },
+        {
+          "label": "Des stats utiles, sans pister.",
+          "body": "Compter et qualifier les clics tout en anonymisant les données personnelles."
+        },
+        {
+          "label": "Un accès programmable et sécurisé.",
+          "body": "Authentification et clés d'API pour intégrer le service ailleurs."
+        }
+      ],
+      "solutionBody": [
+        "Le cœur du système sépare <strong>le chemin chaud</strong> (la redirection) du <strong>chemin froid</strong> (l'analytics). À chaque clic, l'API répond immédiatement par la redirection et <strong>délègue le traitement</strong> du clic à une file d'attente, consommée en arrière-plan.",
+        "Résultat : l'utilisateur final ne paie jamais le coût de la mesure, et les statistiques se construisent de façon fiable, à son rythme."
+      ],
+      "solutionGallery": [
+        {
+          "src": "/projects/linkforge_api-call.webp",
+          "alt": "Création d'un lien court + clé d'API"
+        },
+        { "src": "/projects/linkforge_stats.webp", "alt": "Analytics — clics dans le temps" },
+        {
+          "src": "/projects/linkforge_architecture.webp",
+          "alt": "Architecture: redirection → file d'attente → analytics",
+          "wide": true
+        }
+      ],
+      "decisions": [
+        {
+          "tech": "Fastify",
+          "title": "Un framework taillé pour la vitesse",
+          "body": "Fastify offre un surcoût minimal par requête : idéal pour un service dont la fonction principale est de répondre vite, des milliers de fois.",
+          "why": "La latence de redirection est le critère n°1 du produit."
+        },
+        {
+          "tech": "Redis · BullMQ",
+          "title": "Suivi des clics en asynchrone",
+          "body": "Chaque clic est poussé dans une file BullMQ (sur Redis) et traité hors du chemin de réponse : enrichissement, anonymisation et agrégation se font en arrière-plan.",
+          "why": "Découpler la mesure de la redirection garantit des temps de réponse stables sous charge."
+        },
+        {
+          "tech": "Prisma · PostgreSQL",
+          "title": "Données durables & requêtables",
+          "body": "Postgres stocke liens, clés d'API et statistiques agrégées ; Prisma sécurise l'accès avec un typage strict partagé avec le reste de l'API.",
+          "why": "Des analytics fiables demandent une base relationnelle solide, pas un simple cache."
+        }
+      ],
+      "resultatBody": "Une API complète et documentée qui démontre concrètement ma façon d'aborder le back-end : <strong>performance d'abord, mesure fiable ensuite, respect de la vie privée par conception.</strong>",
+      "resultatFacts": [
+        { "value": "2", "label": "chemins séparés : chaud / froid" },
+        { "value": "Async", "label": "suivi des clics hors réponse" },
+        { "value": "Anonyme", "label": "analytics sans données perso" }
+      ],
+      "prevProject": { "slug": "feedbackflow", "title": "FeedbackFlow" }
+    }
+  },
+  "caseStudy": {
+    "back": "Tous les projets",
+    "viewCode": "Voir le code",
+    "role": "Rôle",
+    "period": "Période",
+    "type": "Type",
+    "status": "Statut",
+    "online": "En ligne",
+    "sectionContexteEyebrow": "Contexte",
+    "sectionContexteTitle": "Pourquoi ce projet",
+    "sectionProblemeEyebrow": "Problème",
+    "sectionProblemeTitle": "Ce qu'il fallait résoudre",
+    "sectionSolutionEyebrow": "Solution",
+    "sectionSolutionTitle": "L'approche retenue",
+    "sectionDecisionsEyebrow": "Décisions techniques",
+    "sectionDecisionsTitle": "Les choix qui comptent",
+    "sectionResultatEyebrow": "Résultat",
+    "sectionResultatTitle": "Ce que ça donne",
+    "decisionsWhy": "Pourquoi",
+    "navPrev": "← Projet précédent",
+    "navNext": "Projet suivant →",
+    "allProjects": "Tous les projets",
+    "tocAriaLabel": "Sommaire",
+    "tocTitle": "Sur cette page",
+    "tocSections": [
+      { "id": "contexte", "label": "Contexte" },
+      { "id": "probleme", "label": "Problème" },
+      { "id": "solution", "label": "Solution" },
+      { "id": "decisions", "label": "Décisions techniques" },
+      { "id": "resultat", "label": "Résultat" }
+    ],
+    "tocCta": "Discutons-en"
+  }
+}

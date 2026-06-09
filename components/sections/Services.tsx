@@ -1,8 +1,9 @@
 import { type ReactNode, Fragment } from "react";
+import { getTranslations } from "next-intl/server";
 import { Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
-import { services, servicesHeader } from "@/content/services";
+import { services } from "@/content/services";
 import { cn } from "@/lib/cn";
 import type { Service, ServiceIconName } from "@/types";
 
@@ -176,9 +177,15 @@ function AxisItem({
   );
 }
 
-/* ── Service row ────────────────────────────────────────────── */
-
-function ServiceRow({ service, even }: { service: Service; even: boolean }) {
+function ServiceRow({
+  service,
+  even,
+  labels,
+}: {
+  service: Service;
+  even: boolean;
+  labels: { problem: string; audience: string; outcome: string };
+}) {
   const Icon = SERVICE_ICONS[service.icon];
   return (
     <article
@@ -221,13 +228,13 @@ function ServiceRow({ service, even }: { service: Service; even: boolean }) {
 
       {/* Main */}
       <div className="flex flex-1 flex-col justify-center gap-4.5 p-8">
-        <AxisItem type="search" label="À quel problème ça répond">
+        <AxisItem type="search" label={labels.problem}>
           {service.problem}
         </AxisItem>
-        <AxisItem type="user" label="Pour qui c'est fait">
+        <AxisItem type="user" label={labels.audience}>
           {service.audience}
         </AxisItem>
-        <AxisItem type="check" label="Ce que ça apporte">
+        <AxisItem type="check" label={labels.outcome}>
           {parseBold(service.outcome)}
         </AxisItem>
       </div>
@@ -235,46 +242,53 @@ function ServiceRow({ service, even }: { service: Service; even: boolean }) {
   );
 }
 
-/* ── Section ────────────────────────────────────────────────── */
+export async function Services() {
+  const t = await getTranslations("services");
+  const serviceMessages = t.raw("items") as Record<
+    string,
+    { title: string; description: string; problem: string; audience: string; outcome: string }
+  >;
+  const labels = t.raw("labels") as { problem: string; audience: string; outcome: string };
 
-export function Services() {
+  const localizedServices = services.map((s) => ({
+    ...s,
+    ...(serviceMessages[s.id] ?? {}),
+  }));
+
   return (
     <section className="services-spot relative overflow-hidden py-[clamp(72px,9vw,90px)]">
       <div className="max-w-site relative z-1 mx-auto w-full px-7">
         <span id="services" className="absolute -top-px" />
 
         <Reveal>
-          {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-          <Eyebrow className="text-accent dark:text-accent-strong">// Services</Eyebrow>
+          <Eyebrow className="text-accent dark:text-accent-strong">{t("eyebrow")}</Eyebrow>
           <h2 className="mb-4.5 text-[clamp(28px,3.6vw,40px)] text-white dark:text-[#011627]">
-            {servicesHeader.title}
+            {t("title")}
           </h2>
           <p className="mb-12 max-w-[56ch] text-[clamp(16px,1.5vw,18px)] text-[rgba(234,241,247,0.74)] dark:text-[rgba(1,22,39,0.64)]">
-            {servicesHeader.lead}
+            {t("lead")}
           </p>
         </Reveal>
 
         <div className="flex flex-col gap-6.5">
-          {services.map((service, i) => (
+          {localizedServices.map((service, i) => (
             <Reveal key={service.id} delay={i * 0.07}>
-              <ServiceRow service={service} even={i % 2 === 1} />
+              <ServiceRow service={service} even={i % 2 === 1} labels={labels} />
             </Reveal>
           ))}
         </div>
 
-        <Reveal delay={services.length * 0.07} className="mt-6.5">
+        <Reveal delay={localizedServices.length * 0.07} className="mt-6.5">
           <div className="bg-surface border-line flex flex-wrap items-center justify-between gap-7 rounded-lg border p-7 shadow-(--shadow)">
             <div>
               <h3 className="text-ink text-[22px] font-semibold tracking-[-0.01em]">
-                {servicesHeader.cta.title}
+                {t("cta.title")}
               </h3>
-              <p className="text-ink-soft mt-1.5 max-w-[52ch] text-[15px]">
-                {servicesHeader.cta.text}
-              </p>
+              <p className="text-ink-soft mt-1.5 max-w-[52ch] text-[15px]">{t("cta.text")}</p>
             </div>
             <a href="#contact" className="shrink-0">
               <Button>
-                {servicesHeader.cta.button}
+                {t("cta.button")}
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"

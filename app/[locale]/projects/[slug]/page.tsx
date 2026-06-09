@@ -1,27 +1,43 @@
-import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Eyebrow } from "@/components/ui/Section";
 import { CaseStudyToc } from "@/components/sections/CaseStudyToc";
-import { caseStudies } from "@/content/case-studies";
 import { projects } from "@/content/projects";
 import { cn } from "@/lib/cn";
+import type { CaseStudy } from "@/types";
+import frMessages from "@/messages/fr.json";
+import enMessages from "@/messages/en.json";
+
+type MessagesWithCS = { caseStudies?: Record<string, Omit<CaseStudy, "slug">> };
+
+function getCaseStudy(locale: string, slug: string): CaseStudy | undefined {
+  const m = (locale === "en" ? enMessages : frMessages) as unknown as MessagesWithCS;
+  const data = m.caseStudies?.[slug];
+  return data ? { ...data, slug } : undefined;
+}
 
 export function generateStaticParams() {
-  return projects.filter((p) => p.caseStudySlug).map((p) => ({ slug: p.caseStudySlug! }));
+  return projects
+    .filter((p) => p.caseStudySlug)
+    .flatMap((p) => [
+      { locale: "fr", slug: p.caseStudySlug! },
+      { locale: "en", slug: p.caseStudySlug! },
+    ]);
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const cs = caseStudies.find((c) => c.slug === slug);
+  const { locale, slug } = await params;
+  const cs = getCaseStudy(locale, slug);
   if (!cs) return {};
   return {
     title: cs.metaTitle,
@@ -35,15 +51,23 @@ export async function generateMetadata({
   };
 }
 
-export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const cs = caseStudies.find((c) => c.slug === slug);
+export default async function CaseStudyPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("caseStudy");
+
+  const cs = getCaseStudy(locale, slug);
   if (!cs) return notFound();
 
-  const prevHref = cs.prevProject ? `/projets/${cs.prevProject.slug}` : "/#projects";
-  const prevTitle = cs.prevProject?.title ?? "Tous les projets";
-  const nextHref = cs.nextProject ? `/projets/${cs.nextProject.slug}` : "/#projects";
-  const nextTitle = cs.nextProject?.title ?? "Tous les projets";
+  const prevHref = cs.prevProject ? `/projects/${cs.prevProject.slug}` : "/#projects";
+  const prevTitle = cs.prevProject?.title ?? t("allProjects");
+  const nextHref = cs.nextProject ? `/projects/${cs.nextProject.slug}` : "/#projects";
+  const nextTitle = cs.nextProject?.title ?? t("allProjects");
 
   return (
     <>
@@ -68,7 +92,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               >
                 <path d="M19 12H5M11 6l-6 6 6 6" />
               </svg>
-              Tous les projets
+              {t("back")}
             </Link>
           </div>
         </div>
@@ -76,7 +100,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         {/* ── Hero ── */}
         <section className="section-grid relative">
           <div className="max-w-site mx-auto px-7 pt-6.5 pb-2">
-            {/* Kind */}
             <p className="text-accent-strong dark:text-accent inline-flex items-center gap-2.25 font-mono text-[12px] tracking-[0.12em] uppercase">
               <span className="bg-accent inline-block h-[1.5px] w-5.5" aria-hidden />
               {cs.kind}
@@ -86,7 +109,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
             <p className="text-ink-soft mt-5 text-[clamp(17px,1.7vw,20px)]">{cs.lead}</p>
 
-            {/* CTAs */}
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href={cs.repoUrl}
@@ -95,7 +117,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 className="bg-accent text-accent-ink focus-visible:outline-accent inline-flex items-center gap-2.25 rounded-[11px] px-5.5 py-3.25 text-[15px] font-semibold shadow-[0_8px_22px_-10px_var(--color-accent)] transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 <GitHubIcon />
-                Voir le code
+                {t("viewCode")}
               </a>
               {cs.liveUrl && (
                 <a
@@ -110,7 +132,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               )}
             </div>
 
-            {/* Stack */}
             <div className="mt-6 flex flex-wrap gap-2">
               {cs.stack.map((chip) => (
                 <span
@@ -122,23 +143,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               ))}
             </div>
 
-            {/* Méta */}
             <div className="border-line bg-surface mt-10 grid grid-cols-2 overflow-hidden rounded-lg border [box-shadow:var(--shadow)] sm:grid-cols-4">
               <MetaCell
-                label="Rôle"
+                label={t("role")}
                 value={cs.role}
                 className="border-line border-r border-b sm:border-b-0"
               />
               <MetaCell
-                label="Période"
+                label={t("period")}
                 value={cs.period}
                 className="border-line border-b sm:border-r sm:border-b-0"
               />
-              <MetaCell label="Type" value={cs.projectType} className="border-line border-r" />
-              <MetaCell label="Statut" value={cs.status} ok={cs.status === "En ligne"} />
+              <MetaCell label={t("type")} value={cs.projectType} className="border-line border-r" />
+              <MetaCell label={t("status")} value={cs.status} ok={cs.isOnline} />
             </div>
 
-            {/* Capture héro */}
             <div className="border-line relative mt-6.5 h-[clamp(280px,44vw,560px)] overflow-hidden rounded-lg border [box-shadow:var(--shadow)]">
               {cs.heroImage ? (
                 <Image
@@ -162,9 +181,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <section className="section-grid relative">
           <div className="max-w-site mx-auto px-7 pt-12 pb-[clamp(72px,9vw,90px)]">
             <div className="lg:grid lg:grid-cols-[1fr_248px] lg:items-start lg:gap-14">
-              {/* Blocs de contenu */}
               <div className="[&_strong]:text-ink [&_strong]:font-semibold">
-                <Block id="contexte" eyebrow="Contexte" title="Pourquoi ce projet" first>
+                <Block
+                  id="contexte"
+                  eyebrow={t("sectionContexteEyebrow")}
+                  title={t("sectionContexteTitle")}
+                  first
+                >
                   <div className="space-y-3.5">
                     {cs.contexte.map((p, i) => (
                       <p
@@ -176,7 +199,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   </div>
                 </Block>
 
-                <Block id="probleme" eyebrow="Problème" title="Ce qu'il fallait résoudre">
+                <Block
+                  id="probleme"
+                  eyebrow={t("sectionProblemeEyebrow")}
+                  title={t("sectionProblemeTitle")}
+                >
                   <p className="text-ink-soft">{cs.problemeIntro}</p>
                   <ul className="mt-4.5 flex flex-col gap-3 p-0">
                     {cs.problemePoints.map((point) => (
@@ -194,7 +221,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   </ul>
                 </Block>
 
-                <Block id="solution" eyebrow="Solution" title="L'approche retenue">
+                <Block
+                  id="solution"
+                  eyebrow={t("sectionSolutionEyebrow")}
+                  title={t("sectionSolutionTitle")}
+                >
                   <div className="space-y-3.5">
                     {cs.solutionBody.map((p, i) => (
                       <p
@@ -234,7 +265,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   </div>
                 </Block>
 
-                <Block id="decisions" eyebrow="Décisions techniques" title="Les choix qui comptent">
+                <Block
+                  id="decisions"
+                  eyebrow={t("sectionDecisionsEyebrow")}
+                  title={t("sectionDecisionsTitle")}
+                >
                   <div className="mt-5.5 flex flex-col gap-4">
                     {cs.decisions.map((d) => (
                       <div
@@ -250,7 +285,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                         <p className="text-ink-soft text-[15px]">{d.body}</p>
                         <div className="text-ink mt-2.5 flex items-baseline gap-2.25 text-[14px]">
                           <b className="text-ink-faint shrink-0 font-mono text-[11px] tracking-[0.08em] uppercase">
-                            Pourquoi
+                            {t("decisionsWhy")}
                           </b>
                           {d.why}
                         </div>
@@ -259,7 +294,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   </div>
                 </Block>
 
-                <Block id="resultat" eyebrow="Résultat" title="Ce que ça donne">
+                <Block
+                  id="resultat"
+                  eyebrow={t("sectionResultatEyebrow")}
+                  title={t("sectionResultatTitle")}
+                >
                   <p
                     className="text-ink-soft"
                     dangerouslySetInnerHTML={{ __html: cs.resultatBody }}
@@ -280,7 +319,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 </Block>
               </div>
 
-              {/* TOC sticky */}
               <CaseStudyToc />
             </div>
           </div>
@@ -295,7 +333,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 className="border-line bg-surface hover:border-accent/45 flex flex-col gap-1.5 rounded-lg border px-6.5 py-6 [box-shadow:var(--shadow)] transition hover:-translate-y-0.75"
               >
                 <span className="text-ink-faint font-mono text-[11.5px] tracking-widest uppercase">
-                  ← Projet précédent
+                  {t("navPrev")}
                 </span>
                 <span className="font-head text-[19px] font-semibold">{prevTitle}</span>
               </Link>
@@ -304,7 +342,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 className="border-line bg-surface hover:border-accent/45 flex flex-col gap-1.5 rounded-lg border px-6.5 py-6 text-right [box-shadow:var(--shadow)] transition hover:-translate-y-0.75"
               >
                 <span className="text-ink-faint font-mono text-[11.5px] tracking-widest uppercase">
-                  Projet suivant →
+                  {t("navNext")}
                 </span>
                 <span className="font-head text-[19px] font-semibold">{nextTitle}</span>
               </Link>

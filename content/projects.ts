@@ -19,6 +19,7 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Yentec/LinkForge",
     liveUrl: "https://linkforge-538y.onrender.com/docs/",
     liveLabel: "Doc API",
+    liveIcon: "doc",
     caseStudySlug: "linkforge",
   },
   {

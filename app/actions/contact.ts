@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { Resend } from "resend";
+import { getLocale, getTranslations } from "next-intl/server";
 import { env } from "@/lib/env";
 import { profile } from "@/content/profile";
 import { renderContactEmail } from "@/components/email/ContactEmail";
@@ -18,6 +19,9 @@ export async function sendContactMessage(
   _prev: ContactState,
   formData: FormData,
 ): Promise<ContactState> {
+  const locale = await getLocale();
+  const t = await getTranslations({ locale, namespace: "contact.form.errors" });
+
   const parsed = contactSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -27,10 +31,23 @@ export async function sendContactMessage(
   });
 
   if (!parsed.success) {
+    const rawErrors = z.flattenError(parsed.error).fieldErrors;
+    const localizedErrors = Object.fromEntries(
+      Object.entries(rawErrors).map(([field, messages]) => [
+        field,
+        messages?.map((key) => {
+          try {
+            return t(key as Parameters<typeof t>[0]);
+          } catch {
+            return key;
+          }
+        }) ?? [],
+      ]),
+    );
     return {
       status: "error",
-      message: "Merci de corriger les champs indiqués.",
-      fieldErrors: z.flattenError(parsed.error).fieldErrors,
+      message: t("formGeneral"),
+      fieldErrors: localizedErrors,
     };
   }
 
@@ -50,16 +67,16 @@ export async function sendContactMessage(
       replyTo: email,
       subject: subject
         ? `${subject} — ${name} via ${profile.name}`
-        : `Nouveau message de ${name} — ${profile.name}`,
+        : `Message from ${name} — ${profile.name}`,
       html,
     });
 
     if (error) {
-      return { status: "error", message: "L'envoi a échoué. Réessaie plus tard." };
+      return { status: "error", message: t("sendFailed") };
     }
 
     return { status: "success" };
   } catch {
-    return { status: "error", message: "Une erreur est survenue. Réessaie plus tard." };
+    return { status: "error", message: t("serverError") };
   }
 }

@@ -1,8 +1,9 @@
+import { getTranslations } from "next-intl/server";
 import { Section, Eyebrow, SectionTitle } from "@/components/ui/Section";
 import { Badge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/motion/Reveal";
-import { skills, skillsHeader } from "@/content/skills";
-import type { SkillGroup, SkillIconName } from "@/types";
+import { skills } from "@/content/skills";
+import type { SkillIconName } from "@/types";
 
 function CodeIcon() {
   return (
@@ -58,52 +59,53 @@ const ICONS: Record<SkillIconName, () => React.ReactElement> = {
   tools: ToolsIcon,
 };
 
-function SkillCard({ group }: { group: SkillGroup }) {
-  const Icon = ICONS[group.icon];
-  return (
-    <div className="border-line bg-surface flex h-full flex-col rounded-lg border p-6">
-      {/* Header */}
-      <div className="mb-5 flex items-start gap-3.5">
-        <span className="border-line bg-surface-2 text-accent grid size-10 shrink-0 place-items-center rounded-[10px] border">
-          <Icon />
-        </span>
-        <div>
-          <h3 className="text-ink text-[17px] font-semibold">{group.category}</h3>
-          <p className="text-ink-faint mt-0.5 font-mono text-[12px] tracking-widest uppercase">
-            {group.subtitle}
-          </p>
-        </div>
-      </div>
+export async function Skills() {
+  const t = await getTranslations("skills");
+  const groupMessages = t.raw("groups") as Record<string, { category: string; subtitle: string }>;
 
-      {/* Badges */}
-      <div className="mb-5 flex flex-wrap gap-1.5">
-        {group.badges.map((b) => (
-          <Badge key={b}>{b}</Badge>
-        ))}
-      </div>
-    </div>
-  );
-}
+  const localizedSkills = skills.map((g) => ({
+    ...g,
+    category: groupMessages[g.icon]?.category ?? g.category,
+    subtitle: groupMessages[g.icon]?.subtitle ?? g.subtitle,
+  }));
 
-export function Skills() {
   return (
     <Section className="section-grid">
       <span id="skills" className="block" />
-      {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-      <Eyebrow>// Compétences</Eyebrow>
+      <Eyebrow>{t("eyebrow")}</Eyebrow>
       <Reveal>
-        <SectionTitle>{skillsHeader.title}</SectionTitle>
+        <SectionTitle>{t("title")}</SectionTitle>
       </Reveal>
       <Reveal delay={0.07}>
-        <p className="text-ink-soft mb-10 text-[clamp(16px,1.5vw,18px)]">{skillsHeader.lead}</p>
+        <p className="text-ink-soft mb-10 text-[clamp(16px,1.5vw,18px)]">{t("lead")}</p>
       </Reveal>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {skills.map((group, i) => (
-          <Reveal key={group.category} delay={i * 0.07}>
-            <SkillCard group={group} />
-          </Reveal>
-        ))}
+        {localizedSkills.map((group, i) => {
+          const Icon = ICONS[group.icon];
+          return (
+            <Reveal key={group.icon} delay={i * 0.07}>
+              <div className="border-line bg-surface flex h-full flex-col rounded-lg border p-6">
+                <div className="mb-5 flex items-start gap-3.5">
+                  <span className="border-line bg-surface-2 text-accent grid size-10 shrink-0 place-items-center rounded-[10px] border">
+                    <Icon />
+                  </span>
+                  <div>
+                    <h3 className="text-ink text-[17px] font-semibold">{group.category}</h3>
+                    <p className="text-ink-faint mt-0.5 font-mono text-[12px] tracking-widest uppercase">
+                      {group.subtitle}
+                    </p>
+                  </div>
+                </div>
+                <div className="mb-5 flex flex-wrap gap-1.5">
+                  {group.badges.map((b) => (
+                    <Badge key={b}>{b}</Badge>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          );
+        })}
       </div>
     </Section>
   );

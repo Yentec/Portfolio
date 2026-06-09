@@ -2,13 +2,13 @@
 
 import { useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
 import { sendContactMessage, type ContactState } from "@/app/actions/contact";
 import { profile } from "@/content/profile";
-import { contactContent } from "@/content/contact";
 import { track } from "@vercel/analytics";
 
 const initialState: ContactState = { status: "idle" };
@@ -96,13 +96,11 @@ const inputClass =
   "focus:outline-none focus:border-accent " +
   "focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-accent)_22%,transparent)]";
 
-// --- Submit button ---
-
-function SubmitButton() {
+function SubmitButton({ label, submitting }: { label: string; submitting: string }) {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" disabled={pending} className="w-full justify-center">
-      {pending ? "Envoi…" : "Envoyer le message"}
+      {pending ? submitting : label}
       {!pending && <SendIcon />}
     </Button>
   );
@@ -111,6 +109,8 @@ function SubmitButton() {
 // --- Main component ---
 
 export function Contact() {
+  const t = useTranslations("contact");
+  const f = useTranslations("contact.form");
   const [state, formAction] = useActionState(sendContactMessage, initialState);
 
   useEffect(() => {
@@ -122,18 +122,16 @@ export function Contact() {
   return (
     <Section id="contact" tint className="section-grid">
       <div className="grid gap-14 lg:grid-cols-[1fr_1.05fr]">
-        {/* Aside gauche */}
+        {/* Aside */}
         <div>
           <Reveal>
-            <Eyebrow>{contactContent.eyebrow}</Eyebrow>
+            <Eyebrow>{t("eyebrow")}</Eyebrow>
             <h2 className="mb-4.5 text-[clamp(26px,3vw,36px)]">
-              {contactContent.title}
+              {t("title")}
               <br />
-              {contactContent.titleLine2}
+              {t("titleLine2")}
             </h2>
-            <p className="text-ink-soft max-w-[42ch] text-justify text-[17px]">
-              {contactContent.lead}
-            </p>
+            <p className="text-ink-soft max-w-[42ch] text-justify text-[17px]">{t("lead")}</p>
           </Reveal>
 
           <Reveal delay={0.07}>
@@ -165,7 +163,7 @@ export function Contact() {
           </Reveal>
         </div>
 
-        {/* Formulaire (droite) */}
+        {/* Form */}
         <Reveal delay={0.1}>
           <div className="border-line bg-surface rounded-lg border p-7.5 shadow-(--shadow)">
             {state.status === "success" ? (
@@ -174,14 +172,14 @@ export function Contact() {
                 className="text-success-ink flex items-center gap-2.5 rounded-[10px] bg-[color-mix(in_srgb,var(--color-success)_14%,transparent)] p-3.25 text-[14px] font-semibold"
               >
                 <CheckIcon />
-                {contactContent.successMessage}
+                {f("successMessage")}
               </div>
             ) : (
               <form action={formAction} noValidate>
                 {/* Honeypot anti-spam */}
                 <div aria-hidden className="absolute -left-2499.75" tabIndex={-1}>
                   <label>
-                    Société
+                    {f("honeypotLabel")}
                     <input type="text" name="company" tabIndex={-1} autoComplete="off" />
                   </label>
                 </div>
@@ -193,14 +191,14 @@ export function Contact() {
                       htmlFor="name"
                       className="text-ink-soft mb-1.75 block text-[13px] font-semibold"
                     >
-                      Nom <span className="text-accent">*</span>
+                      {f("nameLabel")} <span className="text-accent">*</span>
                     </label>
                     <input
                       id="name"
                       name="name"
                       type="text"
                       required
-                      placeholder="Votre nom"
+                      placeholder={f("namePlaceholder")}
                       className={inputClass}
                     />
                     {state.status === "error" && state.fieldErrors?.["name"] && (
@@ -214,14 +212,14 @@ export function Contact() {
                       htmlFor="email"
                       className="text-ink-soft mb-1.75 block text-[13px] font-semibold"
                     >
-                      Email <span className="text-accent">*</span>
+                      {f("emailLabel")} <span className="text-accent">*</span>
                     </label>
                     <input
                       id="email"
                       name="email"
                       type="email"
                       required
-                      placeholder="vous@exemple.com"
+                      placeholder={f("emailPlaceholder")}
                       className={inputClass}
                     />
                     {state.status === "error" && state.fieldErrors?.["email"] && (
@@ -232,19 +230,19 @@ export function Contact() {
                   </div>
                 </div>
 
-                {/* Sujet (optionnel) */}
+                {/* Sujet */}
                 <div className="mb-4.5">
                   <label
                     htmlFor="subject"
                     className="text-ink-soft mb-1.75 block text-[13px] font-semibold"
                   >
-                    Sujet
+                    {f("subjectLabel")}
                   </label>
                   <input
                     id="subject"
                     name="subject"
                     type="text"
-                    placeholder="Site vitrine, application métier…"
+                    placeholder={f("subjectPlaceholder")}
                     className={inputClass}
                   />
                 </div>
@@ -255,14 +253,14 @@ export function Contact() {
                     htmlFor="message"
                     className="text-ink-soft mb-1.75 block text-[13px] font-semibold"
                   >
-                    Message <span className="text-accent">*</span>
+                    {f("messageLabel")} <span className="text-accent">*</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     required
                     rows={5}
-                    placeholder="Décrivez votre projet en quelques lignes…"
+                    placeholder={f("messagePlaceholder")}
                     className={cn(inputClass, "min-h-27.5 resize-y")}
                   />
                   {state.status === "error" && state.fieldErrors?.["message"] && (
@@ -279,11 +277,9 @@ export function Contact() {
                   </p>
                 )}
 
-                <SubmitButton />
+                <SubmitButton label={f("submit")} submitting={f("submitting")} />
 
-                <p className="text-ink-faint mt-3 text-center text-[12.5px]">
-                  {contactContent.formNote}
-                </p>
+                <p className="text-ink-faint mt-3 text-center text-[12.5px]">{f("formNote")}</p>
               </form>
             )}
           </div>
