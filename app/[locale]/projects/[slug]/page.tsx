@@ -42,6 +42,13 @@ export async function generateMetadata({
   return {
     title: cs.metaTitle,
     description: cs.metaDescription,
+    alternates: {
+      canonical: `https://yentec.fr/${locale}/projects/${slug}`,
+      languages: {
+        fr: `https://yentec.fr/fr/projects/${slug}`,
+        en: `https://yentec.fr/en/projects/${slug}`,
+      },
+    },
     openGraph: {
       title: cs.metaTitle,
       description: cs.metaDescription,

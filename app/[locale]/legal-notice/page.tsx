@@ -14,6 +14,13 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
+    alternates: {
+      canonical: `https://yentec.fr/${locale}/legal-notice`,
+      languages: {
+        fr: "https://yentec.fr/fr/legal-notice",
+        en: "https://yentec.fr/en/legal-notice",
+      },
+    },
     robots: { index: false, follow: false },
   };
 }
