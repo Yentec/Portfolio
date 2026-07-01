@@ -49,11 +49,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ProfessionalService",
+            "@id": "https://yentec.fr/#business",
             name: "YENTEC — Développeur web Fullstack",
             description:
               "Création de sites vitrines et applications web sur mesure. Développeur fullstack freelance à Fréjus (Var), disponible partout en France.",
             url: "https://yentec.fr",
-            email: "contact@yentec.fr",
+            logo: "https://yentec.fr/logo/logo_color.png",
+            image: "https://yentec.fr/logo/long_color.png",
+            foundingDate: "2025",
+            founder: {
+              "@type": "Person",
+              name: "YENTEC",
+              url: "https://yentec.fr",
+            },
             areaServed: ["Fréjus", "Var", "Provence-Alpes-Côte d'Azur", "France"],
             address: {
               "@type": "PostalAddress",
@@ -62,7 +70,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               addressRegion: "Provence-Alpes-Côte d'Azur",
               addressCountry: "FR",
             },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: 43.42557144165039,
+              longitude: 6.756052494049072,
+            },
             priceRange: "€€",
+            knowsLanguage: ["fr", "en"],
             sameAs: ["https://github.com/Yentec", "https://www.linkedin.com/in/yentec"],
           }),
         }}
