@@ -95,3 +95,12 @@ Le contenu est découplé du rendu : ajouter un projet nécessite `content/proje
 ## Licence
 
 Code sous licence MIT. Le contenu textuel et les visuels restent la propriété de YENTEC.
+
+## Crédits
+
+### Assets — Mode RPG
+
+- **RPG Urban Pack** (tileset) by [Kenney](https://kenney.nl/assets/rpg-urban-pack) — [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+- **RPG Audio** (bruitage pas) by [Kenney](https://kenney.nl/assets/rpg-audio) — [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+- **Interface Sounds** (bruitage ouverture dialogue) by [Kenney](https://kenney.nl/assets/interface-sounds) — [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+- **My Little Corner of the World** (musique de fond) by [Fablefly Music](https://fablefly-music.itch.io/my-little-corner-of-the-world) — libre d'usage personnel et commercial, **crédit obligatoire** (condition de la licence, pas seulement une bonne pratique)
