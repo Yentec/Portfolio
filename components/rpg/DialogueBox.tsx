@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { Link } from "@/i18n/navigation";
 
 const TYPEWRITER_MS_PER_CHAR = 12;
 
@@ -28,6 +29,8 @@ export type DialogueBoxProps = {
   text: string;
   advanceHint: string;
   onAdvance: () => void;
+  /** PNJ projet uniquement, si le projet a une étude de cas publiée. */
+  link?: { href: string; label: string };
 };
 
 /**
@@ -36,7 +39,7 @@ export type DialogueBoxProps = {
  * pilotée depuis l'extérieur (clavier) via `ref`, ou par clic sur le bouton.
  */
 export const DialogueBox = forwardRef<DialogueBoxHandle, DialogueBoxProps>(function DialogueBox(
-  { text, advanceHint, onAdvance },
+  { text, advanceHint, onAdvance, link },
   ref,
 ) {
   const reducedMotion = usePrefersReducedMotion();
@@ -95,6 +98,14 @@ export const DialogueBox = forwardRef<DialogueBoxHandle, DialogueBoxProps>(funct
       <p className="text-ink min-h-[3lh] font-mono text-[13px] leading-relaxed sm:text-[14px]">
         {text.slice(0, visibleChars)}
       </p>
+      {link && revealed && (
+        <Link
+          href={link.href}
+          className="text-accent-strong hover:text-accent mt-2 inline-flex items-center gap-1 font-mono text-[11px] font-semibold tracking-wide uppercase"
+        >
+          {link.label} →
+        </Link>
+      )}
       <button
         type="button"
         onClick={handleAdvance}

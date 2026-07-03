@@ -1,4 +1,4 @@
-import type { Direction, GameMap, NpcDefinition, PlayerState } from "@/types/rpg";
+import type { Direction, GameMap, GridPosition, NpcDefinition, NpcId, PlayerState } from "@/types/rpg";
 import {
   CHARACTER_VARIANT,
   CHAR_BASE_COL,
@@ -10,6 +10,7 @@ import {
   TILE_SIZE,
 } from "@/lib/rpg/constants";
 import { TILE_ATLAS_LOOKUP } from "@/lib/rpg/map";
+import { getDirectionToward, getNpcIdleState } from "@/lib/rpg/npc";
 
 /** Prépare le contexte pour du pixel art net (pas de flou au scaling). */
 export function setupContext(ctx: CanvasRenderingContext2D): void {
@@ -121,20 +122,30 @@ export function drawPlayer(
   drawCharacter(ctx, atlas, player, CHARACTER_VARIANT.player);
 }
 
-/** Dessine les PNJ, statiques (idle, face caméra) à leur case fixe. */
+/**
+ * Dessine les PNJ à leur case fixe, avec une légère animation d'idle (voir
+ * getNpcIdleState) — jamais de déplacement réel, la case ne change pas.
+ * `activeNpc` : le PNJ actuellement en dialogue fait face au joueur au lieu
+ * de suivre son cycle de rotation aléatoire.
+ */
 export function drawNpcs(
   ctx: CanvasRenderingContext2D,
   atlas: HTMLImageElement,
   npcs: NpcDefinition[],
+  now: number,
+  activeNpc?: { id: NpcId; playerTile: GridPosition },
 ): void {
   for (const npc of npcs) {
+    const state =
+      activeNpc && npc.id === activeNpc.id
+        ? { direction: getDirectionToward(npc.position, activeNpc.playerTile), animFrame: IDLE_FRAME }
+        : getNpcIdleState(npc, now);
     drawCharacter(
       ctx,
       atlas,
       {
         position: { x: npc.position.col * TILE_SIZE, y: npc.position.row * TILE_SIZE },
-        direction: "down",
-        animFrame: IDLE_FRAME,
+        ...state,
       },
       npc.variant,
     );

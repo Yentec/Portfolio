@@ -1,10 +1,10 @@
-import type { GameMap, NpcDefinition } from "@/types/rpg";
+import type { GameMap, NpcDefinition, NpcId } from "@/types/rpg";
 import { InputState, isGameKey } from "@/lib/rpg/input";
 import { PlayerController } from "@/lib/rpg/player";
 import { setupContext, drawMap, drawPlayer, drawForeground, drawNpcs } from "@/lib/rpg/render";
 import { computeCamera } from "@/lib/rpg/camera";
 import { RENDER_SCALE } from "@/lib/rpg/constants";
-import { findNearbyNpc, npcBlockingTiles } from "@/lib/rpg/npc";
+import { findNearbyNpc, npcBlockingTiles, toTile } from "@/lib/rpg/npc";
 
 export class GameEngine {
   private ctx: CanvasRenderingContext2D;
@@ -18,8 +18,8 @@ export class GameEngine {
   private rafId: number | null = null;
   private lastTime = 0;
   private running = false;
-  /** true pendant qu'un dialogue est ouvert : mouvement du joueur suspendu. */
-  private paused = false;
+  /** PNJ en dialogue avec le joueur : mouvement suspendu, ce PNJ fait face au joueur. */
+  private activeNpcId: NpcId | null = null;
 
   private readonly onKeyDown = (e: KeyboardEvent): void => {
     if (isGameKey(e.code)) {
@@ -57,10 +57,13 @@ export class GameEngine {
     return findNearbyNpc(this.npcs, this.player.state);
   }
 
-  /** Suspend/reprend le mouvement du joueur (dialogue ouvert). N'efface pas les touches en attente. */
-  setPaused(paused: boolean): void {
-    this.paused = paused;
-    if (paused) this.input.clear();
+  /**
+   * PNJ actuellement en dialogue (ou null si aucun) : suspend le mouvement du
+   * joueur et fait tourner ce PNJ vers lui au lieu de son cycle idle aléatoire.
+   */
+  setActiveNpc(npcId: NpcId | null): void {
+    this.activeNpcId = npcId;
+    if (npcId) this.input.clear();
   }
 
   start(): void {
@@ -84,7 +87,7 @@ export class GameEngine {
 
     this.player.update(
       this.map,
-      this.paused ? null : this.input.current(),
+      this.activeNpcId ? null : this.input.current(),
       dtMs,
       this.npcBlocking,
     );
@@ -107,9 +110,13 @@ export class GameEngine {
     this.ctx.save();
     this.ctx.translate(-offsetX, -offsetY);
 
+    const activeNpc = this.activeNpcId
+      ? { id: this.activeNpcId, playerTile: toTile(this.player.state.position) }
+      : undefined;
+
     drawMap(this.ctx, this.map, this.atlas);
     drawPlayer(this.ctx, this.atlas, this.player.state);
-    drawNpcs(this.ctx, this.atlas, this.npcs);
+    drawNpcs(this.ctx, this.atlas, this.npcs, now, activeNpc);
     drawForeground(this.ctx, this.map, this.atlas);
 
     this.ctx.restore();

@@ -8,6 +8,7 @@ import { RENDERED_TILE, VIEWPORT_COLS, VIEWPORT_ROWS } from "@/lib/rpg/constants
 import { preloadAssets } from "@/lib/rpg/assets";
 import { isInteractKey } from "@/lib/rpg/input";
 import { npcs } from "@/content/rpg/npcs";
+import { projects } from "@/content/projects";
 import { LoadingScreen } from "@/components/rpg/LoadingScreen";
 import { DialogueBox, type DialogueBoxHandle } from "@/components/rpg/DialogueBox";
 import type { NpcId } from "@/types/rpg";
@@ -46,6 +47,7 @@ function dialogueReducer(state: DialogueState, action: DialogueAction): Dialogue
 export function GameCanvas() {
   const t = useTranslations("rpgGame");
   const dialogues = t.raw("dialogues") as Record<NpcId, string[]>;
+  const projectsT = useTranslations("projects");
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -132,9 +134,10 @@ export function GameCanvas() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [dialogue.npcId]);
 
-  // Le moteur suspend le mouvement du joueur tant qu'un dialogue est ouvert.
+  // Le moteur suspend le mouvement du joueur et fait tourner le PNJ actif vers
+  // lui tant qu'un dialogue est ouvert.
   useEffect(() => {
-    engineRef.current?.setPaused(dialogue.npcId !== null);
+    engineRef.current?.setActiveNpc(dialogue.npcId);
   }, [dialogue.npcId]);
 
   if (error) {
@@ -147,6 +150,13 @@ export function GameCanvas() {
 
   const lines = dialogue.npcId ? dialogues[dialogue.npcId] : null;
   const currentLine = lines?.[dialogue.lineIndex];
+
+  // PNJ projet avec étude de cas publiée uniquement (LinkForge, FeedbackFlow) :
+  // Projets clients et Yachts-Studio n'ont pas de caseStudySlug, pas de lien.
+  const project = dialogue.npcId ? projects.find((p) => p.slug === dialogue.npcId) : undefined;
+  const link = project?.caseStudySlug
+    ? { href: `/projects/${project.caseStudySlug}`, label: projectsT("caseStudyLabel") }
+    : undefined;
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -172,6 +182,7 @@ export function GameCanvas() {
             text={currentLine}
             advanceHint={t("advanceHint")}
             onAdvance={() => dispatch({ type: "ADVANCE", totalLines: lines.length })}
+            link={link}
           />
         )}
       </div>
