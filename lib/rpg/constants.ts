@@ -50,8 +50,8 @@ export const WALK_FRAME_SEQUENCE = [0, 1, 2, 1] as const;
  * 6 variantes dispo : 1 joueur + 5 PNJ, sans sourcer d'autre asset.
  */
 export const CHARACTER_VARIANT = {
-  player: 1,
-  npcAbout: 0,
+  player: 0,
+  npcAbout: 1,
   npcServices: 2,
   npcSkills: 3,
   npcProjects: 4,

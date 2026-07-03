@@ -35,3 +35,26 @@ export type GameMap = {
   front: TileStackGrid;
   walkable: WalkableGrid;
 };
+
+/**
+ * Identifiant d'un PNJ = section du portfolio qu'il représente. Un PNJ par
+ * projet réel (slugs de content/projects.ts) plutôt qu'un unique PNJ "projects".
+ */
+export type NpcId =
+  | "about"
+  | "services"
+  | "skills"
+  | "linkforge"
+  | "feedbackflow"
+  | "projets-clients"
+  | "yachts-studio"
+  | "contact";
+
+/** Données structurelles d'un PNJ (le texte de dialogue vit dans messages/, pas ici). */
+export type NpcDefinition = {
+  id: NpcId;
+  /** Position fixe sur la grille logique (en tuiles). */
+  position: GridPosition;
+  /** Index de variante dans le bloc personnage de l'atlas (voir CHARACTER_VARIANT). */
+  variant: number;
+};

@@ -27,7 +27,7 @@ export class PlayerController {
     };
   }
 
-  update(map: GameMap, requested: Direction | null, dtMs: number): void {
+  update(map: GameMap, requested: Direction | null, dtMs: number, npcBlocking: Set<string>): void {
     const dt = dtMs / 1000;
     const s = this.state;
 
@@ -36,7 +36,7 @@ export class PlayerController {
       const delta = DIRECTION_DELTA[requested];
       const col = Math.round(s.position.x / TILE_SIZE) + delta.col;
       const row = Math.round(s.position.y / TILE_SIZE) + delta.row;
-      if (this.canWalk(map, col, row)) {
+      if (this.canWalk(map, col, row, npcBlocking)) {
         this.target = { x: col * TILE_SIZE, y: row * TILE_SIZE };
         s.moving = true;
       }
@@ -66,8 +66,9 @@ export class PlayerController {
     }
   }
 
-  private canWalk(map: GameMap, col: number, row: number): boolean {
+  private canWalk(map: GameMap, col: number, row: number, npcBlocking: Set<string>): boolean {
     if (row < 0 || row >= map.rows || col < 0 || col >= map.cols) return false;
+    if (npcBlocking.has(`${row},${col}`)) return false;
     return map.walkable[row]?.[col] ?? false;
   }
 }

@@ -1,8 +1,10 @@
-import type { Direction, GameMap, PlayerState } from "@/types/rpg";
+import type { Direction, GameMap, NpcDefinition, PlayerState } from "@/types/rpg";
 import {
+  CHARACTER_VARIANT,
   CHAR_BASE_COL,
   CHAR_ROWS_PER_VARIANT,
   DIRECTION_COL_OFFSET,
+  IDLE_FRAME,
   RENDERED_TILE,
   RENDER_SCALE,
   TILE_SIZE,
@@ -116,5 +118,25 @@ export function drawPlayer(
   atlas: HTMLImageElement,
   player: PlayerState,
 ): void {
-  drawCharacter(ctx, atlas, player, 0); // variante 0 réservée au joueur
+  drawCharacter(ctx, atlas, player, CHARACTER_VARIANT.player);
+}
+
+/** Dessine les PNJ, statiques (idle, face caméra) à leur case fixe. */
+export function drawNpcs(
+  ctx: CanvasRenderingContext2D,
+  atlas: HTMLImageElement,
+  npcs: NpcDefinition[],
+): void {
+  for (const npc of npcs) {
+    drawCharacter(
+      ctx,
+      atlas,
+      {
+        position: { x: npc.position.col * TILE_SIZE, y: npc.position.row * TILE_SIZE },
+        direction: "down",
+        animFrame: IDLE_FRAME,
+      },
+      npc.variant,
+    );
+  }
 }

@@ -1,9 +1,10 @@
-import type { GameMap } from "@/types/rpg";
+import type { GameMap, NpcDefinition } from "@/types/rpg";
 import { InputState, isGameKey } from "@/lib/rpg/input";
 import { PlayerController } from "@/lib/rpg/player";
-import { setupContext, drawMap, drawPlayer, drawForeground } from "@/lib/rpg/render";
+import { setupContext, drawMap, drawPlayer, drawForeground, drawNpcs } from "@/lib/rpg/render";
 import { computeCamera } from "@/lib/rpg/camera";
 import { RENDER_SCALE } from "@/lib/rpg/constants";
+import { findNearbyNpc, npcBlockingTiles } from "@/lib/rpg/npc";
 
 export class GameEngine {
   private ctx: CanvasRenderingContext2D;
@@ -11,10 +12,14 @@ export class GameEngine {
   private atlas: HTMLImageElement;
   private input = new InputState();
   private player: PlayerController;
+  private npcs: NpcDefinition[];
+  private npcBlocking: Set<string>;
 
   private rafId: number | null = null;
   private lastTime = 0;
   private running = false;
+  /** true pendant qu'un dialogue est ouvert : mouvement du joueur suspendu. */
+  private paused = false;
 
   private readonly onKeyDown = (e: KeyboardEvent): void => {
     if (isGameKey(e.code)) {
@@ -34,6 +39,7 @@ export class GameEngine {
     map: GameMap,
     start: { col: number; row: number },
     atlas: HTMLImageElement,
+    npcs: NpcDefinition[],
   ) {
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("Canvas 2D context indisponible");
@@ -41,7 +47,20 @@ export class GameEngine {
     this.map = map;
     this.atlas = atlas;
     this.player = new PlayerController(start.col, start.row);
+    this.npcs = npcs;
+    this.npcBlocking = npcBlockingTiles(npcs);
     setupContext(ctx);
+  }
+
+  /** PNJ orthogonalement adjacent au joueur, ou null — pour l'interaction. */
+  getNearbyNpc(): NpcDefinition | null {
+    return findNearbyNpc(this.npcs, this.player.state);
+  }
+
+  /** Suspend/reprend le mouvement du joueur (dialogue ouvert). N'efface pas les touches en attente. */
+  setPaused(paused: boolean): void {
+    this.paused = paused;
+    if (paused) this.input.clear();
   }
 
   start(): void {
@@ -63,7 +82,12 @@ export class GameEngine {
     const dtMs = Math.min(now - this.lastTime, 100);
     this.lastTime = now;
 
-    this.player.update(this.map, this.input.current(), dtMs);
+    this.player.update(
+      this.map,
+      this.paused ? null : this.input.current(),
+      dtMs,
+      this.npcBlocking,
+    );
 
     // Fond noir peint en espace écran (avant translate) : couvre tout le canvas
     // physique à chaque frame, donc pas de résidu de l'image précédente si la
@@ -85,6 +109,7 @@ export class GameEngine {
 
     drawMap(this.ctx, this.map, this.atlas);
     drawPlayer(this.ctx, this.atlas, this.player.state);
+    drawNpcs(this.ctx, this.atlas, this.npcs);
     drawForeground(this.ctx, this.map, this.atlas);
 
     this.ctx.restore();

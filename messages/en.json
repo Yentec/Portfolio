@@ -53,7 +53,7 @@
     "bio": [
       "Freelance **fullstack web developer** based in Fréjus, I help businesses and independent professionals with their digital projects — from showcase websites to complex business applications.",
       "My approach: understand the need before writing the first line of code. I deliver **clear, performant and durable** interfaces, without hidden technical debt.",
-      "RNCP level 6 graduate (Bachelor's equivalent), I **rebuilt a complete SaaS CRM from scratch during my apprenticeship** — alone, from design to production. Today, I support my clients over the long term."
+      "Bachelor's-to-Master's level graduate (RNCP level 6), I **rebuilt a complete SaaS CRM from scratch during my apprenticeship** — alone, from design to production. Today, I support my clients over the long term."
     ],
     "cta": "Let's work together",
     "timeline": [
@@ -65,7 +65,7 @@
       {
         "period": "2023-25",
         "title": "Software Developer — Apprenticeship (2 years)",
-        "description": "Complete redesign of a SaaS CRM for used boat management — alone, from design to production. RNCP level 6 degree obtained."
+        "description": "Complete redesign of a SaaS CRM for used boat management — alone, from design to production. Bachelor's-to-Master's level degree obtained (RNCP level 6)."
       },
       {
         "period": "2023",
@@ -467,5 +467,52 @@
       { "id": "resultat", "label": "Result" }
     ],
     "tocCta": "Let's talk"
+  },
+  "rpgGame": {
+    "movementHint": "Move: arrow keys or WASD",
+    "interactHint": "Enter / Space to talk",
+    "advanceHint": "Enter / Space to continue",
+    "dialogues": {
+      "about": [
+        "Hi! I'm YENTEC, a fullstack web developer based in Fréjus, France.",
+        "Bachelor's-to-Master's level graduate (RNCP level 6) — I rebuilt a full SaaS CRM from scratch during my apprenticeship, alone, from design to production.",
+        "My approach: understand the need before writing the first line of code. The About section tells the whole story."
+      ],
+      "services": [
+        "I offer 4 kinds of missions: showcase sites, business applications, MVP/SaaS, and maintenance.",
+        "Always scoped to the actual need — no unnecessary complexity, no over-engineering.",
+        "The full breakdown of each offer is in the Services section on the classic site."
+      ],
+      "skills": [
+        "Front-end: React, Next.js, TypeScript, Vite, Tailwind, Framer Motion.",
+        "Back-end & data: Node.js, Fastify, Prisma, PostgreSQL, MySQL, Redis, BullMQ.",
+        "The Skills section lists it all, plus the tools and the way I work."
+      ],
+      "linkforge": [
+        "I'm LinkForge — an open-source URL shortener API.",
+        "Auth, API keys, anonymized async click tracking, analytics — built to handle load (Fastify, PostgreSQL, Redis).",
+        "The code is public, and the full case study is in the Projects section."
+      ],
+      "feedbackflow": [
+        "FeedbackFlow, an open-source platform to collect and prioritize product feedback.",
+        "A Canny alternative: public voting board, roadmap, dashboard. Next.js 16 and TypeScript.",
+        "Code and case study are in the Projects section on the classic site."
+      ],
+      "projets-clients": [
+        "I also handle client projects — showcase sites and tailored business tools for SMBs and freelancers.",
+        "SEO built in from the start. Some are confidential, but references are available on request.",
+        "Reach out to YENTEC to talk about it — the Contact section is right there."
+      ],
+      "yachts-studio": [
+        "Yachts-Studio, a SaaS CRM for managing a fleet of used boats.",
+        "Full rebuild: optimized MySQL database, Node.js/Express API, React/Vite interface. Solo project, from analysis to production.",
+        "Proprietary project — the Projects section has more context."
+      ],
+      "contact": [
+        "Got a project in mind? Let's talk, plainly, no jargon.",
+        "I reply quickly, to understand before proposing.",
+        "The contact form is right below, on the classic site."
+      ]
+    }
   }
 }

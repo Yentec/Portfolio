@@ -440,7 +440,8 @@ export function createTestMap(): GameMap {
   return { cols, rows, ground, overlay, front, walkable };
 }
 
-export const PLAYER_START = { col: 3, row: 2 };
+/** Juste après la porte nord (ouverture dans la haie d'arbres), face au village. */
+export const PLAYER_START = { col: 12, row: 2 };
 
 /** Nom du village (Canvas Town en anglais — clin d'œil au <canvas> qui le dessine, tout commence sur une toile vierge). */
 export const VILLAGE_NAME = "Bourg Canevas";

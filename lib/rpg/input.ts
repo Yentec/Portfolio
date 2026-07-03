@@ -46,3 +46,10 @@ export class InputState {
 export function isGameKey(code: string): boolean {
   return code in KEY_MAP;
 }
+
+/** Touches d'interaction (parler / avancer le dialogue) — distinctes du mouvement. */
+const INTERACT_KEYS = new Set(["Enter", "Space"]);
+
+export function isInteractKey(code: string): boolean {
+  return INTERACT_KEYS.has(code);
+}
