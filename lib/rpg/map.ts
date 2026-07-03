@@ -373,9 +373,8 @@ export const TILE_ATLAS_LOOKUP: Record<number, { col: number; row: number }> = {
   [T.BUILDINGWINDOWB]: TERRAIN_ATLAS.buildingWindowB,
 };
 
-// 24 colonnes x 22 lignes, même disposition que la carte de test précédente
-// (cadre de murs, chemin central, deux bassins), avec une bordure d'arbres
-// au lieu de simples murs sur les côtés pour un rendu plus urbain.
+// Bourg Canevas — 24 colonnes x 22 lignes. Village bordé d'arbres, deux maisons
+// et un bâtiment reliés par des trottoirs autour d'une place centrale, un bassin.
 const LAYOUT: number[][] = [
   [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 22, 24, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
   [5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 22, 24, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5],
@@ -442,3 +441,6 @@ export function createTestMap(): GameMap {
 }
 
 export const PLAYER_START = { col: 3, row: 2 };
+
+/** Nom du village (Canvas Town en anglais — clin d'œil au <canvas> qui le dessine, tout commence sur une toile vierge). */
+export const VILLAGE_NAME = "Bourg Canevas";

@@ -129,8 +129,7 @@ Présentation alternative du portfolio sous forme de petit RPG 2D top-down. Vitr
 Dans le scope : 
 - transition mode classique ↔ RPG
 - intro explicative (jouée pendant le préchargement des assets)
-- 4 cartes (1 village, 1 maison avec 1 étage, 1 batiment type)
-- transitions entre les cartes
+- 1 carte : un village (Bourg Canevas)
 - déplacement 4 directions (clavier + D-pad tactile) avec animation de marche
 - collisions (murs, obstacles, bords, PNJ)
 - 5 PNJ = 5 sections (À propos, Services, Compétences, Projets, Contact)
