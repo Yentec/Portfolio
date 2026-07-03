@@ -2,6 +2,8 @@ import type { GameMap } from "@/types/rpg";
 import { InputState, isGameKey } from "@/lib/rpg/input";
 import { PlayerController } from "@/lib/rpg/player";
 import { setupContext, drawMap, drawPlayer, drawForeground } from "@/lib/rpg/render";
+import { computeCamera } from "@/lib/rpg/camera";
+import { RENDER_SCALE } from "@/lib/rpg/constants";
 
 export class GameEngine {
   private ctx: CanvasRenderingContext2D;
@@ -63,9 +65,29 @@ export class GameEngine {
 
     this.player.update(this.map, this.input.current(), dtMs);
 
+    // Fond noir peint en espace écran (avant translate) : couvre tout le canvas
+    // physique à chaque frame, donc pas de résidu de l'image précédente si la
+    // carte ne remplit pas entièrement la fenêtre (bord de carte, petite carte).
+    const { width, height } = this.ctx.canvas;
+    this.ctx.fillStyle = "#000000";
+    this.ctx.fillRect(0, 0, width, height);
+
+    const camera = computeCamera(this.map, this.player.state);
+    // Décalage arrondi au pixel physique entier : le joueur se déplace en continu
+    // (position flottante), donc translate() recevrait sinon des valeurs à virgule.
+    // En pixel art non lissé, un décalage fractionnaire fait trembler/dédoubler les
+    // bords de tuiles d'une frame à l'autre — l'arrondi élimine ce jitter.
+    const offsetX = Math.round(camera.x * RENDER_SCALE);
+    const offsetY = Math.round(camera.y * RENDER_SCALE);
+
+    this.ctx.save();
+    this.ctx.translate(-offsetX, -offsetY);
+
     drawMap(this.ctx, this.map, this.atlas);
     drawPlayer(this.ctx, this.atlas, this.player.state);
     drawForeground(this.ctx, this.map, this.atlas);
+
+    this.ctx.restore();
 
     if (this.running) {
       this.rafId = requestAnimationFrame(this.tick);

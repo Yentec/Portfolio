@@ -9,6 +9,15 @@ export const RENDER_SCALE = 3;
 /** Taille d'une tuile à l'écran. */
 export const RENDERED_TILE = TILE_SIZE * RENDER_SCALE;
 
+/**
+ * Fenêtre visible (en tuiles), indépendante de la taille de la carte : la caméra
+ * suit le joueur et ne montre jamais au-delà des bords. Vue rapprochée (plus
+ * serrée que la résolution GBA native 15×10) pour que le personnage occupe une
+ * part plus importante de l'écran. Seule constante à retoucher pour ajuster le zoom.
+ */
+export const VIEWPORT_COLS = 11;
+export const VIEWPORT_ROWS = 8;
+
 export const PLAYER_SPEED = TILE_SIZE * 4;
 export const WALK_FRAME_DURATION = 130;
 
