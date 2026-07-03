@@ -4,21 +4,9 @@ export type SocialLink = {
   handle: string;
 };
 
-export type Stat = {
-  value: string;
-  label: string;
-};
-
 export type Profile = {
   name: string;
-  role: string;
   location: string;
-  availability: string;
-  tagline: string;
-  heroLead: string;
-  stats: Stat[];
-  aboutTitle: string;
-  bio: string[];
   email: string;
   socials: SocialLink[];
 };
@@ -53,9 +41,6 @@ export type Project = {
   proprietary?: boolean;
   contactLink?: boolean;
 };
-
-export type TimelineEntry = { period: string; title: string; description: string };
-export type Value = { title: string; description: string };
 
 export type CaseStudyPoint = {
   label: string;

@@ -1,3 +1,5 @@
+import { ATLAS_PATH } from "@/lib/rpg/constants";
+
 /** Précharge une image et résout une fois prête (ou rejette en cas d'échec). */
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -14,6 +16,6 @@ export type GameAssets = {
 
 /** Précharge tous les assets nécessaires avant de démarrer le moteur. */
 export async function preloadAssets(): Promise<GameAssets> {
-  const tileset = await loadImage("/rpg/tileset.png");
+  const tileset = await loadImage(ATLAS_PATH);
   return { tileset };
 }

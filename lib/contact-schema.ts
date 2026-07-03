@@ -7,5 +7,3 @@ export const contactSchema = z.object({
   message: z.string().trim().min(10, "messageMin").max(2000),
   company: z.string().max(0).optional().or(z.literal("")),
 });
-
-export type ContactInput = z.infer<typeof contactSchema>;

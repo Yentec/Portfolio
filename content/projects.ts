@@ -1,10 +1,5 @@
 import type { Project } from "@/types";
 
-export const projectsHeader = {
-  title: "Quelques réalisations.",
-  lead: "Des projets open-source pour montrer le code, et des projets clients que j'accompagne dans la durée.",
-};
-
 export const projects: Project[] = [
   {
     slug: "linkforge",
