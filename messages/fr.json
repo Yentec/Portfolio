@@ -477,6 +477,15 @@
     "movementHint": "Déplacement : flèches ou ZQSD/WASD",
     "interactHint": "Entrée / Espace pour parler",
     "advanceHint": "Entrée / Espace pour continuer",
+    "introTitle": "Bourg Canevas",
+    "introLines": [
+      "Bienvenue ! Ce village illustre le parcours et les projets de YENTEC.",
+      "Déplacement : flèches ou ZQSD/WASD. Entrée ou Espace pour parler aux habitants.",
+      "Le son est coupé par défaut — active-le depuis l'icône en haut à droite."
+    ],
+    "skipIntro": "Passer",
+    "enableSoundLabel": "Activer le son",
+    "disableSoundLabel": "Couper le son",
     "dialogues": {
       "about": [
         "Salut ! Je suis YENTEC, développeur web fullstack basé à Fréjus, dans le Var.",

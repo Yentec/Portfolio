@@ -6,16 +6,20 @@ import { GameEngine } from "@/lib/rpg/engine";
 import { createTestMap, PLAYER_START } from "@/lib/rpg/map";
 import { RENDERED_TILE, VIEWPORT_COLS, VIEWPORT_ROWS } from "@/lib/rpg/constants";
 import { preloadAssets } from "@/lib/rpg/assets";
+import { AudioManager } from "@/lib/rpg/audio";
 import { isInteractKey } from "@/lib/rpg/input";
 import { npcs } from "@/content/rpg/npcs";
 import { projects } from "@/content/projects";
-import { LoadingScreen } from "@/components/rpg/LoadingScreen";
+import { IntroSequence } from "@/components/rpg/IntroSequence";
+import { GameUI } from "@/components/rpg/GameUI";
 import { DialogueBox, type DialogueBoxHandle } from "@/components/rpg/DialogueBox";
 import type { NpcId } from "@/types/rpg";
 
 /** Budget vertical laissé au canvas — le reste va au padding et au texte d'aide sous le jeu. */
 const MAX_VIEWPORT_HEIGHT_VH = 90;
 const ASPECT_RATIO = VIEWPORT_COLS / VIEWPORT_ROWS;
+/** Durée minimale d'affichage de l'intro, même si les assets chargent plus vite. */
+const MIN_INTRO_MS = 10000;
 
 type DisplaySize = { width: number; height: number };
 
@@ -47,24 +51,35 @@ function dialogueReducer(state: DialogueState, action: DialogueAction): Dialogue
 export function GameCanvas() {
   const t = useTranslations("rpgGame");
   const dialogues = t.raw("dialogues") as Record<NpcId, string[]>;
+  const introLines = t.raw("introLines") as string[];
   const projectsT = useTranslations("projects");
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GameEngine | null>(null);
+  const audioRef = useRef<AudioManager | null>(null);
   const dialogueBoxRef = useRef<DialogueBoxHandle>(null);
 
-  const [ready, setReady] = useState(false);
+  const [assetsReady, setAssetsReady] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
   const [error, setError] = useState(false);
+  const [muted, setMuted] = useState(true);
   const [displaySize, setDisplaySize] = useState<DisplaySize | null>(null);
   const [dialogue, dispatch] = useReducer(dialogueReducer, CLOSED_DIALOGUE);
 
+  const ready = assetsReady && introDone;
+
+  // Précharge assets + audio en parallèle, crée le moteur et le gestionnaire
+  // audio. Le AudioContext est créé tout de suite (autorisé sans geste), mais
+  // reste muet tant que le joueur n'a pas cliqué sur le bouton du HUD.
   useEffect(() => {
     let cancelled = false;
     let engine: GameEngine | null = null;
+    const audio = new AudioManager();
+    audioRef.current = audio;
 
-    preloadAssets()
-      .then((assets) => {
+    Promise.all([preloadAssets(), audio.load()])
+      .then(([assets]) => {
         if (cancelled) return; // démonté pendant le chargement : on n'instancie rien
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -75,10 +90,10 @@ export function GameCanvas() {
         canvas.width = VIEWPORT_COLS * RENDERED_TILE;
         canvas.height = VIEWPORT_ROWS * RENDERED_TILE;
 
-        engine = new GameEngine(canvas, map, PLAYER_START, assets.tileset, npcs);
+        engine = new GameEngine(canvas, map, PLAYER_START, assets.tileset, npcs, audio);
         engineRef.current = engine;
         engine.start();
-        setReady(true);
+        setAssetsReady(true);
       })
       .catch(() => {
         if (!cancelled) setError(true);
@@ -88,7 +103,17 @@ export function GameCanvas() {
       cancelled = true;
       engine?.destroy();
       engineRef.current = null;
+      audio.destroy();
+      audioRef.current = null;
     };
+  }, []);
+
+  // Durée minimale de lecture de l'intro, indépendante de la vitesse réelle du
+  // chargement — sans ça, sur un chargement rapide, l'intro n'aurait pas le
+  // temps d'être lue avant de disparaître.
+  useEffect(() => {
+    const timeout = setTimeout(() => setIntroDone(true), MIN_INTRO_MS);
+    return () => clearTimeout(timeout);
   }, []);
 
   // Taille d'affichage calculée en JS plutôt qu'en CSS pur (calc()/min()/
@@ -127,7 +152,10 @@ export function GameCanvas() {
         return;
       }
       const npc = engineRef.current?.getNearbyNpc();
-      if (npc) dispatch({ type: "OPEN", npcId: npc.id });
+      if (npc) {
+        dispatch({ type: "OPEN", npcId: npc.id });
+        audioRef.current?.playDialogueOpen();
+      }
     }
 
     window.addEventListener("keydown", onKeyDown);
@@ -139,6 +167,16 @@ export function GameCanvas() {
   useEffect(() => {
     engineRef.current?.setActiveNpc(dialogue.npcId);
   }, [dialogue.npcId]);
+
+  function handleToggleMute() {
+    if (muted) {
+      void audioRef.current?.enable();
+      setMuted(false);
+    } else {
+      audioRef.current?.disable();
+      setMuted(true);
+    }
+  }
 
   if (error) {
     return (
@@ -160,7 +198,20 @@ export function GameCanvas() {
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {!ready && <LoadingScreen />}
+      {/* Toujours monté, même pendant l'intro : le mute doit rester accessible. */}
+      <GameUI
+        muted={muted}
+        onToggleMute={handleToggleMute}
+        label={muted ? t("enableSoundLabel") : t("disableSoundLabel")}
+      />
+      {!ready && (
+        <IntroSequence
+          title={t("introTitle")}
+          lines={introLines}
+          skipLabel={t("skipIntro")}
+          onSkip={() => setIntroDone(true)}
+        />
+      )}
       {/* Boîte dimensionnée exactement comme le canvas affiché : la dialogue box
           (absolute) reste ainsi confinée à la fenêtre de jeu visible, jamais
           au-delà (le conteneur externe, lui, est pleine largeur de la page). */}
@@ -181,7 +232,13 @@ export function GameCanvas() {
             ref={dialogueBoxRef}
             text={currentLine}
             advanceHint={t("advanceHint")}
-            onAdvance={() => dispatch({ type: "ADVANCE", totalLines: lines.length })}
+            onAdvance={() => {
+              // Même bip qu'à l'ouverture, mais pas sur la dernière ligne : fermer
+              // le dialogue n'est pas "passer" à une nouvelle ligne.
+              const isLastLine = dialogue.lineIndex + 1 >= lines.length;
+              if (!isLastLine) audioRef.current?.playDialogueOpen();
+              dispatch({ type: "ADVANCE", totalLines: lines.length });
+            }}
             link={link}
           />
         )}

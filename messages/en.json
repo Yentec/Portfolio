@@ -472,6 +472,15 @@
     "movementHint": "Move: arrow keys or WASD",
     "interactHint": "Enter / Space to talk",
     "advanceHint": "Enter / Space to continue",
+    "introTitle": "Canvas Town",
+    "introLines": [
+      "Welcome! This village walks you through YENTEC's background and projects.",
+      "Move with arrow keys or WASD. Enter or Space to talk to the townsfolk.",
+      "Sound is off by default — turn it on from the icon in the top-right corner."
+    ],
+    "skipIntro": "Skip",
+    "enableSoundLabel": "Enable sound",
+    "disableSoundLabel": "Mute sound",
     "dialogues": {
       "about": [
         "Hi! I'm YENTEC, a fullstack web developer based in Fréjus, France.",

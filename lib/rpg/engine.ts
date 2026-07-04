@@ -5,6 +5,7 @@ import { setupContext, drawMap, drawPlayer, drawForeground, drawNpcs } from "@/l
 import { computeCamera } from "@/lib/rpg/camera";
 import { RENDER_SCALE } from "@/lib/rpg/constants";
 import { findNearbyNpc, npcBlockingTiles, toTile } from "@/lib/rpg/npc";
+import type { AudioManager } from "@/lib/rpg/audio";
 
 export class GameEngine {
   private ctx: CanvasRenderingContext2D;
@@ -14,6 +15,7 @@ export class GameEngine {
   private player: PlayerController;
   private npcs: NpcDefinition[];
   private npcBlocking: Set<string>;
+  private audio: AudioManager;
 
   private rafId: number | null = null;
   private lastTime = 0;
@@ -40,6 +42,7 @@ export class GameEngine {
     start: { col: number; row: number },
     atlas: HTMLImageElement,
     npcs: NpcDefinition[],
+    audio: AudioManager,
   ) {
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("Canvas 2D context indisponible");
@@ -49,6 +52,7 @@ export class GameEngine {
     this.player = new PlayerController(start.col, start.row);
     this.npcs = npcs;
     this.npcBlocking = npcBlockingTiles(npcs);
+    this.audio = audio;
     setupContext(ctx);
   }
 
@@ -85,12 +89,17 @@ export class GameEngine {
     const dtMs = Math.min(now - this.lastTime, 100);
     this.lastTime = now;
 
+    const wasMoving = this.player.state.moving;
+
     this.player.update(
       this.map,
       this.activeNpcId ? null : this.input.current(),
       dtMs,
       this.npcBlocking,
     );
+
+    // Un pas commence (transition idle -> mouvement) : un seul bruit par case, pas en continu.
+    if (this.player.state.moving && !wasMoving) this.audio.playFootstep();
 
     // Fond noir peint en espace écran (avant translate) : couvre tout le canvas
     // physique à chaque frame, donc pas de résidu de l'image précédente si la
