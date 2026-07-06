@@ -315,6 +315,7 @@ export function GameCanvas() {
         helpLabel={t("helpLabel")}
         helpLines={[t("movementHint"), t("interactHint"), t("escapeHint")]}
         mobileHelpLines={[t("mobileMovementHint"), t("mobileInteractHint"), t("mobileCancelHint")]}
+        creditsLabel={t("creditsLabel")}
       />
       {!ready && (
         <IntroSequence

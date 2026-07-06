@@ -493,6 +493,7 @@
     "disableSoundLabel": "Mute sound",
     "classicModeLabel": "Classic Mode",
     "helpLabel": "Controls help",
+    "creditsLabel": "Assets: Kenney (CC0) — music by Fablefly Music",
     "dpad": {
       "up": "Move up",
       "down": "Move down",

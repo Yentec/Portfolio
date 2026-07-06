@@ -29,6 +29,7 @@ export type GameUIProps = {
   helpLabel: string;
   helpLines: string[];
   mobileHelpLines: string[];
+  creditsLabel: string;
 };
 
 /**
@@ -43,6 +44,7 @@ export function GameUI({
   helpLabel,
   helpLines,
   mobileHelpLines,
+  creditsLabel,
 }: GameUIProps) {
   const [helpOpen, setHelpOpen] = useState(false);
 
@@ -100,6 +102,11 @@ export function GameUI({
               <p key={i}>{line}</p>
             ))}
           </span>
+          {/* Crédits assets : surface non-intrusive (panneau déjà optionnel/à la
+              demande) plutôt qu'un élément permanent à l'écran. */}
+          <p className="border-line text-ink-faint mt-1.5 border-t pt-1.5 text-[10px] normal-case">
+            {creditsLabel}
+          </p>
         </div>
       )}
     </>
