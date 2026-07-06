@@ -1,10 +1,5 @@
 import type { SkillGroup } from "@/types";
 
-export const skillsHeader = {
-  title: "Une stack moderne, maîtrisée de bout en bout.",
-  lead: "Front-end, back-end, base de données, déploiement. Je choisis l'outil adapté au projet, pas l'inverse.",
-};
-
 export const skills: SkillGroup[] = [
   {
     category: "Front-end",

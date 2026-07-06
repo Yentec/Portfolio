@@ -53,7 +53,7 @@
     "bio": [
       "Développeur web **fullstack freelance** basé à Fréjus, j'accompagne entreprises et indépendants dans leurs projets numériques — du site vitrine à l'application métier complexe.",
       "Mon approche : comprendre le besoin avant d'écrire la première ligne de code. Je livre des interfaces **claires, performantes et durables**, sans dette technique cachée.",
-      "Diplômé RNCP niveau 6 (Bac+3), j'ai **reconstruit de zéro un CRM SaaS complet en alternance** — seul, du design à la mise en production. Aujourd'hui, j'accompagne mes clients dans la durée."
+      "Diplômé Bac+3/+4 (RNCP niveau 6), j'ai **reconstruit de zéro un CRM SaaS complet en alternance** — seul, du design à la mise en production. Aujourd'hui, j'accompagne mes clients dans la durée."
     ],
     "cta": "Travaillons ensemble",
     "timeline": [
@@ -65,7 +65,7 @@
       {
         "period": "2023-25",
         "title": "Concepteur Développeur Logiciel — Alternance (2 ans)",
-        "description": "Refonte complète d'un CRM SaaS de gestion de bateaux d'occasion — seul, du design à la mise en production. Diplôme RNCP niveau 6 (Bac+3) obtenu."
+        "description": "Refonte complète d'un CRM SaaS de gestion de bateaux d'occasion — seul, du design à la mise en production. Diplôme Bac+3/+4 (RNCP niveau 6) obtenu."
       },
       {
         "period": "2023",
@@ -193,7 +193,7 @@
       "sub": "Parcourez mon parcours et mes projets comme un petit monde à explorer. Même rigueur, beaucoup plus de jeu.",
       "ctaNotify": "Me prévenir au lancement",
       "ctaNotifyDone": "Vous serez prévenu ✓",
-      "ctaBadge": "En développement"
+      "ctaPlay": "Explorer le mode RPG"
     },
     "cvRows": [
       { "label": "Poste", "value": "Développeur full-stack" },
@@ -472,5 +472,132 @@
       { "id": "resultat", "label": "Résultat" }
     ],
     "tocCta": "Discutons-en"
+  },
+  "rpgGame": {
+    "movementHint": "Déplacement : flèches ou ZQSD/WASD",
+    "interactHint": "Entrée / Espace pour parler",
+    "advanceHint": "Entrée / Espace pour continuer",
+    "escapeHint": "Échap pour fermer un dialogue",
+    "mobileMovementHint": "Déplacement : D-pad tactile",
+    "mobileInteractHint": "Bouton A pour parler / continuer",
+    "mobileCancelHint": "Bouton B pour fermer un dialogue",
+    "introTitle": "Bourg Canevas",
+    "introLines": [
+      "Bienvenue ! Ce village illustre le parcours et les projets de YENTEC.",
+      "Déplacement : flèches ou ZQSD/WASD. Entrée/Espace pour parler, Échap pour fermer un dialogue.",
+      "Le son est coupé par défaut — active-le depuis l'icône en haut à droite."
+    ],
+    "introLinesMobile": [
+      "Bienvenue ! Ce village illustre le parcours et les projets de YENTEC.",
+      "Déplacement : D-pad tactile. Bouton A pour parler, bouton B pour fermer un dialogue.",
+      "Le son est coupé par défaut — active-le depuis l'icône en haut à droite."
+    ],
+    "skipIntro": "Passer",
+    "loadingLabel": "Chargement",
+    "enableSoundLabel": "Activer le son",
+    "disableSoundLabel": "Couper le son",
+    "classicModeLabel": "Mode classique",
+    "helpLabel": "Aide sur les contrôles",
+    "creditsLabel": "Assets : Kenney (CC0) — musique par Fablefly Music",
+    "dpad": {
+      "up": "Aller en haut",
+      "down": "Aller en bas",
+      "left": "Aller à gauche",
+      "right": "Aller à droite"
+    },
+    "actions": {
+      "interact": "Parler / continuer",
+      "cancel": "Fermer le dialogue"
+    },
+    "secrets": {
+      "grass": [
+        "Vous fouillez la touffe d'herbe.",
+        "Rien d'utile — ceci n'est pas un action-RPG à ramassage d'objets."
+      ],
+      "reflection": [
+        "Vous regardez votre reflet dans le bassin.",
+        "Un développeur plein de café vous regarde en retour."
+      ],
+      "shortcut": [
+        "Un passage discret sous les frondaisons.",
+        "Bravo d'avoir cherché : il ne mène nulle part, mais l'exploration a payé."
+      ],
+      "bigSign": [
+        "Le panneau indique : Bourg Canevas — Prochaine mise à jour : quand ce sera prêt.",
+        "Un développeur a écrit ça. Ça se voit."
+      ],
+      "littleSign": ["Merci de ne pas nourrir les bugs."],
+      "mailbox": [
+        "La boîte aux lettres déborde de tickets non résolus.",
+        "Vous décidez de ne pas y toucher."
+      ],
+      "houseDoor": [
+        "Vous frappez à la porte. Personne ne répond.",
+        "(Ce n'est qu'un décor, la maison n'a pas d'intérieur.)"
+      ],
+      "buildingDoor": [
+        "La porte du bâtiment est verrouillée.",
+        "Un post-it dit : « Revenir après le sprint. »"
+      ],
+      "mailbox2": [
+        "Une autre boîte aux lettres, tout aussi pleine.",
+        "Le point commun de tous les développeurs : une pile de mails jamais lus."
+      ],
+      "houseDoor2": [
+        "Cette porte-ci a une sonnette qui ne marche pas.",
+        "Certaines choses ne se testent jamais avant la mise en prod."
+      ],
+      "bigSign2": [
+        "Un second panneau, presque identique au premier.",
+        "Le village aussi a ses copier-coller."
+      ]
+    },
+    "dialogues": {
+      "guard": [
+        "Halte ! Cette barrière bloque la sortie — pas la peine d'insister.",
+        "Le village mérite d'être exploré avant de repartir. Les habitants n'attendent que ça.",
+        "Une fois la visite terminée, il y a peut-être un autre chemin pour ressortir… ou pas."
+      ],
+      "about": [
+        "Salut ! Je suis YENTEC, développeur web fullstack basé à Fréjus, dans le Var.",
+        "Diplômé d'un Bac+3/+4 (RNCP niveau 6), j'ai reconstruit un CRM SaaS complet en alternance — seul, du design à la prod.",
+        "Mon approche : comprendre le besoin avant la première ligne de code. La section À propos raconte tout ça."
+      ],
+      "services": [
+        "Je propose 4 types de missions : site vitrine, application métier, MVP/SaaS, et maintenance.",
+        "Toujours pensé pour le besoin réel — pas de complexité inutile, pas d'usine à gaz.",
+        "Le détail de chaque offre est dans la section Offres du site classique."
+      ],
+      "skills": [
+        "Front-end : React, Next.js, TypeScript, Vite, Tailwind, Framer Motion.",
+        "Back-end & data : Node.js, Fastify, Prisma, PostgreSQL, MySQL, Redis, BullMQ.",
+        "La section Compétences liste tout, avec les outils et la méthode en plus."
+      ],
+      "linkforge": [
+        "Moi, c'est LinkForge — une API de raccourcissement d'URL open-source.",
+        "Auth, clés d'API, suivi de clics anonymisé, analytics — pensée pour tenir la charge (Fastify, PostgreSQL, Redis).",
+        "Le code est public, et l'étude de cas complète est dans la section Projets."
+      ],
+      "feedbackflow": [
+        "FeedbackFlow, une plateforme open-source pour collecter et prioriser du feedback produit.",
+        "Une alternative à Canny : votes publics, roadmap, tableau de bord. Next.js 16 et TypeScript.",
+        "Code et étude de cas dans la section Projets du site classique."
+      ],
+      "projets-clients": [
+        "Je m'occupe aussi de projets clients — sites vitrines et outils métier sur mesure pour PME et indépendants.",
+        "Référencement naturel intégré dès la conception. Certains contenus restent confidentiels, mais des références sont dispo sur demande.",
+        "Contacte YENTEC pour en discuter — la section Contact est juste là."
+      ],
+      "yachts-studio": [
+        "Yachts-Studio, un CRM SaaS pour la gestion d'un parc de bateaux d'occasion.",
+        "Refonte complète : base MySQL, API Node.js/Express, interface React/Vite. Mené seul, de l'analyse à la prod.",
+        "Projet propriétaire — la section Projets en dit plus sur le contexte."
+      ],
+      "contact": [
+        "Un projet en tête ? Discutons-en simplement, sans jargon.",
+        "Je réponds rapidement, pour comprendre avant de proposer.",
+        "Le formulaire de contact est juste en dessous, sur le site classique."
+      ]
+    }
   }
 }

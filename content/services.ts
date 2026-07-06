@@ -1,15 +1,5 @@
 import type { Service } from "@/types";
 
-export const servicesHeader = {
-  title: "Mes offres, en détail.",
-  lead: "Du site vitrine à l'application sur mesure — toujours pensé pour votre besoin réel, sans complexité inutile.",
-  cta: {
-    title: "Un projet en tête ?",
-    text: "Parlons-en simplement. Je vous réponds rapidement, sans jargon — pour comprendre, puis proposer.",
-    button: "Discutons de votre projet",
-  },
-};
-
 export const services: Service[] = [
   {
     id: "vitrine",
