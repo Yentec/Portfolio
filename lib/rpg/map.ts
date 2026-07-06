@@ -83,6 +83,7 @@ const T = {
   BUILDINGWINDOW: 77,
   BUILDINGWINDOWT: 78,
   BUILDINGWINDOWB: 79,
+  CONSTRUCTIONBARRIER: 80,
 } as const;
 
 /** Tuiles qui bloquent le déplacement. */
@@ -129,6 +130,7 @@ const BLOCKING = new Set<number>([
   T.DARKROOFBM,
   T.DARKROOFBR,
   T.BUILDINGDOOR,
+  T.CONSTRUCTIONBARRIER,
 ]);
 
 /**
@@ -154,6 +156,7 @@ const OVERLAY = new Set<number>([
   T.MAILBOX,
   T.HOUSEDOOR,
   T.BUILDINGDOOR,
+  T.CONSTRUCTIONBARRIER,
 ]);
 
 /**
@@ -287,6 +290,7 @@ const GROUND_OVERRIDE: Record<string, number> = {
   // "9,12": T.PLAZA,   // exemple : plaza sous le coin haut-gauche du grand arbre
   "18,7": T.SIDEWALKML,
   "18,10": T.SIDEWALKMM,
+  "0,13": T.SIDEWALKMR,
 };
 
 /** Correspondance identifiant de tuile -> coordonnées dans l'atlas. */
@@ -371,12 +375,15 @@ export const TILE_ATLAS_LOOKUP: Record<number, { col: number; row: number }> = {
   [T.BUILDINGWINDOW]: TERRAIN_ATLAS.buildingWindow,
   [T.BUILDINGWINDOWT]: TERRAIN_ATLAS.buildingWindowT,
   [T.BUILDINGWINDOWB]: TERRAIN_ATLAS.buildingWindowB,
+  [T.CONSTRUCTIONBARRIER]: TERRAIN_ATLAS.constructionBarrier,
 };
 
 // Bourg Canevas — 24 colonnes x 22 lignes. Village bordé d'arbres, deux maisons
 // et un bâtiment reliés par des trottoirs autour d'une place centrale, un bassin.
+// Sortie nord (col 12-13) volontairement bloquée : PNJ Skills sur col12,
+// barrière (WOODENFENCEM) sur col13 — voir content/rpg/npcs.ts.
 const LAYOUT: number[][] = [
-  [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 22, 24, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+  [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 22, 80, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
   [5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 22, 24, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5],
   [5, 5, 19, 20, 20, 20, 20, 20, 20, 20, 20, 20, 31, 30, 20, 20, 20, 20, 20, 20, 21, 0, 5, 5],
   [5, 5, 22, 26, 26, 26, 26, 26, 26, 26, 29, 28, 26, 26, 26, 26, 26, 26, 26, 29, 24, 0, 5, 5],

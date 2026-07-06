@@ -144,6 +144,7 @@ export const TERRAIN_ATLAS = {
   buildingWindow: { col: 12, row: 17 },
   buildingWindowT: { col: 11, row: 16 },
   buildingWindowB: { col: 11, row: 17 },
+  constructionBarrier: { col: 6, row: 8 },
 } as const;
 
 /** Vecteurs de déplacement par direction (en tuiles). */
