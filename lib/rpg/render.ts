@@ -1,4 +1,11 @@
-import type { Direction, GameMap, GridPosition, NpcDefinition, NpcId, PlayerState } from "@/types/rpg";
+import type {
+  Direction,
+  GameMap,
+  GridPosition,
+  NpcDefinition,
+  NpcId,
+  PlayerState,
+} from "@/types/rpg";
 import {
   CHARACTER_VARIANT,
   CHAR_BASE_COL,
@@ -126,20 +133,27 @@ export function drawPlayer(
  * Dessine les PNJ à leur case fixe, avec une légère animation d'idle (voir
  * getNpcIdleState) — jamais de déplacement réel, la case ne change pas.
  * `activeNpc` : le PNJ actuellement en dialogue fait face au joueur au lieu
- * de suivre son cycle de rotation aléatoire.
+ * de suivre son cycle de rotation aléatoire. `reducedMotion` : désactive ce
+ * cycle pour tout le monde (animation non essentielle) — direction fixe "down".
  */
 export function drawNpcs(
   ctx: CanvasRenderingContext2D,
   atlas: HTMLImageElement,
   npcs: NpcDefinition[],
   now: number,
+  reducedMotion: boolean,
   activeNpc?: { id: NpcId; playerTile: GridPosition },
 ): void {
   for (const npc of npcs) {
     const state =
       activeNpc && npc.id === activeNpc.id
-        ? { direction: getDirectionToward(npc.position, activeNpc.playerTile), animFrame: IDLE_FRAME }
-        : getNpcIdleState(npc, now);
+        ? {
+            direction: getDirectionToward(npc.position, activeNpc.playerTile),
+            animFrame: IDLE_FRAME,
+          }
+        : reducedMotion
+          ? { direction: "down" as const, animFrame: IDLE_FRAME }
+          : getNpcIdleState(npc, now);
     drawCharacter(
       ctx,
       atlas,

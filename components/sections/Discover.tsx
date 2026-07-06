@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { cn } from "@/lib/cn";
+import { Link } from "@/i18n/navigation";
 import { Eyebrow } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
@@ -18,6 +19,23 @@ function DownloadIcon() {
       aria-hidden
     >
       <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4.25"
+      aria-hidden
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   );
 }
@@ -161,9 +179,12 @@ export async function Discover() {
               </div>
 
               <div className="relative mt-1.5 flex flex-wrap items-center gap-2.75">
-                <span className="w-full rounded-[8px] border border-dashed border-[rgba(234,241,247,0.3)] px-3 py-3.25 text-center font-mono text-[12px] tracking-widest text-[rgba(234,241,247,0.5)] uppercase">
-                  {t("rpg.ctaBadge")}
-                </span>
+                <Link href="/rpg" className="w-full">
+                  <Button className="w-full justify-center">
+                    {t("rpg.ctaPlay")}
+                    <ArrowIcon />
+                  </Button>
+                </Link>
               </div>
             </article>
           </Reveal>

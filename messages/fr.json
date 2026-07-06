@@ -193,7 +193,7 @@
       "sub": "Parcourez mon parcours et mes projets comme un petit monde à explorer. Même rigueur, beaucoup plus de jeu.",
       "ctaNotify": "Me prévenir au lancement",
       "ctaNotifyDone": "Vous serez prévenu ✓",
-      "ctaBadge": "En développement"
+      "ctaPlay": "Explorer le mode RPG"
     },
     "cvRows": [
       { "label": "Poste", "value": "Développeur full-stack" },
@@ -477,6 +477,10 @@
     "movementHint": "Déplacement : flèches ou ZQSD/WASD",
     "interactHint": "Entrée / Espace pour parler",
     "advanceHint": "Entrée / Espace pour continuer",
+    "escapeHint": "Échap pour fermer un dialogue",
+    "mobileMovementHint": "Déplacement : D-pad tactile",
+    "mobileInteractHint": "Bouton A pour parler / continuer",
+    "mobileCancelHint": "Bouton B pour fermer un dialogue",
     "introTitle": "Bourg Canevas",
     "introLines": [
       "Bienvenue ! Ce village illustre le parcours et les projets de YENTEC.",
@@ -486,6 +490,18 @@
     "skipIntro": "Passer",
     "enableSoundLabel": "Activer le son",
     "disableSoundLabel": "Couper le son",
+    "classicModeLabel": "Mode classique",
+    "helpLabel": "Aide sur les contrôles",
+    "dpad": {
+      "up": "Aller en haut",
+      "down": "Aller en bas",
+      "left": "Aller à gauche",
+      "right": "Aller à droite"
+    },
+    "actions": {
+      "interact": "Parler / continuer",
+      "cancel": "Fermer le dialogue"
+    },
     "dialogues": {
       "about": [
         "Salut ! Je suis YENTEC, développeur web fullstack basé à Fréjus, dans le Var.",

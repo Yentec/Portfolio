@@ -110,9 +110,10 @@ describe("messages — RPG dialogues", () => {
 
   it("every real project has a matching NPC in content/rpg/npcs.ts", () => {
     for (const p of projects) {
-      expect(npcIds, `project "${p.slug}" has no matching NPC — new project not wired up?`).toContain(
-        p.slug,
-      );
+      expect(
+        npcIds,
+        `project "${p.slug}" has no matching NPC — new project not wired up?`,
+      ).toContain(p.slug);
     }
   });
 });

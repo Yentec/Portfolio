@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { GameEngine } from "@/lib/rpg/engine";
 import { createTestMap, PLAYER_START } from "@/lib/rpg/map";
@@ -12,6 +12,7 @@ import { npcs } from "@/content/rpg/npcs";
 import { projects } from "@/content/projects";
 import { IntroSequence } from "@/components/rpg/IntroSequence";
 import { GameUI } from "@/components/rpg/GameUI";
+import { MobileControls } from "@/components/rpg/MobileControls";
 import { DialogueBox, type DialogueBoxHandle } from "@/components/rpg/DialogueBox";
 import type { NpcId } from "@/types/rpg";
 
@@ -52,6 +53,8 @@ export function GameCanvas() {
   const t = useTranslations("rpgGame");
   const dialogues = t.raw("dialogues") as Record<NpcId, string[]>;
   const introLines = t.raw("introLines") as string[];
+  const dpadLabels = t.raw("dpad") as Record<"up" | "down" | "left" | "right", string>;
+  const actionLabels = t.raw("actions") as { interact: string; cancel: string };
   const projectsT = useTranslations("projects");
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,12 +74,15 @@ export function GameCanvas() {
 
   // Précharge assets + audio en parallèle, crée le moteur et le gestionnaire
   // audio. Le AudioContext est créé tout de suite (autorisé sans geste), mais
-  // reste muet tant que le joueur n'a pas cliqué sur le bouton du HUD.
+  // reste muet tant que le joueur n'a pas cliqué sur le bouton du HUD. La
+  // préférence reduced-motion est lue une fois ici (désactive la rotation
+  // d'idle des PNJ) — pas besoin de la suivre en direct pour ce détail cosmétique.
   useEffect(() => {
     let cancelled = false;
     let engine: GameEngine | null = null;
     const audio = new AudioManager();
     audioRef.current = audio;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     Promise.all([preloadAssets(), audio.load()])
       .then(([assets]) => {
@@ -90,7 +96,15 @@ export function GameCanvas() {
         canvas.width = VIEWPORT_COLS * RENDERED_TILE;
         canvas.height = VIEWPORT_ROWS * RENDERED_TILE;
 
-        engine = new GameEngine(canvas, map, PLAYER_START, assets.tileset, npcs, audio);
+        engine = new GameEngine(
+          canvas,
+          map,
+          PLAYER_START,
+          assets.tileset,
+          npcs,
+          audio,
+          reducedMotion,
+        );
         engineRef.current = engine;
         engine.start();
         setAssetsReady(true);
@@ -136,31 +150,41 @@ export function GameCanvas() {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  // Touche d'interaction : ouvre un dialogue avec le PNJ à proximité, ou fait
-  // avancer celui déjà ouvert. Échap ferme un dialogue en cours à tout moment.
+  // Interagir : ouvre un dialogue avec le PNJ à proximité, ou fait avancer
+  // celui déjà ouvert. Partagé entre la touche clavier (Entrée/Espace) et le
+  // bouton A tactile.
+  const handleInteract = useCallback(() => {
+    if (dialogue.npcId) {
+      dialogueBoxRef.current?.advance();
+      return;
+    }
+    const npc = engineRef.current?.getNearbyNpc();
+    if (npc) {
+      dispatch({ type: "OPEN", npcId: npc.id });
+      audioRef.current?.playDialogueOpen();
+    }
+  }, [dialogue.npcId]);
+
+  // Annuler : ferme un dialogue en cours. Partagé entre Échap et le bouton B tactile.
+  const handleCancel = useCallback(() => {
+    if (dialogue.npcId) dispatch({ type: "CLOSE" });
+  }, [dialogue.npcId]);
+
   // Séparé des touches de mouvement (isGameKey), gérées par le moteur lui-même.
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.code === "Escape") {
-        if (dialogue.npcId) dispatch({ type: "CLOSE" });
+        handleCancel();
         return;
       }
       if (!isInteractKey(e.code) || e.repeat) return;
       e.preventDefault();
-      if (dialogue.npcId) {
-        dialogueBoxRef.current?.advance();
-        return;
-      }
-      const npc = engineRef.current?.getNearbyNpc();
-      if (npc) {
-        dispatch({ type: "OPEN", npcId: npc.id });
-        audioRef.current?.playDialogueOpen();
-      }
+      handleInteract();
     }
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [dialogue.npcId]);
+  }, [handleInteract, handleCancel]);
 
   // Le moteur suspend le mouvement du joueur et fait tourner le PNJ actif vers
   // lui tant qu'un dialogue est ouvert.
@@ -198,11 +222,16 @@ export function GameCanvas() {
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {/* Toujours monté, même pendant l'intro : le mute doit rester accessible. */}
+      {/* Toujours monté, même pendant l'intro : mode classique et mute doivent
+          rester accessibles à tout moment. */}
       <GameUI
         muted={muted}
         onToggleMute={handleToggleMute}
-        label={muted ? t("enableSoundLabel") : t("disableSoundLabel")}
+        muteLabel={muted ? t("enableSoundLabel") : t("disableSoundLabel")}
+        classicModeLabel={t("classicModeLabel")}
+        helpLabel={t("helpLabel")}
+        helpLines={[t("movementHint"), t("interactHint"), t("escapeHint")]}
+        mobileHelpLines={[t("mobileMovementHint"), t("mobileInteractHint"), t("mobileCancelHint")]}
       />
       {!ready && (
         <IntroSequence
@@ -225,6 +254,15 @@ export function GameCanvas() {
           style={{ imageRendering: "pixelated" }}
           aria-label="Carte du mode RPG"
         />
+        {ready && (
+          <MobileControls
+            dpadLabels={dpadLabels}
+            actionLabels={actionLabels}
+            onDirection={(dir) => engineRef.current?.setTouchDirection(dir)}
+            onInteract={handleInteract}
+            onCancel={handleCancel}
+          />
+        )}
         {lines && currentLine !== undefined && (
           <DialogueBox
             // Remonte à chaque ligne : réinitialise la machine à écrire sans effet de reset.

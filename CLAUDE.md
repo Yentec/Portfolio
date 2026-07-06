@@ -86,9 +86,9 @@ components/
 ├─ ui/       # Button, Badge, Section, SectionTitle
 ├─ motion/   # Reveal.tsx (wrapper Framer Motion)
 ├─ email/    # ContactEmail.ts
-└─ rpg/      # GameCanvas, DialogueBox, GameUI, MobileControls, IntroSequence, ModeTransition, LoadingScreen
+└─ rpg/      # GameCanvas, DialogueBox, GameUI, MobileControls, IntroSequence, ModeTransition
 content/     # projects.ts, skills.ts, services.ts, profile.ts  (données structurées typées)
-└─ rpg/      # npcs.ts (PNJ : position, sprite, dialogue), dialogues.ts (dérivés du contenu)
+└─ rpg/      # npcs.ts (PNJ : position, sprite, dialogue) ; dialogues écrits à la main dans messages/*.json (rpgGame.dialogues), vérifiés par un test anti-dérive
 messages/    # fr.json, en.json  (textes UI + projets + études de cas localisés)
 i18n/        # routing.ts (locales, localePrefix)
 lib/         # theme.tsx, env.ts, cn.ts, contact-schema.ts

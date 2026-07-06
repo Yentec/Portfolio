@@ -1,4 +1,4 @@
-import type { GameMap, NpcDefinition, NpcId } from "@/types/rpg";
+import type { Direction, GameMap, NpcDefinition, NpcId } from "@/types/rpg";
 import { InputState, isGameKey } from "@/lib/rpg/input";
 import { PlayerController } from "@/lib/rpg/player";
 import { setupContext, drawMap, drawPlayer, drawForeground, drawNpcs } from "@/lib/rpg/render";
@@ -16,6 +16,7 @@ export class GameEngine {
   private npcs: NpcDefinition[];
   private npcBlocking: Set<string>;
   private audio: AudioManager;
+  private reducedMotion: boolean;
 
   private rafId: number | null = null;
   private lastTime = 0;
@@ -43,6 +44,7 @@ export class GameEngine {
     atlas: HTMLImageElement,
     npcs: NpcDefinition[],
     audio: AudioManager,
+    reducedMotion: boolean,
   ) {
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("Canvas 2D context indisponible");
@@ -53,6 +55,7 @@ export class GameEngine {
     this.npcs = npcs;
     this.npcBlocking = npcBlockingTiles(npcs);
     this.audio = audio;
+    this.reducedMotion = reducedMotion;
     setupContext(ctx);
   }
 
@@ -80,9 +83,10 @@ export class GameEngine {
     this.rafId = requestAnimationFrame(this.tick);
   }
 
-  setTouchDirection(dir: Parameters<InputState["press"]>[0] | null): void {
+  /** Direction pressée depuis le D-pad tactile — contourne le mapping clavier (codes). */
+  setTouchDirection(dir: Direction | null): void {
     this.input.clear();
-    if (dir) this.input.press(dir);
+    if (dir) this.input.pressDirection(dir);
   }
 
   private readonly tick = (now: number): void => {
@@ -125,7 +129,7 @@ export class GameEngine {
 
     drawMap(this.ctx, this.map, this.atlas);
     drawPlayer(this.ctx, this.atlas, this.player.state);
-    drawNpcs(this.ctx, this.atlas, this.npcs, now, activeNpc);
+    drawNpcs(this.ctx, this.atlas, this.npcs, now, this.reducedMotion, activeNpc);
     drawForeground(this.ctx, this.map, this.atlas);
 
     this.ctx.restore();

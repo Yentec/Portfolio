@@ -20,16 +20,22 @@ export class InputState {
 
   press(code: string): void {
     const dir = KEY_MAP[code];
-    if (dir && !this.pressed.includes(dir)) {
-      this.pressed.push(dir);
-    }
+    if (dir) this.pressDirection(dir);
   }
 
   release(code: string): void {
     const dir = KEY_MAP[code];
-    if (dir) {
-      this.pressed = this.pressed.filter((d) => d !== dir);
-    }
+    if (dir) this.releaseDirection(dir);
+  }
+
+  /** Presse une direction directement (D-pad tactile), sans passer par un code clavier. */
+  pressDirection(dir: Direction): void {
+    if (!this.pressed.includes(dir)) this.pressed.push(dir);
+  }
+
+  /** Relâche une direction directement (D-pad tactile). */
+  releaseDirection(dir: Direction): void {
+    this.pressed = this.pressed.filter((d) => d !== dir);
   }
 
   /** Direction active (la plus récemment pressée), ou null. */
