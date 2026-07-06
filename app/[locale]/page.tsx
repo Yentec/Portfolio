@@ -32,7 +32,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               addressRegion: "Provence-Alpes-Côte d'Azur",
               addressCountry: "FR",
             },
-            sameAs: ["https://github.com/Yentec", "https://www.linkedin.com/in/yentec"],
+            sameAs: [
+              "https://github.com/Yentec",
+              "https://www.linkedin.com/in/yentec",
+              "https://www.google.com/maps/place/Yentec/@43.4259808,6.7563354,21z/data=!4m6!3m5!1s0x12ce97f3c03099cd:0xf69b26c05186533!8m2!3d43.4260473!4d6.7562997!16s%2Fg%2F11zcn94h2d",
+            ],
             knowsAbout: [
               "Next.js",
               "React",
@@ -77,7 +81,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             },
             priceRange: "€€",
             knowsLanguage: ["fr", "en"],
-            sameAs: ["https://github.com/Yentec", "https://www.linkedin.com/in/yentec"],
+            sameAs: [
+              "https://github.com/Yentec",
+              "https://www.linkedin.com/in/yentec",
+              "https://www.google.com/maps/place/Yentec/@43.4259808,6.7563354,21z/data=!4m6!3m5!1s0x12ce97f3c03099cd:0xf69b26c05186533!8m2!3d43.4260473!4d6.7562997!16s%2Fg%2F11zcn94h2d",
+            ],
           }),
         }}
       />
