@@ -135,6 +135,8 @@ export function drawPlayer(
  * `activeNpc` : le PNJ actuellement en dialogue fait face au joueur au lieu
  * de suivre son cycle de rotation aléatoire. `reducedMotion` : désactive ce
  * cycle pour tout le monde (animation non essentielle) — direction fixe "down".
+ * `npc.fixedDirection` : idem, mais pour un PNJ précis en toute circonstance
+ * (ex. "guard", sentinelle immobile) — reste prioritaire sur `reducedMotion`.
  */
 export function drawNpcs(
   ctx: CanvasRenderingContext2D,
@@ -151,9 +153,11 @@ export function drawNpcs(
             direction: getDirectionToward(npc.position, activeNpc.playerTile),
             animFrame: IDLE_FRAME,
           }
-        : reducedMotion
-          ? { direction: "down" as const, animFrame: IDLE_FRAME }
-          : getNpcIdleState(npc, now);
+        : npc.fixedDirection
+          ? { direction: npc.fixedDirection, animFrame: IDLE_FRAME }
+          : reducedMotion
+            ? { direction: "down" as const, animFrame: IDLE_FRAME }
+            : getNpcIdleState(npc, now);
     drawCharacter(
       ctx,
       atlas,
@@ -164,4 +168,51 @@ export function drawNpcs(
       npc.variant,
     );
   }
+}
+
+/**
+ * Mode ASCII — easter egg "debug view" : la carte, le joueur et les PNJ
+ * rendus en caractères plutôt qu'en pixel art (# mur, . sol franchissable,
+ * lettre = initiale du PNJ, @ = joueur). Réutilise `map.walkable`, déjà
+ * calculée, plutôt que de reclasser les tuiles.
+ */
+export function drawMapAscii(ctx: CanvasRenderingContext2D, map: GameMap): void {
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, map.cols * RENDERED_TILE, map.rows * RENDERED_TILE);
+  ctx.font = `${Math.round(RENDERED_TILE * 0.6)}px monospace`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#39d353";
+  for (let row = 0; row < map.rows; row++) {
+    for (let col = 0; col < map.cols; col++) {
+      const char = map.walkable[row]?.[col] ? "." : "#";
+      ctx.fillText(
+        char,
+        col * RENDERED_TILE + RENDERED_TILE / 2,
+        row * RENDERED_TILE + RENDERED_TILE / 2,
+      );
+    }
+  }
+}
+
+export function drawNpcsAscii(ctx: CanvasRenderingContext2D, npcs: NpcDefinition[]): void {
+  ctx.fillStyle = "#39d353";
+  ctx.font = `bold ${Math.round(RENDERED_TILE * 0.6)}px monospace`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  for (const npc of npcs) {
+    const cx = npc.position.col * RENDERED_TILE + RENDERED_TILE / 2;
+    const cy = npc.position.row * RENDERED_TILE + RENDERED_TILE / 2;
+    ctx.fillText(npc.id[0]?.toUpperCase() ?? "?", cx, cy);
+  }
+}
+
+export function drawPlayerAscii(ctx: CanvasRenderingContext2D, player: PlayerState): void {
+  ctx.fillStyle = "#ffffff";
+  ctx.font = `bold ${Math.round(RENDERED_TILE * 0.6)}px monospace`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  const cx = (player.position.x + TILE_SIZE / 2) * RENDER_SCALE;
+  const cy = (player.position.y + TILE_SIZE / 2) * RENDER_SCALE;
+  ctx.fillText("@", cx, cy);
 }

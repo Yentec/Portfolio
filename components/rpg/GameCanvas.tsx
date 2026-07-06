@@ -7,14 +7,16 @@ import { createTestMap, PLAYER_START } from "@/lib/rpg/map";
 import { RENDERED_TILE, VIEWPORT_COLS, VIEWPORT_ROWS } from "@/lib/rpg/constants";
 import { preloadAssets } from "@/lib/rpg/assets";
 import { AudioManager } from "@/lib/rpg/audio";
-import { isInteractKey } from "@/lib/rpg/input";
+import { codeToDirection, isInteractKey } from "@/lib/rpg/input";
 import { npcs } from "@/content/rpg/npcs";
+import { secrets } from "@/content/rpg/secrets";
 import { projects } from "@/content/projects";
 import { IntroSequence } from "@/components/rpg/IntroSequence";
 import { GameUI } from "@/components/rpg/GameUI";
+import { LocationBanner } from "@/components/rpg/LocationBanner";
 import { MobileControls } from "@/components/rpg/MobileControls";
 import { DialogueBox, type DialogueBoxHandle } from "@/components/rpg/DialogueBox";
-import type { NpcId } from "@/types/rpg";
+import type { NpcId, SecretId } from "@/types/rpg";
 
 /** Budget vertical laissé au canvas — le reste va au padding et au texte d'aide sous le jeu. */
 const MAX_VIEWPORT_HEIGHT_VH = 90;
@@ -22,23 +24,37 @@ const ASPECT_RATIO = VIEWPORT_COLS / VIEWPORT_ROWS;
 /** Durée minimale d'affichage de l'intro, même si les assets chargent plus vite. */
 const MIN_INTRO_MS = 10000;
 
+/**
+ * Konami code — easter egg palette alternative (issue "easter eggs and polish").
+ * Vocabulaire normalisé partagé par les 3 méthodes de saisie : flèches/WASD/ZQSD
+ * ET D-pad tactile émettent "up"/"down"/"left"/"right" (Direction), touches B/A
+ * clavier ET boutons B/A tactiles émettent "b"/"a". Les lettres sont comparées
+ * sur `e.key` (caractère tapé), pas `e.code` (position physique QWERTY) : sur
+ * clavier AZERTY, la touche imprimée "A" envoie `code: "KeyQ"`, donc comparer
+ * sur `code` ne matcherait jamais.
+ */
+const KONAMI_SEQUENCE = ["up", "up", "down", "down", "left", "right", "left", "right", "b", "a"];
+
 type DisplaySize = { width: number; height: number };
 
-type DialogueState = { npcId: NpcId | null; lineIndex: number };
+type DialogueState = { npcId: NpcId | null; secretId: SecretId | null; lineIndex: number };
 
 type DialogueAction =
-  | { type: "OPEN"; npcId: NpcId }
+  | { type: "OPEN_NPC"; npcId: NpcId }
+  | { type: "OPEN_SECRET"; secretId: SecretId }
   | { type: "ADVANCE"; totalLines: number }
   | { type: "CLOSE" };
 
-const CLOSED_DIALOGUE: DialogueState = { npcId: null, lineIndex: 0 };
+const CLOSED_DIALOGUE: DialogueState = { npcId: null, secretId: null, lineIndex: 0 };
 
 function dialogueReducer(state: DialogueState, action: DialogueAction): DialogueState {
   switch (action.type) {
-    case "OPEN":
-      return { npcId: action.npcId, lineIndex: 0 };
+    case "OPEN_NPC":
+      return { npcId: action.npcId, secretId: null, lineIndex: 0 };
+    case "OPEN_SECRET":
+      return { npcId: null, secretId: action.secretId, lineIndex: 0 };
     case "ADVANCE": {
-      if (!state.npcId) return state;
+      if (!state.npcId && !state.secretId) return state;
       const next = state.lineIndex + 1;
       return next >= action.totalLines ? CLOSED_DIALOGUE : { ...state, lineIndex: next };
     }
@@ -52,7 +68,9 @@ function dialogueReducer(state: DialogueState, action: DialogueAction): Dialogue
 export function GameCanvas() {
   const t = useTranslations("rpgGame");
   const dialogues = t.raw("dialogues") as Record<NpcId, string[]>;
+  const secretLines = t.raw("secrets") as Record<SecretId, string[]>;
   const introLines = t.raw("introLines") as string[];
+  const introLinesMobile = t.raw("introLinesMobile") as string[];
   const dpadLabels = t.raw("dpad") as Record<"up" | "down" | "left" | "right", string>;
   const actionLabels = t.raw("actions") as { interact: string; cancel: string };
   const projectsT = useTranslations("projects");
@@ -102,6 +120,7 @@ export function GameCanvas() {
           PLAYER_START,
           assets.tileset,
           npcs,
+          secrets,
           audio,
           reducedMotion,
         );
@@ -150,47 +169,107 @@ export function GameCanvas() {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  // Interagir : ouvre un dialogue avec le PNJ à proximité, ou fait avancer
-  // celui déjà ouvert. Partagé entre la touche clavier (Entrée/Espace) et le
-  // bouton A tactile.
+  // Interagir : ouvre un dialogue avec le PNJ à proximité, avance celui déjà
+  // ouvert, ou révèle un easter egg positionnel (content/rpg/secrets.ts) si le
+  // joueur se tient dessus. Partagé entre la touche clavier (Entrée/Espace) et
+  // le bouton A tactile.
   const handleInteract = useCallback(() => {
-    if (dialogue.npcId) {
+    if (dialogue.npcId || dialogue.secretId) {
       dialogueBoxRef.current?.advance();
       return;
     }
     const npc = engineRef.current?.getNearbyNpc();
     if (npc) {
-      dispatch({ type: "OPEN", npcId: npc.id });
+      dispatch({ type: "OPEN_NPC", npcId: npc.id });
+      audioRef.current?.playDialogueOpen();
+      return;
+    }
+    const secret = engineRef.current?.getNearbySecret();
+    if (secret) {
+      dispatch({ type: "OPEN_SECRET", secretId: secret.id });
       audioRef.current?.playDialogueOpen();
     }
-  }, [dialogue.npcId]);
+  }, [dialogue.npcId, dialogue.secretId]);
 
   // Annuler : ferme un dialogue en cours. Partagé entre Échap et le bouton B tactile.
   const handleCancel = useCallback(() => {
-    if (dialogue.npcId) dispatch({ type: "CLOSE" });
-  }, [dialogue.npcId]);
+    if (dialogue.npcId || dialogue.secretId) dispatch({ type: "CLOSE" });
+  }, [dialogue.npcId, dialogue.secretId]);
+
+  // Easter eggs (issue "easter eggs and polish") : `~` bascule le rendu ASCII
+  // (mode debug factice), le Konami code bascule une palette alternative via
+  // filtre CSS sur le canvas — aucun des deux n'est documenté dans l'UI.
+  const [altPalette, setAltPalette] = useState(false);
+  const konamiBufferRef = useRef<string[]>([]);
+
+  // Partagé par le clavier (flèches/WASD/ZQSD/Échap/Entrée-Espace/B/A) et les
+  // boutons tactiles (D-pad, A/B) : chaque méthode pousse le même vocabulaire
+  // normalisé (voir KONAMI_SEQUENCE). Déclaré avant les effets qui l'utilisent.
+  const pushKonamiToken = useCallback((token: string) => {
+    const buffer = [...konamiBufferRef.current, token].slice(-KONAMI_SEQUENCE.length);
+    konamiBufferRef.current = buffer;
+    if (
+      buffer.length === KONAMI_SEQUENCE.length &&
+      buffer.every((c, i) => c === KONAMI_SEQUENCE[i])
+    ) {
+      setAltPalette((v) => !v);
+      konamiBufferRef.current = [];
+    }
+  }, []);
 
   // Séparé des touches de mouvement (isGameKey), gérées par le moteur lui-même.
+  // Pousse aussi "b"/"a" dans le buffer Konami : Échap et Entrée/Espace sont
+  // les équivalents desktop des boutons tactiles B/A.
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.code === "Escape") {
         handleCancel();
+        if (!e.repeat) pushKonamiToken("b");
         return;
       }
       if (!isInteractKey(e.code) || e.repeat) return;
       e.preventDefault();
       handleInteract();
+      pushKonamiToken("a");
     }
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [handleInteract, handleCancel]);
+  }, [handleInteract, handleCancel, pushKonamiToken]);
 
-  // Le moteur suspend le mouvement du joueur et fait tourner le PNJ actif vers
-  // lui tant qu'un dialogue est ouvert.
+  // Le moteur fait tourner le PNJ actif vers le joueur (dialogue PNJ), et
+  // suspend le mouvement tant qu'un dialogue est ouvert (PNJ ou secret).
   useEffect(() => {
     engineRef.current?.setActiveNpc(dialogue.npcId);
   }, [dialogue.npcId]);
+
+  useEffect(() => {
+    engineRef.current?.setDialogueOpen(Boolean(dialogue.npcId || dialogue.secretId));
+  }, [dialogue.npcId, dialogue.secretId]);
+
+  // Bascule ASCII (`~`) et suivi du Konami côté flèches/WASD/ZQSD — Échap et
+  // Entrée/Espace sont déjà poussés par l'effet précédent, à ne pas repousser ici.
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.repeat) return; // ignore l'auto-répétition d'une touche maintenue
+      if (e.code === "Backquote") {
+        engineRef.current?.toggleAsciiMode();
+        return;
+      }
+      // Déjà poussés (b/a) par l'effet interagir/annuler ci-dessus : Espace a
+      // `e.key === " "` (longueur 1), il serait sinon poussé une seconde fois.
+      if (e.code === "Escape" || isInteractKey(e.code)) return;
+      const dir = codeToDirection(e.code);
+      if (dir) {
+        pushKonamiToken(dir);
+        return;
+      }
+      if (e.key.length === 1) pushKonamiToken(e.key.toLowerCase());
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [pushKonamiToken]);
 
   function handleToggleMute() {
     if (muted) {
@@ -210,7 +289,11 @@ export function GameCanvas() {
     );
   }
 
-  const lines = dialogue.npcId ? dialogues[dialogue.npcId] : null;
+  const lines = dialogue.npcId
+    ? dialogues[dialogue.npcId]
+    : dialogue.secretId
+      ? secretLines[dialogue.secretId]
+      : null;
   const currentLine = lines?.[dialogue.lineIndex];
 
   // PNJ projet avec étude de cas publiée uniquement (LinkForge, FeedbackFlow) :
@@ -237,6 +320,9 @@ export function GameCanvas() {
         <IntroSequence
           title={t("introTitle")}
           lines={introLines}
+          mobileLines={introLinesMobile}
+          assetsReady={assetsReady}
+          loadingLabel={t("loadingLabel")}
           skipLabel={t("skipIntro")}
           onSkip={() => setIntroDone(true)}
         />
@@ -251,22 +337,37 @@ export function GameCanvas() {
         <canvas
           ref={canvasRef}
           className="border-line block size-full rounded-lg border"
-          style={{ imageRendering: "pixelated" }}
+          style={{
+            imageRendering: "pixelated",
+            filter: altPalette ? "hue-rotate(180deg) saturate(1.5)" : undefined,
+          }}
           aria-label="Carte du mode RPG"
         />
+        {/* Nom du lieu à l'arrivée (mécanique RPG classique) : monte une seule
+            fois au passage à `ready`, se dissipe seule en interne. */}
+        {ready && <LocationBanner name={t("introTitle")} />}
         {ready && (
           <MobileControls
             dpadLabels={dpadLabels}
             actionLabels={actionLabels}
-            onDirection={(dir) => engineRef.current?.setTouchDirection(dir)}
-            onInteract={handleInteract}
-            onCancel={handleCancel}
+            onDirection={(dir) => {
+              engineRef.current?.setTouchDirection(dir);
+              if (dir) pushKonamiToken(dir);
+            }}
+            onInteract={() => {
+              handleInteract();
+              pushKonamiToken("a");
+            }}
+            onCancel={() => {
+              handleCancel();
+              pushKonamiToken("b");
+            }}
           />
         )}
         {lines && currentLine !== undefined && (
           <DialogueBox
             // Remonte à chaque ligne : réinitialise la machine à écrire sans effet de reset.
-            key={`${dialogue.npcId}-${dialogue.lineIndex}`}
+            key={`${dialogue.npcId ?? dialogue.secretId}-${dialogue.lineIndex}`}
             ref={dialogueBoxRef}
             text={currentLine}
             advanceHint={t("advanceHint")}

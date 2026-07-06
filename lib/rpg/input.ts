@@ -53,6 +53,11 @@ export function isGameKey(code: string): boolean {
   return code in KEY_MAP;
 }
 
+/** Direction correspondant à un code de mouvement (flèches ou WASD/ZQSD), ou undefined. */
+export function codeToDirection(code: string): Direction | undefined {
+  return KEY_MAP[code];
+}
+
 /** Touches d'interaction (parler / avancer le dialogue) — distinctes du mouvement. */
 const INTERACT_KEYS = new Set(["Enter", "Space"]);
 

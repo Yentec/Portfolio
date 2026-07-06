@@ -81,7 +81,7 @@ describe("messages — case study content", () => {
 
 describe("messages — RPG dialogues", () => {
   const npcIds = npcs.map((n) => n.id);
-  const sectionNpcIds = new Set(["about", "services", "skills", "contact"]);
+  const sectionNpcIds = new Set(["about", "services", "skills", "contact", "guard"]);
   const projectNpcIds = npcIds.filter((id) => !sectionNpcIds.has(id));
 
   for (const { name, messages } of locales) {

@@ -1,10 +1,20 @@
-import type { Direction, GameMap, NpcDefinition, NpcId } from "@/types/rpg";
+import type { Direction, GameMap, NpcDefinition, NpcId, SecretDefinition } from "@/types/rpg";
 import { InputState, isGameKey } from "@/lib/rpg/input";
 import { PlayerController } from "@/lib/rpg/player";
-import { setupContext, drawMap, drawPlayer, drawForeground, drawNpcs } from "@/lib/rpg/render";
+import {
+  setupContext,
+  drawMap,
+  drawPlayer,
+  drawForeground,
+  drawNpcs,
+  drawMapAscii,
+  drawNpcsAscii,
+  drawPlayerAscii,
+} from "@/lib/rpg/render";
 import { computeCamera } from "@/lib/rpg/camera";
 import { RENDER_SCALE } from "@/lib/rpg/constants";
 import { findNearbyNpc, npcBlockingTiles, toTile } from "@/lib/rpg/npc";
+import { findNearbySecret } from "@/lib/rpg/secrets";
 import type { AudioManager } from "@/lib/rpg/audio";
 
 export class GameEngine {
@@ -15,6 +25,7 @@ export class GameEngine {
   private player: PlayerController;
   private npcs: NpcDefinition[];
   private npcBlocking: Set<string>;
+  private secrets: SecretDefinition[];
   private audio: AudioManager;
   private reducedMotion: boolean;
 
@@ -23,6 +34,10 @@ export class GameEngine {
   private running = false;
   /** PNJ en dialogue avec le joueur : mouvement suspendu, ce PNJ fait face au joueur. */
   private activeNpcId: NpcId | null = null;
+  /** Vrai dès qu'un dialogue (PNJ ou secret) est ouvert : suspend le mouvement du joueur. */
+  private dialogueOpen = false;
+  /** Easter egg "debug view" : rendu ASCII au lieu du pixel art (touche ~). */
+  private asciiMode = false;
 
   private readonly onKeyDown = (e: KeyboardEvent): void => {
     if (isGameKey(e.code)) {
@@ -43,6 +58,7 @@ export class GameEngine {
     start: { col: number; row: number },
     atlas: HTMLImageElement,
     npcs: NpcDefinition[],
+    secrets: SecretDefinition[],
     audio: AudioManager,
     reducedMotion: boolean,
   ) {
@@ -54,23 +70,40 @@ export class GameEngine {
     this.player = new PlayerController(start.col, start.row);
     this.npcs = npcs;
     this.npcBlocking = npcBlockingTiles(npcs);
+    this.secrets = secrets;
     this.audio = audio;
     this.reducedMotion = reducedMotion;
     setupContext(ctx);
   }
 
-  /** PNJ orthogonalement adjacent au joueur, ou null — pour l'interaction. */
+  /** PNJ que le joueur regarde de face, à une case de distance, ou null — pour l'interaction. */
   getNearbyNpc(): NpcDefinition | null {
     return findNearbyNpc(this.npcs, this.player.state);
   }
 
+  /** Easter egg à portée (sur la case du joueur, ou celle qu'il regarde), ou null. */
+  getNearbySecret(): SecretDefinition | null {
+    return findNearbySecret(this.secrets, this.player.state);
+  }
+
   /**
-   * PNJ actuellement en dialogue (ou null si aucun) : suspend le mouvement du
-   * joueur et fait tourner ce PNJ vers lui au lieu de son cycle idle aléatoire.
+   * PNJ actuellement en dialogue (ou null si aucun) : fait tourner ce PNJ vers
+   * le joueur au lieu de son cycle idle aléatoire. Le mouvement, lui, est
+   * suspendu via setDialogueOpen (PNJ ou secret, cf. plus bas).
    */
   setActiveNpc(npcId: NpcId | null): void {
     this.activeNpcId = npcId;
-    if (npcId) this.input.clear();
+  }
+
+  /** Suspend le mouvement du joueur tant qu'un dialogue (PNJ ou secret) est ouvert. */
+  setDialogueOpen(open: boolean): void {
+    this.dialogueOpen = open;
+    if (open) this.input.clear();
+  }
+
+  /** Easter egg "debug view" (touche ~) : bascule entre pixel art et rendu ASCII. */
+  toggleAsciiMode(): void {
+    this.asciiMode = !this.asciiMode;
   }
 
   start(): void {
@@ -97,7 +130,7 @@ export class GameEngine {
 
     this.player.update(
       this.map,
-      this.activeNpcId ? null : this.input.current(),
+      this.dialogueOpen ? null : this.input.current(),
       dtMs,
       this.npcBlocking,
     );
@@ -123,14 +156,20 @@ export class GameEngine {
     this.ctx.save();
     this.ctx.translate(-offsetX, -offsetY);
 
-    const activeNpc = this.activeNpcId
-      ? { id: this.activeNpcId, playerTile: toTile(this.player.state.position) }
-      : undefined;
+    if (this.asciiMode) {
+      drawMapAscii(this.ctx, this.map);
+      drawNpcsAscii(this.ctx, this.npcs);
+      drawPlayerAscii(this.ctx, this.player.state);
+    } else {
+      const activeNpc = this.activeNpcId
+        ? { id: this.activeNpcId, playerTile: toTile(this.player.state.position) }
+        : undefined;
 
-    drawMap(this.ctx, this.map, this.atlas);
-    drawPlayer(this.ctx, this.atlas, this.player.state);
-    drawNpcs(this.ctx, this.atlas, this.npcs, now, this.reducedMotion, activeNpc);
-    drawForeground(this.ctx, this.map, this.atlas);
+      drawMap(this.ctx, this.map, this.atlas);
+      drawPlayer(this.ctx, this.atlas, this.player.state);
+      drawNpcs(this.ctx, this.atlas, this.npcs, now, this.reducedMotion, activeNpc);
+      drawForeground(this.ctx, this.map, this.atlas);
+    }
 
     this.ctx.restore();
 

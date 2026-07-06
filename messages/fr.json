@@ -484,10 +484,16 @@
     "introTitle": "Bourg Canevas",
     "introLines": [
       "Bienvenue ! Ce village illustre le parcours et les projets de YENTEC.",
-      "Déplacement : flèches ou ZQSD/WASD. Entrée ou Espace pour parler aux habitants.",
+      "Déplacement : flèches ou ZQSD/WASD. Entrée/Espace pour parler, Échap pour fermer un dialogue.",
+      "Le son est coupé par défaut — active-le depuis l'icône en haut à droite."
+    ],
+    "introLinesMobile": [
+      "Bienvenue ! Ce village illustre le parcours et les projets de YENTEC.",
+      "Déplacement : D-pad tactile. Bouton A pour parler, bouton B pour fermer un dialogue.",
       "Le son est coupé par défaut — active-le depuis l'icône en haut à droite."
     ],
     "skipIntro": "Passer",
+    "loadingLabel": "Chargement",
     "enableSoundLabel": "Activer le son",
     "disableSoundLabel": "Couper le son",
     "classicModeLabel": "Mode classique",
@@ -502,7 +508,55 @@
       "interact": "Parler / continuer",
       "cancel": "Fermer le dialogue"
     },
+    "secrets": {
+      "grass": [
+        "Vous fouillez la touffe d'herbe.",
+        "Rien d'utile — ceci n'est pas un action-RPG à ramassage d'objets."
+      ],
+      "reflection": [
+        "Vous regardez votre reflet dans le bassin.",
+        "Un développeur plein de café vous regarde en retour."
+      ],
+      "shortcut": [
+        "Un passage discret sous les frondaisons.",
+        "Bravo d'avoir cherché : il ne mène nulle part, mais l'exploration a payé."
+      ],
+      "bigSign": [
+        "Le panneau indique : Bourg Canevas — Prochaine mise à jour : quand ce sera prêt.",
+        "Un développeur a écrit ça. Ça se voit."
+      ],
+      "littleSign": ["Merci de ne pas nourrir les bugs."],
+      "mailbox": [
+        "La boîte aux lettres déborde de tickets non résolus.",
+        "Vous décidez de ne pas y toucher."
+      ],
+      "houseDoor": [
+        "Vous frappez à la porte. Personne ne répond.",
+        "(Ce n'est qu'un décor, la maison n'a pas d'intérieur.)"
+      ],
+      "buildingDoor": [
+        "La porte du bâtiment est verrouillée.",
+        "Un post-it dit : « Revenir après le sprint. »"
+      ],
+      "mailbox2": [
+        "Une autre boîte aux lettres, tout aussi pleine.",
+        "Le point commun de tous les développeurs : une pile de mails jamais lus."
+      ],
+      "houseDoor2": [
+        "Cette porte-ci a une sonnette qui ne marche pas.",
+        "Certaines choses ne se testent jamais avant la mise en prod."
+      ],
+      "bigSign2": [
+        "Un second panneau, presque identique au premier.",
+        "Le village aussi a ses copier-coller."
+      ]
+    },
     "dialogues": {
+      "guard": [
+        "Halte ! Cette barrière bloque la sortie — pas la peine d'insister.",
+        "Le village mérite d'être exploré avant de repartir. Les habitants n'attendent que ça.",
+        "Une fois la visite terminée, il y a peut-être un autre chemin pour ressortir… ou pas."
+      ],
       "about": [
         "Salut ! Je suis YENTEC, développeur web fullstack basé à Fréjus, dans le Var.",
         "Diplômé d'un Bac+3/+4 (RNCP niveau 6), j'ai reconstruit un CRM SaaS complet en alternance — seul, du design à la prod.",

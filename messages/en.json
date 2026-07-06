@@ -479,10 +479,16 @@
     "introTitle": "Canvas Town",
     "introLines": [
       "Welcome! This village walks you through YENTEC's background and projects.",
-      "Move with arrow keys or WASD. Enter or Space to talk to the townsfolk.",
+      "Move with arrow keys or WASD. Enter/Space to talk, Escape to close a dialogue.",
+      "Sound is off by default — turn it on from the icon in the top-right corner."
+    ],
+    "introLinesMobile": [
+      "Welcome! This village walks you through YENTEC's background and projects.",
+      "Move with the on-screen D-pad. A button to talk, B button to close a dialogue.",
       "Sound is off by default — turn it on from the icon in the top-right corner."
     ],
     "skipIntro": "Skip",
+    "loadingLabel": "Loading",
     "enableSoundLabel": "Enable sound",
     "disableSoundLabel": "Mute sound",
     "classicModeLabel": "Classic Mode",
@@ -497,7 +503,55 @@
       "interact": "Talk / continue",
       "cancel": "Close dialogue"
     },
+    "secrets": {
+      "grass": [
+        "You search the patch of grass.",
+        "Nothing useful — this isn't a loot-grinding action-RPG."
+      ],
+      "reflection": [
+        "You catch your reflection in the pond.",
+        "A caffeine-fuelled developer stares back."
+      ],
+      "shortcut": [
+        "A quiet gap beneath the tree canopy.",
+        "Nice find — it leads nowhere, but the exploring paid off."
+      ],
+      "bigSign": [
+        "The sign reads: Canvas Town — Next update: whenever it's ready.",
+        "A developer clearly wrote this."
+      ],
+      "littleSign": ["Please do not feed the bugs."],
+      "mailbox": [
+        "The mailbox is overflowing with unresolved tickets.",
+        "You decide not to touch it."
+      ],
+      "houseDoor": [
+        "You knock on the door. No one answers.",
+        "(It's just a facade — the house has no interior.)"
+      ],
+      "buildingDoor": [
+        "The building door is locked.",
+        "A sticky note reads: \"Back after the sprint.\""
+      ],
+      "mailbox2": [
+        "Another mailbox, just as full.",
+        "The one thing all developers have in common: a pile of unread emails."
+      ],
+      "houseDoor2": [
+        "This one has a doorbell that doesn't work.",
+        "Some things never get tested before shipping to prod."
+      ],
+      "bigSign2": [
+        "A second sign, almost identical to the first.",
+        "Even the village has its share of copy-paste."
+      ]
+    },
     "dialogues": {
+      "guard": [
+        "Hold on! That fence blocks the way out — no point pushing.",
+        "The village deserves a proper visit before heading back. The locals are waiting.",
+        "Once you're done exploring, there might be another way out… or not."
+      ],
       "about": [
         "Hi! I'm YENTEC, a fullstack web developer based in Fréjus, France.",
         "Bachelor's-to-Master's level graduate (RNCP level 6) — I rebuilt a full SaaS CRM from scratch during my apprenticeship, alone, from design to production.",

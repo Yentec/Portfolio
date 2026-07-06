@@ -39,6 +39,8 @@ export type GameMap = {
 /**
  * Identifiant d'un PNJ = section du portfolio qu'il représente. Un PNJ par
  * projet réel (slugs de content/projects.ts) plutôt qu'un unique PNJ "projects".
+ * Exception : "guard", PNJ purement narratif (polish "easter eggs and polish",
+ * bloque la sortie nord) — ne représente aucune section, pas de lien projet.
  */
 export type NpcId =
   | "about"
@@ -48,7 +50,8 @@ export type NpcId =
   | "feedbackflow"
   | "projets-clients"
   | "yachts-studio"
-  | "contact";
+  | "contact"
+  | "guard";
 
 /** Données structurelles d'un PNJ (le texte de dialogue vit dans messages/, pas ici). */
 export type NpcDefinition = {
@@ -57,4 +60,26 @@ export type NpcDefinition = {
   position: GridPosition;
   /** Index de variante dans le bloc personnage de l'atlas (voir CHARACTER_VARIANT). */
   variant: number;
+  /** Si défini, ignore le cycle idle aléatoire — direction toujours fixée à cette valeur. */
+  fixedDirection?: Direction;
+};
+
+/** Identifiant d'un easter egg positionnel (texte dans messages/ sous rpgGame.secrets). */
+export type SecretId =
+  | "grass"
+  | "reflection"
+  | "shortcut"
+  | "bigSign"
+  | "littleSign"
+  | "mailbox"
+  | "houseDoor"
+  | "buildingDoor"
+  | "mailbox2"
+  | "houseDoor2"
+  | "bigSign2";
+
+/** Point d'interaction caché : même mécanique qu'un PNJ (case + texte), sans sprite ni collision. */
+export type SecretDefinition = {
+  id: SecretId;
+  position: GridPosition;
 };
