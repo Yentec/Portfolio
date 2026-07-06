@@ -1,20 +1,26 @@
 import type { Direction, GridPosition, NpcDefinition, PlayerState } from "@/types/rpg";
-import { IDLE_FRAME, TILE_SIZE } from "@/lib/rpg/constants";
+import { DIRECTION_DELTA, IDLE_FRAME, TILE_SIZE } from "@/lib/rpg/constants";
 
 /** Position en tuiles déduite d'une position pixel (jamais fractionnaire au repos). */
 export function toTile(position: { x: number; y: number }): GridPosition {
   return { col: Math.round(position.x / TILE_SIZE), row: Math.round(position.y / TILE_SIZE) };
 }
 
-/** PNJ dont la case est orthogonalement adjacente à celle du joueur (portée d'interaction). */
-export function findNearbyNpc(npcs: NpcDefinition[], player: PlayerState): NpcDefinition | null {
+/** Case immédiatement devant le joueur, dans la direction qu'il regarde. */
+export function tileInFrontOf(player: PlayerState): GridPosition {
   const tile = toTile(player.position);
+  const delta = DIRECTION_DELTA[player.direction];
+  return { col: tile.col + delta.col, row: tile.row + delta.row };
+}
+
+/**
+ * PNJ que le joueur regarde de face, à une case de distance — pas simplement
+ * adjacent : interagir exige d'être tourné vers le PNJ, pas juste à côté.
+ */
+export function findNearbyNpc(npcs: NpcDefinition[], player: PlayerState): NpcDefinition | null {
+  const facing = tileInFrontOf(player);
   return (
-    npcs.find((npc) => {
-      const dc = Math.abs(npc.position.col - tile.col);
-      const dr = Math.abs(npc.position.row - tile.row);
-      return dc + dr === 1;
-    }) ?? null
+    npcs.find((npc) => npc.position.col === facing.col && npc.position.row === facing.row) ?? null
   );
 }
 
