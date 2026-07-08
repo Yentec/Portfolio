@@ -40,7 +40,10 @@ export class InputState {
 
   /** Direction active (la plus récemment pressée), ou null. */
   current(): Direction | null {
-    return this.pressed.at(-1) ?? null;
+    // `.at(-1)` (ES2022) plante silencieusement le premier tick sur les
+    // navigateurs plus anciens (pas de polyfill runtime pour les méthodes
+    // Array) — équivalent par index, supporté partout.
+    return this.pressed[this.pressed.length - 1] ?? null;
   }
 
   clear(): void {
