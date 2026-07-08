@@ -474,6 +474,7 @@
     "tocCta": "Discutons-en"
   },
   "rpgGame": {
+    "loadError": "Impossible de charger le mode RPG. Réessaie plus tard.",
     "movementHint": "Déplacement : flèches ou ZQSD/WASD",
     "interactHint": "Entrée / Espace pour parler",
     "advanceHint": "Entrée / Espace pour continuer",
