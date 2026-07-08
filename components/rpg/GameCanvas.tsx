@@ -284,7 +284,7 @@ export function GameCanvas() {
   if (error) {
     return (
       <p role="alert" className="text-[14px] text-red-600 dark:text-red-400">
-        Impossible de charger le mode RPG. Réessaie plus tard.
+        {t("loadError")}
       </p>
     );
   }

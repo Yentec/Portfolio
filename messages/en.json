@@ -469,6 +469,7 @@
     "tocCta": "Let's talk"
   },
   "rpgGame": {
+    "loadError": "Unable to load RPG mode. Please try again later.",
     "movementHint": "Move: arrow keys or WASD",
     "interactHint": "Enter / Space to talk",
     "advanceHint": "Enter / Space to continue",
