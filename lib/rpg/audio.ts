@@ -1,6 +1,6 @@
-const MUSIC_SRC = "/rpg/audio/music-theme.ogg";
-const FOOTSTEP_SRC = "/rpg/audio/sfx-footstep.ogg";
-const DIALOGUE_OPEN_SRC = "/rpg/audio/sfx-dialogue-open.ogg";
+const MUSIC_SRC = "/rpg/audio/music-theme.mp3";
+const FOOTSTEP_SRC = "/rpg/audio/sfx-footstep.mp3";
+const DIALOGUE_OPEN_SRC = "/rpg/audio/sfx-dialogue-open.mp3";
 
 async function loadBuffer(ctx: AudioContext, src: string): Promise<AudioBuffer> {
   const response = await fetch(src);
@@ -32,16 +32,22 @@ export class AudioManager {
     this.musicGain.connect(this.ctx.destination);
   }
 
-  /** Précharge les 3 sons. Peut être appelé sans geste utilisateur (décoder n'est pas jouer). */
+  /**
+   * Précharge les 3 sons. Peut être appelé sans geste utilisateur (décoder
+   * n'est pas jouer). `allSettled`, pas `all` : Safari ne décode pas l'Ogg
+   * Vorbis (`decodeAudioData` y rejette systématiquement) — un navigateur qui
+   * ne sait décoder aucun des 3 sons ne doit pas empêcher le jeu de se
+   * charger, juste rester silencieux (déjà muet par défaut de toute façon).
+   */
   async load(): Promise<void> {
-    const [music, footstep, dialogueOpen] = await Promise.all([
+    const [music, footstep, dialogueOpen] = await Promise.allSettled([
       loadBuffer(this.ctx, MUSIC_SRC),
       loadBuffer(this.ctx, FOOTSTEP_SRC),
       loadBuffer(this.ctx, DIALOGUE_OPEN_SRC),
     ]);
-    this.musicBuffer = music;
-    this.footstepBuffer = footstep;
-    this.dialogueOpenBuffer = dialogueOpen;
+    this.musicBuffer = music.status === "fulfilled" ? music.value : null;
+    this.footstepBuffer = footstep.status === "fulfilled" ? footstep.value : null;
+    this.dialogueOpenBuffer = dialogueOpen.status === "fulfilled" ? dialogueOpen.value : null;
   }
 
   /** Active le son. À appeler uniquement depuis un geste utilisateur réel. */
