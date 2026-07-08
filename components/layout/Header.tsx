@@ -144,6 +144,9 @@ export function Header() {
           aria-label={tHeader("logoLabel")}
           className="focus-visible:outline-accent mr-auto inline-flex shrink-0 items-center focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2"
         >
+          {/* Wordmark long en desktop (place disponible), logo compact en mobile
+              (le wordmark + langue + thème + burger sur une ligne provoquait un
+              débordement qui coupait le burger). */}
           <Image
             src="/logo/long_color.png"
             alt=""
@@ -152,7 +155,7 @@ export function Header() {
             sizes="165px"
             style={{ height: "3.75rem", width: "auto" }}
             priority
-            className={cn(theme === "dark" && "hidden")}
+            className={cn(theme === "dark" ? "hidden" : "hidden sm:block")}
           />
           <Image
             src="/logo/long_white.png"
@@ -162,7 +165,27 @@ export function Header() {
             sizes="165px"
             style={{ height: "3.75rem", width: "auto" }}
             priority
-            className={cn(theme !== "dark" && "hidden")}
+            className={cn(theme !== "dark" ? "hidden" : "hidden sm:block")}
+          />
+          <Image
+            src="/logo/logo_color.png"
+            alt=""
+            width={1367}
+            height={1367}
+            sizes="60px"
+            style={{ height: "3.75rem", width: "auto" }}
+            priority
+            className={cn(theme === "dark" ? "hidden" : "sm:hidden")}
+          />
+          <Image
+            src="/logo/logo_white.png"
+            alt=""
+            width={1367}
+            height={1367}
+            sizes="60px"
+            style={{ height: "3.75rem", width: "auto" }}
+            priority
+            className={cn(theme !== "dark" ? "hidden" : "sm:hidden")}
           />
         </a>
 
