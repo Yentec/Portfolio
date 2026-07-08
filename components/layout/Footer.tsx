@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import { profile } from "@/content/profile";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/cn";
+import { version } from "@/package.json";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -27,8 +28,8 @@ export function Footer() {
 
   return (
     <footer className="border-line border-t">
-      <div className="max-w-site mx-auto flex flex-wrap items-center justify-between gap-5 px-7 py-10">
-        <div className="flex items-center gap-2.5">
+      <div className="max-w-site mx-auto flex flex-wrap items-center justify-between gap-5 px-7 py-10 md:flex-nowrap">
+        <div className="flex min-w-0 items-center gap-2.5">
           <Image
             src="/logo/logo_color.png"
             alt=""
@@ -47,11 +48,11 @@ export function Footer() {
             style={{ height: "2.5rem", width: "auto" }}
             className={cn(theme !== "dark" && "hidden")}
           />
-          <small className="text-ink-soft text-[13px]">
-            © {year} {profile.name} · {t("tagline")} · {profile.location}
+          <small className="text-ink-soft text-[12.5px]">
+            © {year} {profile.name} · {t("tagline")} · {profile.location} · v{version}
           </small>
         </div>
-        <nav className="flex flex-wrap gap-4.5">
+        <nav className="flex flex-wrap gap-4.5 md:shrink-0">
           {NAV.map((item) => (
             <a
               key={item.href}
