@@ -20,12 +20,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.home" });
+  const ogImage = {
+    url: locale === "fr" ? "/og-image-fr.png" : "/og-image-en.png",
+    width: 1200,
+    height: 630,
+    alt: t("ogTitle"),
+  };
 
   return {
     metadataBase: new URL("https://yentec.fr"),
     title: {
       default: t("title"),
-      template: "%s · YENTEC",
+      template: "%s · Yentec",
     },
     description: t("description"),
     keywords: [
@@ -42,19 +48,21 @@ export async function generateMetadata({
       "Node.js",
       "TypeScript",
     ],
-    authors: [{ name: "YENTEC" }],
+    authors: [{ name: "Yentec" }],
     openGraph: {
       type: "website",
       locale: locale === "fr" ? "fr_FR" : "en_US",
       url: "https://yentec.fr",
-      siteName: "YENTEC",
+      siteName: "Yentec",
       title: t("ogTitle"),
       description: t("ogDescription"),
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: t("ogTitle"),
       description: t("ogDescription"),
+      images: [ogImage],
     },
     alternates: {
       canonical: `https://yentec.fr/${locale}`,
