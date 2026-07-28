@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Eyebrow } from "@/components/ui/Section";
 import { CaseStudyToc } from "@/components/sections/CaseStudyToc";
 import { projects } from "@/content/projects";
+import { absoluteUrl } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import type { CaseStudy } from "@/types";
 import frMessages from "@/messages/fr.json";
@@ -43,16 +44,18 @@ export async function generateMetadata({
     title: cs.metaTitle,
     description: cs.metaDescription,
     alternates: {
-      canonical: `https://yentec.fr/${locale}/projects/${slug}`,
+      canonical: absoluteUrl(`/${locale}/projects/${slug}`),
       languages: {
-        fr: `https://yentec.fr/fr/projects/${slug}`,
-        en: `https://yentec.fr/en/projects/${slug}`,
+        fr: absoluteUrl(`/fr/projects/${slug}`),
+        en: absoluteUrl(`/en/projects/${slug}`),
+        "x-default": absoluteUrl(`/fr/projects/${slug}`),
       },
     },
     openGraph: {
       title: cs.metaTitle,
       description: cs.metaDescription,
       type: "article",
+      url: absoluteUrl(`/${locale}/projects/${slug}`),
       ...(cs.heroImage && { images: [{ url: cs.heroImage }] }),
     },
   };

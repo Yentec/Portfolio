@@ -8,10 +8,15 @@ import { Projects } from "@/components/sections/Projects";
 import { Services } from "@/components/sections/Services";
 import { Discover } from "@/components/sections/Discover";
 import { Contact } from "@/components/sections/Contact";
+import { SITE_URL, absoluteUrl } from "@/lib/site";
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  // Entities point to the localized page served with a 200 status code, never to the
+  // root `/`, which redirects to `/fr`.
+  const homeUrl = absoluteUrl(`/${locale}`);
 
   return (
     <>
@@ -22,7 +27,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "Yentec",
-            url: "https://yentec.fr",
+            url: SITE_URL,
           }),
         }}
       />
@@ -34,7 +39,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             "@type": "Person",
             name: "Yentec",
             jobTitle: "Développeur web fullstack",
-            url: "https://yentec.fr",
+            url: homeUrl,
             email: "contact@yentec.fr",
             address: {
               "@type": "PostalAddress",
@@ -64,18 +69,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ProfessionalService",
-            "@id": "https://yentec.fr/#business",
+            "@id": `${SITE_URL}/#business`,
             name: "Yentec — Développeur web Fullstack",
             description:
               "Création de sites vitrines et applications web sur mesure. Développeur fullstack freelance à Fréjus (Var), disponible partout en France.",
-            url: "https://yentec.fr",
-            logo: "https://yentec.fr/logo/logo_color.png",
-            image: "https://yentec.fr/logo/long_color.png",
+            url: homeUrl,
+            logo: absoluteUrl("/logo/logo_color.png"),
+            image: absoluteUrl("/logo/long_color.png"),
             foundingDate: "2025",
             founder: {
               "@type": "Person",
               name: "Yentec",
-              url: "https://yentec.fr",
+              url: homeUrl,
             },
             areaServed: ["Fréjus", "Var", "Provence-Alpes-Côte d'Azur", "France"],
             address: {

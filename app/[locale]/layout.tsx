@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/lib/theme";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { routing } from "@/i18n/routing";
+import { SITE_URL, absoluteUrl } from "@/lib/site";
 import { LangAttributeSetter } from "@/components/LangAttributeSetter";
 
 export function generateStaticParams() {
@@ -28,7 +29,7 @@ export async function generateMetadata({
   };
 
   return {
-    metadataBase: new URL("https://yentec.fr"),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: t("title"),
       template: "%s · Yentec",
@@ -52,7 +53,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: locale === "fr" ? "fr_FR" : "en_US",
-      url: "https://yentec.fr",
+      url: absoluteUrl(`/${locale}`),
       siteName: "Yentec",
       title: t("ogTitle"),
       description: t("ogDescription"),
@@ -65,11 +66,11 @@ export async function generateMetadata({
       images: [ogImage],
     },
     alternates: {
-      canonical: `https://yentec.fr/${locale}`,
+      canonical: absoluteUrl(`/${locale}`),
       languages: {
-        fr: "https://yentec.fr/fr",
-        en: "https://yentec.fr/en",
-        "x-default": "https://yentec.fr/fr",
+        fr: absoluteUrl("/fr"),
+        en: absoluteUrl("/en"),
+        "x-default": absoluteUrl("/fr"),
       },
     },
     robots: { index: true, follow: true },
