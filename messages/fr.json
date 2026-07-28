@@ -9,6 +9,10 @@
     "legalNotice": {
       "title": "Mentions légales",
       "description": "Mentions légales du site yentec.fr — éditeur, hébergeur, données personnelles."
+    },
+    "rpg": {
+      "title": "Mode RPG",
+      "description": "Découvrez le portfolio de Yentec sous forme de mini-RPG 2D en vue de dessus : explorez Bourg Canevas et discutez avec les PNJ pour parcourir profil, compétences et projets."
     }
   },
   "nav": {

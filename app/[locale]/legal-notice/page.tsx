@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { absoluteUrl } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -15,10 +16,10 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     alternates: {
-      canonical: `https://yentec.fr/${locale}/legal-notice`,
+      canonical: absoluteUrl(`/${locale}/legal-notice`),
       languages: {
-        fr: "https://yentec.fr/fr/legal-notice",
-        en: "https://yentec.fr/en/legal-notice",
+        fr: absoluteUrl("/fr/legal-notice"),
+        en: absoluteUrl("/en/legal-notice"),
       },
     },
     robots: { index: false, follow: false },

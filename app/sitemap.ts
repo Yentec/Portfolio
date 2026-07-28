@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { projects } from "@/content/projects";
+import { SITE_URL } from "@/lib/site";
 
-const BASE = "https://yentec.fr";
+const BASE = SITE_URL;
 const caseStudySlugs = projects.filter((p) => p.caseStudySlug).map((p) => p.caseStudySlug!);
 
 export default function sitemap(): MetadataRoute.Sitemap {

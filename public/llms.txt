@@ -6,11 +6,11 @@ YENTEC (micro-entreprise) accompagne PME, indépendants et porteurs de projet, d
 
 ## Contact & profil
 
-- [Site (FR)](https://yentec.fr/fr): portfolio complet — profil, offres, réalisations, contact.
-- [Site (EN)](https://yentec.fr/en): English version of the portfolio.
+- [Site (FR)](https://www.yentec.fr/fr): portfolio complet — profil, offres, réalisations, contact.
+- [Site (EN)](https://www.yentec.fr/en): English version of the portfolio.
 - [GitHub](https://github.com/Yentec): projets open-source et code public.
 - [LinkedIn](https://www.linkedin.com/in/yentec): parcours professionnel.
-- [CV (PDF)](https://yentec.fr/resume-yentec-fullstack-developer.pdf): CV développeur web fullstack.
+- [CV (PDF)](https://www.yentec.fr/resume-yentec-fullstack-developer.pdf): CV développeur web fullstack.
 
 ## Offres
 
@@ -21,12 +21,12 @@ YENTEC (micro-entreprise) accompagne PME, indépendants et porteurs de projet, d
 
 ## Réalisations
 
-- [LinkForge — étude de cas](https://yentec.fr/fr/projects/linkforge): API open-source de raccourcissement d'URL avec authentification, clés d'API, suivi de clics asynchrone et analytics (Fastify, PostgreSQL, Redis, BullMQ). [Code source](https://github.com/Yentec/LinkForge).
-- [FeedbackFlow — étude de cas](https://yentec.fr/fr/projects/feedbackflow): plateforme open-source de feedback produit (votes, roadmap, tableau de bord), alternative à Canny (Next.js 16, TypeScript, Prisma, PostgreSQL). [Code source](https://github.com/Yentec/FeedbackFlow).
+- [LinkForge — étude de cas](https://www.yentec.fr/fr/projects/linkforge): API open-source de raccourcissement d'URL avec authentification, clés d'API, suivi de clics asynchrone et analytics (Fastify, PostgreSQL, Redis, BullMQ). [Code source](https://github.com/Yentec/LinkForge).
+- [FeedbackFlow — étude de cas](https://www.yentec.fr/fr/projects/feedbackflow): plateforme open-source de feedback produit (votes, roadmap, tableau de bord), alternative à Canny (Next.js 16, TypeScript, Prisma, PostgreSQL). [Code source](https://github.com/Yentec/FeedbackFlow).
 - Yachts-Studio (CRM SaaS) — refonte complète d'un CRM de gestion de parc de bateaux d'occasion (React, Vite, Node.js/Express, MySQL, Next.js). Projet d'alternance mené seul, de l'analyse à la mise en production. Code propriétaire.
 - Projets clients — sites vitrines performants et outils métier sur mesure pour PME et indépendants. Références disponibles sur demande.
 
 ## Optionnel
 
-- [Mode RPG](https://yentec.fr/fr/rpg): présentation alternative et ludique du portfolio sous forme de mini-RPG 2D top-down (démonstration technique, canvas maison). Le mode classique reste la référence.
-- [Mentions légales](https://yentec.fr/fr/legal-notice): informations légales de l'éditeur.
+- [Mode RPG](https://www.yentec.fr/fr/rpg): présentation alternative et ludique du portfolio sous forme de mini-RPG 2D top-down (démonstration technique, canvas maison). Le mode classique reste la référence.
+- [Mentions légales](https://www.yentec.fr/fr/legal-notice): informations légales de l'éditeur.

@@ -7,7 +7,7 @@ Site vitrine one-page : présentation, parcours, services, compétences, projets
 
 ![CI](https://github.com/Yentec/portfolio/actions/workflows/ci.yml/badge.svg)
 
-**[Lien](https://yentec.fr)**
+**[Lien](https://www.yentec.fr)**
 
 </div>
 

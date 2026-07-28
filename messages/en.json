@@ -9,6 +9,10 @@
     "legalNotice": {
       "title": "Legal Notice",
       "description": "Legal notice for yentec.fr — publisher, hosting, personal data."
+    },
+    "rpg": {
+      "title": "RPG mode",
+      "description": "Explore Yentec's portfolio as a small top-down 2D RPG: wander through Bourg Canevas and talk to the NPCs to discover the profile, skills and projects."
     }
   },
   "nav": {
